@@ -1,13 +1,27 @@
-// This uses the DOM to get the root div element from index.html and
-// then renders the React app within it.
+// This sets up the React app.
 
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from 'react-router-dom';
 import './main.css';
-import App from './App.jsx';
+import Index from './pages/index/Index';
 
+// This creates a router for React to use to handle different pages of
+// the website.
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Index />,
+  },
+]);
+
+// This uses the DOM to get the root div element from index.html and
+// then renders the React components within it.
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </StrictMode>,
 );

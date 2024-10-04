@@ -1,1 +1,1 @@
-This folder contains everything needed for the React app.
+This folder contains files needed for the React app.
