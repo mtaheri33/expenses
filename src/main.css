@@ -1,4 +1,8 @@
-/* These are styles that are applied to everything on the website. */
+/* These are styles that are applied everywhere on the website. */
 
-/* * {
-} */
+:root {
+    background-color: whitesmoke;
+    font-family: 'Roboto', serif;
+    font-weight: 400;
+    font-style: normal;
+}
