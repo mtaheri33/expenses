@@ -8,8 +8,8 @@ export default function Index() {
       <h1>Expenses</h1>
       <h2>Sign In</h2>
       <form>
-        <input type="text" placeholder='Email' /><br />
-        <input type="password" placeholder='Password' /><br />
+        <input type='text' placeholder='Email' /><br />
+        <input type='password' placeholder='Password' /><br />
         <button>Sign In</button><br />
       </form>
       <span>Forgot password?</span><br />
