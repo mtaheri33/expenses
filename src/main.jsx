@@ -1,7 +1,7 @@
 // This sets up the React app.
 
 import './main.css';
-import Index from './pages/index/Index';
+import SignIn from './pages/index/SignIn';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
@@ -14,7 +14,7 @@ import {
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Index />,
+    element: <SignIn />,
   },
 ]);
 

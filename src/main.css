@@ -1,6 +1,47 @@
 /* These are styles that are applied everywhere on the website. */
 
 :root {
-    background-color: whitesmoke;
-    font-family: 'Roboto', serif;
+    --page-background-color: whitesmoke;
+    --element-background-color: steelblue;
+    --element-background-color-darker-shade: #386890;
+    --element-color: white;
+    --link-color: steelblue;
+    --font-family: 'Roboto', serif;
+    background-color: var(--page-background-color);
+    font-family: var(--font-family);
+}
+
+body {
+    margin: 0;
+}
+
+input[type='text'] {
+    font-family: var(--font-family);
+}
+
+input[type='text'],
+input[type='password'] {
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+}
+
+button {
+    font-family: var(--font-family);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color .3s ease-in-out;
+}
+
+a {
+    text-decoration: none;
+    color: var(--link-color);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    outline: solid;
 }
