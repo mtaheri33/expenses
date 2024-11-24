@@ -8,7 +8,7 @@ export default function SignIn() {
       <h1><div id='expensesHeader'>Expenses</div></h1>
       <h2>Sign In</h2>
       <form>
-        <input type='text' placeholder='Email' />
+        <input type='text' placeholder='Email' autoFocus />
         <input type='password' placeholder='Password' />
         <button id='signInButton'>Sign In</button>
       </form>
