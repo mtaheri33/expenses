@@ -1,1 +1,1 @@
-This folder contains files needed for the server.
+This folder contains files for the server.

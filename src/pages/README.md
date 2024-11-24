@@ -1,1 +1,1 @@
-This folder contains React component files for pages of the website.
+This folder contains React components for the pages of the website.
