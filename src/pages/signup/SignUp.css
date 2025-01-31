@@ -45,6 +45,10 @@ form input {
     background-color: var(--element-background-color-darker-shade);
 }
 
+#submitMessage {
+    font-size: 18px;
+}
+
 @media (max-width: 1500px) {
     h1 {
         margin-top: 38px;
@@ -72,6 +76,10 @@ form input {
         font-size: 14px;
         padding: 6px 14px;
         margin-bottom: 8px;
+    }
+
+    #submitMessage {
+        font-size: 14px;
     }
 }
 
@@ -102,5 +110,9 @@ form input {
         font-size: 9px;
         padding: 4px 9px;
         margin-bottom: 5px;
+    }
+
+    #submitMessage {
+        font-size: 9px;
     }
 }

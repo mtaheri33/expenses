@@ -30,7 +30,7 @@ button {
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: background-color .3s ease-in-out;
+    transition: background-color .3s;
 }
 
 a {
