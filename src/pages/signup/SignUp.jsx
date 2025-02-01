@@ -1,6 +1,7 @@
 // This is the component for the /signup page.
 
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './SignUp.module.css';
 
 export default function SignUp() {
@@ -9,13 +10,15 @@ export default function SignUp() {
   function handlePostResponse(response) {
     switch (response.status) {
       case 200:
-        setSubmitMessage('Success.  Please log in here.');
+        setSubmitMessage(
+          <span>Success. Please log in <Link to='/'>here</Link>.</span>
+        );
         break;
       case 400:
         setSubmitMessage('This email is already being used.');
         break;
       default:
-        setSubmitMessage('Sorry, an error occurred.  Please try again later.');
+        setSubmitMessage('Sorry, an error occurred. Please try again later.');
     }
     return;
   }

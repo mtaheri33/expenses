@@ -1,5 +1,6 @@
 // This is the component for the / page when the user is not signed in.
 
+import { Link } from 'react-router-dom';
 import styles from './SignIn.module.css';
 
 export default function SignIn() {
@@ -15,7 +16,7 @@ export default function SignIn() {
       <div className={styles.forgotPasswordContainer}>
         <span className={styles.forgotPasswordMessage}>Forgot password?</span>
       </div>
-      <a className={styles.signUpLink}>Sign Up</a>
+      <Link to='/signup' className={styles.signUpLink}>Sign Up</Link>
     </div>
   );
 }
