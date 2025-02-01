@@ -6,18 +6,32 @@ import styles from './SignUp.module.css';
 export default function SignUp() {
   const [submitMessage, setSubmitMessage] = useState('');
 
-  async function postData(url, data) {
-    const response = await fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if (response.status !== 200) {
-      return false;
+  function handlePostResponse(response) {
+    switch (response.status) {
+      case 200:
+        setSubmitMessage('Success.  Please log in here.');
+        break;
+      case 400:
+        setSubmitMessage('This email is already being used.');
+        break;
+      default:
+        setSubmitMessage('Sorry, an error occurred.  Please try again later.');
     }
-    return true;
+    return;
+  }
+
+  async function postData(url, data) {
+    try {
+      return await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    } catch {
+      return { status: 503 };
+    }
   }
 
   function validInputs(inputs) {
@@ -42,15 +56,11 @@ export default function SignUp() {
       setSubmitMessage('Please fill out all fields.');
       return;
     }
-    const userCreated = await postData(
+    const postResponse = await postData(
       import.meta.env.VITE_SERVER_ADDRESS + '/signup',
       data,
     );
-    if (userCreated) {
-      setSubmitMessage('Success.');
-      return;
-    }
-    setSubmitMessage('Sorry, an error occurred.  Please try again later.');
+    handlePostResponse(postResponse);
     return;
   }
 
