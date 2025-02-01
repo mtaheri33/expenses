@@ -1,7 +1,7 @@
 // This is the component for the /signup page.
 
 import { useState } from 'react';
-import './SignUp.css';
+import styles from './SignUp.module.css';
 
 export default function SignUp() {
   const [submitMessage, setSubmitMessage] = useState('');
@@ -55,15 +55,15 @@ export default function SignUp() {
   }
 
   return (
-    <div className='SignUp'>
-      <h1><div id='expensesHeader'>Expenses</div></h1>
+    <div className={'SignUp ' + styles.SignUp}>
+      <h1><div className={styles.expensesHeader}>Expenses</div></h1>
       <h2>Sign Up</h2>
       <form onSubmit={signUp}>
         <input type='text' name='email' placeholder='Email' autoFocus />
         <input type='password' name='password' placeholder='Password' />
-        <button id='signUpButton'>Sign Up</button>
+        <button className={styles.signUpButton}>Sign Up</button>
       </form>
-      <div id='submitMessage'>{submitMessage}</div>
+      <div className={styles.submitMessage}>{submitMessage}</div>
     </div>
   );
 }
