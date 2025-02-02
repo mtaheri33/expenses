@@ -51,35 +51,35 @@ form input {
 
 @media (max-width: 1500px) {
     h1 {
-        margin-top: 38px;
-        margin-bottom: 113px;
+        margin-top: 37.5px;
+        margin-bottom: 112.5px;
     }
 
     .expensesHeader {
-        width: 488px;
-        font-size: 94px;
+        width: 487.5px;
+        font-size: 93.75px;
     }
 
     h2 {
-        font-size: 26px;
-        margin-bottom: 8px;
+        font-size: 26.25px;
+        margin-bottom: 7.5px;
     }
 
     form input {
-        margin-bottom: 4px;
-        width: 263px;
-        padding: 7px;
-        font-size: 14px;
+        margin-bottom: 3.75px;
+        width: 262.5px;
+        padding: 6.75px;
+        font-size: 13.5px;
     }
 
     .signUpButton {
-        font-size: 14px;
-        padding: 6px 14px;
-        margin-bottom: 8px;
+        font-size: 13.5px;
+        padding: 6px 13.5px;
+        margin-bottom: 7.5px;
     }
 
     .submitMessage {
-        font-size: 14px;
+        font-size: 13.5px;
     }
 }
 
@@ -91,18 +91,18 @@ form input {
 
     .expensesHeader {
         width: 325px;
-        font-size: 63px;
+        font-size: 62.5px;
     }
 
     h2 {
-        font-size: 18px;
+        font-size: 17.5px;
         margin-bottom: 5px;
     }
 
     form input {
-        margin-bottom: 3px;
+        margin-bottom: 2.5px;
         width: 175px;
-        padding: 5px;
+        padding: 4.5px;
         font-size: 9px;
     }
 
