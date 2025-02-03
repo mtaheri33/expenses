@@ -59,6 +59,7 @@ export default function SignUp() {
   async function signUp(event) {
     event.preventDefault();
     setBottomOfSignUpForm(spinner);
+    setSubmitMessage('');
     const data = getFormData(event.target);
     if (!validInputs(data)) {
       setSubmitMessage('Please fill out all fields.');
