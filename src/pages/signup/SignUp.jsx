@@ -1,10 +1,14 @@
 // This is the component for the /signup page.
 
+import Spinner from '../../components/spinner/Spinner';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './SignUp.module.css';
 
 export default function SignUp() {
+  const signUpButton = <button className={styles.signUpButton}>Sign Up</button>;
+  const spinner = <Spinner styleClass={styles.signUpSpinner} />;
+  const [bottomOfSignUpForm, setBottomOfSignUpForm] = useState(signUpButton);
   const [submitMessage, setSubmitMessage] = useState('');
 
   function handlePostResponse(response) {
@@ -54,16 +58,18 @@ export default function SignUp() {
 
   async function signUp(event) {
     event.preventDefault();
+    setBottomOfSignUpForm(spinner);
     const data = getFormData(event.target);
     if (!validInputs(data)) {
       setSubmitMessage('Please fill out all fields.');
-      return;
+    } else {
+      const postResponse = await postData(
+        import.meta.env.VITE_SERVER_ADDRESS + '/signup',
+        data,
+      );
+      handlePostResponse(postResponse);
     }
-    const postResponse = await postData(
-      import.meta.env.VITE_SERVER_ADDRESS + '/signup',
-      data,
-    );
-    handlePostResponse(postResponse);
+    setBottomOfSignUpForm(signUpButton);
     return;
   }
 
@@ -74,7 +80,7 @@ export default function SignUp() {
       <form onSubmit={signUp}>
         <input type='text' name='email' placeholder='Email' autoFocus />
         <input type='password' name='password' placeholder='Password' />
-        <button className={styles.signUpButton}>Sign Up</button>
+        {bottomOfSignUpForm}
       </form>
       <div className={styles.submitMessage}>{submitMessage}</div>
     </div>

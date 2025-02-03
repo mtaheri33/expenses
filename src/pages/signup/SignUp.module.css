@@ -45,6 +45,14 @@ form input {
     background-color: var(--element-background-color-darker-shade);
 }
 
+.signUpSpinner {
+    width: 25px;
+    padding: 4px;
+    margin-left: auto;
+    margin-right: auto;
+    background: var(--element-background-color);
+}
+
 .submitMessage {
     font-size: 18px;
 }
@@ -76,6 +84,11 @@ form input {
         font-size: 13.5px;
         padding: 6px 13.5px;
         margin-bottom: 7.5px;
+    }
+
+    .signUpSpinner {
+        width: 18.75px;
+        padding: 3px;
     }
 
     .submitMessage {
@@ -110,6 +123,11 @@ form input {
         font-size: 9px;
         padding: 4px 9px;
         margin-bottom: 5px;
+    }
+
+    .signUpSpinner {
+        width: 12.5px;
+        padding: 2px;
     }
 
     .submitMessage {
