@@ -50,7 +50,7 @@ form input {
     padding: 4px;
     margin-left: auto;
     margin-right: auto;
-    background: var(--element-background-color);
+    background-color: var(--element-background-color);
 }
 
 .submitMessage {
