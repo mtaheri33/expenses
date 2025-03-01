@@ -45,16 +45,20 @@ form input {
     background-color: var(--element-background-color-darker-shade);
 }
 
-.forgotPasswordMessage {
-    font-size: 18px;
+.forgotPasswordDiv {
+    margin-bottom: 5px;
+}
+
+.forgotPasswordSpan {
     cursor: pointer;
 }
 
-.forgotPasswordMessage:hover {
+.forgotPasswordSpan:hover {
     text-decoration: underline;
 }
 
 .forgotPasswordContainer {
+    font-size: 18px;
     margin-bottom: 30px;
 }
 
@@ -91,11 +95,12 @@ form input {
         margin-bottom: 7.5px;
     }
 
-    .forgotPasswordMessage {
-        font-size: 13.5px;
+    .forgotPasswordDiv {
+        margin-bottom: 3.75px;
     }
 
     .forgotPasswordContainer {
+        font-size: 13.5px;
         margin-bottom: 22.5px;
     }
 
@@ -133,11 +138,12 @@ form input {
         margin-bottom: 5px;
     }
 
-    .forgotPasswordMessage {
-        font-size: 9px;
+    .forgotPasswordDiv {
+        margin-bottom: 2.5px;
     }
 
     .forgotPasswordContainer {
+        font-size: 9px;
         margin-bottom: 15px;
     }
 

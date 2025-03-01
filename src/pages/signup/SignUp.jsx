@@ -9,7 +9,7 @@ export default function SignUp() {
   const signUpButton = <button className={styles.signUpButton}>Sign Up</button>;
   const spinner = <Spinner styleClass={styles.signUpSpinner} />;
   const [bottomOfSignUpForm, setBottomOfSignUpForm] = useState(signUpButton);
-  const [submitMessage, setSubmitMessage] = useState('');
+  const [submitMessage, setSubmitMessage] = useState(null);
 
   function handlePostResponse(response) {
     switch (response.status) {
@@ -59,7 +59,7 @@ export default function SignUp() {
   async function signUp(event) {
     event.preventDefault();
     setBottomOfSignUpForm(spinner);
-    setSubmitMessage('');
+    setSubmitMessage(null);
     const data = getFormData(event.target);
     if (!validInputs(data)) {
       setSubmitMessage('Please fill out all fields.');

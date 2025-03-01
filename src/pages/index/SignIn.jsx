@@ -1,9 +1,18 @@
 // This is the component for the / page when the user is not signed in.
 
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './SignIn.module.css';
 
 export default function SignIn() {
+  const [forgotPasswordMessage, setForgotPasswordMessage] = useState(null);
+
+  function showForgotPasswordMessage() {
+    setForgotPasswordMessage(
+      <div>Please contact michael.taheri33@gmail.com with the email you signed up with.</div>
+    );
+  }
+
   return (
     <div className={'SignIn ' + styles.SignIn}>
       <h1><div className={styles.expensesHeader}>Expenses</div></h1>
@@ -14,7 +23,13 @@ export default function SignIn() {
         <button className={styles.signInButton}>Sign In</button>
       </form>
       <div className={styles.forgotPasswordContainer}>
-        <span className={styles.forgotPasswordMessage}>Forgot password?</span>
+        <div className={styles.forgotPasswordDiv}>
+          <span
+            className={styles.forgotPasswordSpan}
+            onClick={showForgotPasswordMessage}
+          >Forgot password?</span>
+        </div>
+        {forgotPasswordMessage}
       </div>
       <Link to='/signup' className={styles.signUpLink}>Sign Up</Link>
     </div>
