@@ -23,6 +23,10 @@ h2 {
     margin-bottom: 10px;
 }
 
+form {
+    margin-bottom: 10px;
+}
+
 form input {
     display: block;
     margin-left: auto;
@@ -38,11 +42,23 @@ form input {
     color: var(--element-color);
     font-size: 18px;
     padding: 8px 18px;
-    margin-bottom: 10px;
 }
 
 .signInButton:hover {
     background-color: var(--element-background-color-darker-shade);
+}
+
+.signInSpinner {
+    width: 25px;
+    padding: 4px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--element-background-color);
+}
+
+.submitMessage {
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 
 .forgotPasswordDiv {
@@ -82,6 +98,10 @@ form input {
         margin-bottom: 7.5px;
     }
 
+    form {
+        margin-bottom: 7.5px;
+    }
+
     form input {
         margin-bottom: 3.75px;
         width: 262.5px;
@@ -92,6 +112,15 @@ form input {
     .signInButton {
         font-size: 13.5px;
         padding: 6px 13.5px;
+    }
+
+    .signInSpinner {
+        width: 18.75px;
+        padding: 3px;
+    }
+
+    .submitMessage {
+        font-size: 13.5px;
         margin-bottom: 7.5px;
     }
 
@@ -125,6 +154,10 @@ form input {
         margin-bottom: 5px;
     }
 
+    form {
+        margin-bottom: 5px;
+    }
+
     form input {
         margin-bottom: 2.5px;
         width: 175px;
@@ -135,6 +168,15 @@ form input {
     .signInButton {
         font-size: 9px;
         padding: 4px 9px;
+    }
+
+    .signInSpinner {
+        width: 12.5px;
+        padding: 2px;
+    }
+
+    .submitMessage {
+        font-size: 9px;
         margin-bottom: 5px;
     }
 
