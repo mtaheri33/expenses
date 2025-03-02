@@ -8,8 +8,9 @@ import styles from './SignUp.module.css';
 export default function SignUp() {
   const signUpButton = <button className={styles.signUpButton}>Sign Up</button>;
   const spinner = <Spinner styleClass={styles.signUpSpinner} />;
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [bottomOfSignUpForm, setBottomOfSignUpForm] = useState(signUpButton);
-  const [submitMessage, setSubmitMessage] = useState(null);
+  const [submitMessage, setSubmitMessage] = useState('');
 
   function handlePostResponse(response) {
     switch (response.status) {
@@ -50,23 +51,16 @@ export default function SignUp() {
     return true;
   }
 
-  function getFormData(form) {
-    const formData = new FormData(form);
-    const formDataObject = Object.fromEntries(formData.entries());
-    return formDataObject;
-  }
-
   async function signUp(event) {
     event.preventDefault();
     setBottomOfSignUpForm(spinner);
-    setSubmitMessage(null);
-    const data = getFormData(event.target);
-    if (!validInputs(data)) {
+    setSubmitMessage('');
+    if (!validInputs(formData)) {
       setSubmitMessage('Please fill out all fields.');
     } else {
       const postResponse = await postData(
         import.meta.env.VITE_SERVER_ADDRESS + '/signup',
-        data,
+        formData,
       );
       handlePostResponse(postResponse);
     }
@@ -74,13 +68,23 @@ export default function SignUp() {
     return;
   }
 
+  function handleInputChange(event) {
+    setFormData((currentFormData) => {
+      const currentFormDataCopy = { ...currentFormData };
+      currentFormDataCopy[event.target.name] = event.target.value;
+      return currentFormDataCopy;
+    });
+  }
+
   return (
     <div className={'SignUp ' + styles.SignUp}>
       <h1><div className={styles.expensesHeader}>Expenses</div></h1>
       <h2>Sign Up</h2>
       <form onSubmit={signUp}>
-        <input type='text' name='email' placeholder='Email' autoFocus />
-        <input type='password' name='password' placeholder='Password' />
+        <input type='text' value={formData.email} onChange={handleInputChange}
+          name='email' placeholder='Email' autoFocus />
+        <input type='password' value={formData.password} onChange={handleInputChange}
+          name='password' placeholder='Password' />
         {bottomOfSignUpForm}
       </form>
       <div className={styles.submitMessage}>{submitMessage}</div>

@@ -8,9 +8,10 @@ import styles from './SignIn.module.css';
 export default function SignIn() {
   const signInButton = <button className={styles.signInButton}>Sign In</button>;
   const spinner = <Spinner styleClass={styles.signInSpinner} />;
-  const [forgotPasswordMessage, setForgotPasswordMessage] = useState(null);
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [bottomOfSignInForm, setBottomOfSignInForm] = useState(signInButton);
-  const [submitMessage, setSubmitMessage] = useState(null);
+  const [submitMessage, setSubmitMessage] = useState('');
+  const [forgotPasswordMessage, setForgotPasswordMessage] = useState(null);
 
   function handlePostResponse(response) {
     switch (response.status) {
@@ -49,28 +50,29 @@ export default function SignIn() {
     return true;
   }
 
-  function getFormData(form) {
-    const formData = new FormData(form);
-    const formDataObject = Object.fromEntries(formData.entries());
-    return formDataObject;
-  }
-
   async function signIn(event) {
     event.preventDefault();
     setBottomOfSignInForm(spinner);
-    setSubmitMessage(null);
-    const data = getFormData(event.target);
-    if (!validInputs(data)) {
+    setSubmitMessage('');
+    if (!validInputs(formData)) {
       setSubmitMessage('Please fill out all fields.');
     } else {
       const postResponse = await postData(
         import.meta.env.VITE_SERVER_ADDRESS + '/signin',
-        data,
+        formData,
       );
       handlePostResponse(postResponse);
     }
     setBottomOfSignInForm(signInButton);
     return;
+  }
+
+  function handleInputChange(event) {
+    setFormData((currentFormData) => {
+      const currentFormDataCopy = { ...currentFormData };
+      currentFormDataCopy[event.target.name] = event.target.value;
+      return currentFormDataCopy;
+    });
   }
 
   function showForgotPasswordMessage() {
@@ -84,8 +86,10 @@ export default function SignIn() {
       <h1><div className={styles.expensesHeader}>Expenses</div></h1>
       <h2>Sign In</h2>
       <form onSubmit={signIn}>
-        <input type='text' name='email' placeholder='Email' autoFocus />
-        <input type='password' name='password' placeholder='Password' />
+        <input type='text' value={formData.email} onChange={handleInputChange}
+          name='email' placeholder='Email' autoFocus />
+        <input type='password' value={formData.password} onChange={handleInputChange}
+          name='password' placeholder='Password' />
         {bottomOfSignInForm}
       </form>
       <div className={styles.submitMessage}>{submitMessage}</div>
