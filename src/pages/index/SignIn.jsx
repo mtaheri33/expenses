@@ -2,7 +2,7 @@
 
 import Spinner from '../../components/spinner/Spinner';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import styles from './SignIn.module.css';
 
 export default function SignIn() {
