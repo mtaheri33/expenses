@@ -4,6 +4,7 @@ import Spinner from '../../components/spinner/Spinner';
 import { useState } from 'react';
 import { Link } from 'react-router';
 import styles from './SignIn.module.css';
+import { postRequest } from '../../utilities';
 
 export default function SignIn() {
   const signInButton = <button className={styles.signInButton}>Sign In</button>;
@@ -27,20 +28,6 @@ export default function SignIn() {
     return;
   }
 
-  async function postData(url, data) {
-    try {
-      return await fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-    } catch {
-      return { status: 503 };
-    }
-  }
-
   function validInputs(inputs) {
     for (let name in inputs) {
       if (inputs[name].length === 0) {
@@ -57,9 +44,10 @@ export default function SignIn() {
     if (!validInputs(formData)) {
       setSubmitMessage('Please fill out all fields.');
     } else {
-      const postResponse = await postData(
+      const postResponse = await postRequest(
         import.meta.env.VITE_SERVER_ADDRESS + '/signin',
-        formData,
+        JSON.stringify(formData),
+        { 'Content-Type': 'application/json' }
       );
       handlePostResponse(postResponse);
     }
