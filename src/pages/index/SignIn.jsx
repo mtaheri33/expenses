@@ -2,22 +2,24 @@
 
 import Spinner from '../../components/spinner/Spinner';
 import { useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import styles from './SignIn.module.css';
 import { postRequest } from '../../utilities';
 
-export default function SignIn() {
+export default function SignIn({ setIsSignedIn }) {
   const signInButton = <button className={styles.signInButton}>Sign In</button>;
   const spinner = <Spinner styleClass={styles.signInSpinner} />;
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [bottomOfSignInForm, setBottomOfSignInForm] = useState(signInButton);
   const [submitMessage, setSubmitMessage] = useState('');
   const [forgotPasswordMessage, setForgotPasswordMessage] = useState(null);
+  const navigate = useNavigate();
 
   function handlePostResponse(response) {
     switch (response.status) {
       case 200:
-        console.log('login success');
+        setIsSignedIn(true);
+        navigate('/');
         break;
       case 400:
         setSubmitMessage('The email or password is incorrect.');
