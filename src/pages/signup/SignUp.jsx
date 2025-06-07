@@ -1,81 +1,14 @@
 // This is the component for the /signup page.
 
-import Spinner from '../../components/spinner/Spinner';
-import { useState } from 'react';
-import { Link } from 'react-router';
+import ExpensesHeader from '../../components/expenses-header/ExpensesHeader';
+import SignUpForm from './components/SignUpForm';
 import styles from './SignUp.module.css';
-import { postRequest } from '../../utilities';
 
 export default function SignUp() {
-  const signUpButton = <button className={styles.signUpButton}>Sign Up</button>;
-  const spinner = <Spinner styleClass={styles.signUpSpinner} />;
-  const [formData, setFormData] = useState({ email: '', password: '' });
-  const [bottomOfSignUpForm, setBottomOfSignUpForm] = useState(signUpButton);
-  const [submitMessage, setSubmitMessage] = useState('');
-
-  function handlePostResponse(response) {
-    switch (response.status) {
-      case 200:
-        setSubmitMessage(
-          <span>Success. Please log in <Link to='/'>here</Link>.</span>
-        );
-        break;
-      case 400:
-        setSubmitMessage('This email is already being used.');
-        break;
-      default:
-        setSubmitMessage('Sorry, an error occurred. Please try again later.');
-    }
-    return;
-  }
-
-  function validInputs(inputs) {
-    for (let name in inputs) {
-      if (inputs[name].length === 0) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  async function signUp(event) {
-    event.preventDefault();
-    setBottomOfSignUpForm(spinner);
-    setSubmitMessage('');
-    if (!validInputs(formData)) {
-      setSubmitMessage('Please fill out all fields.');
-    } else {
-      const postResponse = await postRequest(
-        import.meta.env.VITE_SERVER_ADDRESS + '/signup',
-        JSON.stringify(formData),
-        { 'Content-Type': 'application/json' }
-      );
-      handlePostResponse(postResponse);
-    }
-    setBottomOfSignUpForm(signUpButton);
-    return;
-  }
-
-  function handleInputChange(event) {
-    setFormData((currentFormData) => {
-      const currentFormDataCopy = { ...currentFormData };
-      currentFormDataCopy[event.target.name] = event.target.value;
-      return currentFormDataCopy;
-    });
-  }
-
   return (
     <div className={'SignUp ' + styles.SignUp}>
-      <h1><div className={styles.expensesHeader}>Expenses</div></h1>
-      <h2>Sign Up</h2>
-      <form onSubmit={signUp}>
-        <input type='text' value={formData.email} onChange={handleInputChange}
-          name='email' placeholder='Email' autoFocus />
-        <input type='password' value={formData.password} onChange={handleInputChange}
-          name='password' placeholder='Password' />
-        {bottomOfSignUpForm}
-      </form>
-      <div className={styles.submitMessage}>{submitMessage}</div>
+      <ExpensesHeader styleClass={styles.expensesHeader} />
+      <SignUpForm />
     </div>
   );
 }

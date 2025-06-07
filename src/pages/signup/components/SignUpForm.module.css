@@ -1,0 +1,42 @@
+/* These are styles for a form component of the /signup page. */
+
+.h2 {
+    font-size: 2vw;
+    margin-bottom: .5vw;
+}
+
+.form {
+    margin-bottom: .5vw;
+}
+
+.formInput {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: .25vw;
+    width: 18vw;
+    padding: .5vw;
+    font-size: 1vw;
+}
+
+.signUpButton {
+    background-color: var(--element-background-color);
+    color: var(--element-color);
+    font-size: 1vw;
+    padding: .5vw 1vw;
+}
+
+.signUpButton:hover {
+    background-color: var(--element-background-color-darker-shade);
+}
+
+.spinner {
+    width: 1.25vw;
+    padding: .2vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.submitMessage {
+    font-size: 1vw;
+}

@@ -5,7 +5,7 @@ async function postRequest(url, body, headers) {
     return await fetch(url, {
       method: 'POST',
       body,
-      headers
+      headers,
     });
   } catch {
     return { status: 503 };

@@ -11,10 +11,7 @@ export default function App() {
 
   return (
     <Routes>
-      <Route
-        path='/'
-        element={isSignedIn ? <Home /> : <SignIn setIsSignedIn={setIsSignedIn} />}
-      />
+      <Route path='/' element={isSignedIn ? <Home /> : <SignIn setIsSignedIn={setIsSignedIn} />} />
       <Route path='/signup' element={<SignUp />} />
     </Routes>
   );

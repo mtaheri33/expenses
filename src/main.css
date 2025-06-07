@@ -21,14 +21,14 @@ input[type='text'] {
 
 input[type='text'],
 input[type='password'] {
-    border: 1px solid #cccccc;
-    border-radius: 10px;
+    border: .05vw solid #cccccc;
+    border-radius: .5vw;
 }
 
 button {
     font-family: var(--font-family);
     border: none;
-    border-radius: 10px;
+    border-radius: .5vw;
     cursor: pointer;
     transition: background-color .3s;
 }

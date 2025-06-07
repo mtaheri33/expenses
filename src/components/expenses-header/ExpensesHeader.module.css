@@ -1,0 +1,6 @@
+/* These are fixed styles for the ExpensesHeader component. */
+
+.ExpensesHeader {
+    background-color: var(--element-background-color);
+    color: var(--element-color);
+}

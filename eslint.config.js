@@ -1,5 +1,4 @@
-// This is ESLint configuration information that is applied to the
-// entire project.
+// This is ESLint configuration information that is applied to the entire project.
 
 import js from '@eslint/js';
 import globals from 'globals';
