@@ -17,7 +17,10 @@ export default function ForgotPasswordContainer() {
       <span className={styles.forgotPasswordSpan} onClick={showForgotPasswordMessage}>
         Forgot password?
       </span>
-      <div className={styles.forgotPasswordMessage}>{forgotPasswordMessage}</div>
+      {forgotPasswordMessage !== '' ?
+        <div className={styles.forgotPasswordMessage}>{forgotPasswordMessage}</div>
+        : null
+      }
     </div>
   );
 }
