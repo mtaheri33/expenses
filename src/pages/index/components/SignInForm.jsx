@@ -22,7 +22,7 @@ export default function SignInForm({ setIsSignedIn }) {
     setSubmitMessage('Sorry, an error occurred. Please try again later.');
   }
 
-  function handle400Response() {
+  function handle401Response() {
     setSubmitMessage('The email or password is incorrect.');
   }
 
@@ -36,8 +36,8 @@ export default function SignInForm({ setIsSignedIn }) {
       case 200:
         handle200Response();
         break;
-      case 400:
-        handle400Response();
+      case 401:
+        handle401Response();
         break;
       default:
         handleDefaultResponse();

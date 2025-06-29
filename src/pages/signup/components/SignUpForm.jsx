@@ -17,21 +17,21 @@ export default function SignUpForm() {
     setSubmitMessage('Sorry, an error occurred. Please try again later.');
   }
 
-  function handle400Response() {
+  function handle409Response() {
     setSubmitMessage('This email is already being used.');
   }
 
-  function handle200Response() {
+  function handle201Response() {
     setSubmitMessage(['Success. Please log in ', <Link key='indexLink' to='/'>here</Link>, '.']);
   }
 
   function handlePostResponse(response) {
     switch (response.status) {
-      case 200:
-        handle200Response();
+      case 201:
+        handle201Response();
         break;
-      case 400:
-        handle400Response();
+      case 409:
+        handle409Response();
         break;
       default:
         handleDefaultResponse();
