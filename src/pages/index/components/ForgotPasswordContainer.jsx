@@ -1,4 +1,4 @@
-// This is a forgot password component of the / page when the user is not signed in.
+// This is a forgot password component of the / page.
 
 import styles from './ForgotPasswordContainer.module.css';
 import { useState } from 'react';

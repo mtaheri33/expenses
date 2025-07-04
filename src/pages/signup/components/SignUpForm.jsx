@@ -4,12 +4,13 @@ import Spinner from '../../../components/spinner/Spinner';
 import { useState } from 'react';
 import { Link } from 'react-router';
 import styles from './SignUpForm.module.css';
-import { postRequest } from '../../../utilities';
+import { createHandleInputChangeFunction, postRequest } from '../../../utilities';
 
 export default function SignUpForm() {
   const signUpButton = <button className={styles.signUpButton}>Sign Up</button>;
   const spinner = <Spinner styleClass={styles.spinner} />;
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const handleInputChange = createHandleInputChangeFunction(setFormData);
   const [bottomOfForm, setBottomOfForm] = useState(signUpButton);
   const [submitMessage, setSubmitMessage] = useState('');
 
@@ -62,14 +63,6 @@ export default function SignUpForm() {
       handlePostResponse(postResponse);
     }
     setBottomOfForm(signUpButton);
-  }
-
-  function handleInputChange(event) {
-    setFormData((currentFormData) => {
-      const currentFormDataCopy = { ...currentFormData };
-      currentFormDataCopy[event.target.name] = event.target.value;
-      return currentFormDataCopy;
-    });
   }
 
   return (

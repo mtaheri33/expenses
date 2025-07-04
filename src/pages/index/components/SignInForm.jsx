@@ -1,20 +1,19 @@
-// This is a form component of the / page when the user is not signed in.
+// This is a form component of the / page.
 
 import Spinner from '../../../components/spinner/Spinner';
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
 import styles from './SignInForm.module.css';
-import { postRequest } from '../../../utilities';
+import { createHandleInputChangeFunction, postRequest } from '../../../utilities';
 
-export default function SignInForm({ setIsSignedIn }) {
+export default function SignInForm({ setIsAuthenticatedState }) {
   /*
-  setIsSignedIn required function(boolean)
+  setIsAuthenticatedState required function(boolean)
   */
 
   const signInButton = <button className={styles.signInButton}>Sign In</button>;
   const spinner = <Spinner styleClass={styles.spinner} />;
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const handleInputChange = createHandleInputChangeFunction(setFormData);
   const [bottomOfForm, setBottomOfForm] = useState(signInButton);
   const [submitMessage, setSubmitMessage] = useState('');
 
@@ -27,8 +26,7 @@ export default function SignInForm({ setIsSignedIn }) {
   }
 
   function handle200Response() {
-    setIsSignedIn(true);
-    navigate('/');
+    setIsAuthenticatedState(true);
   }
 
   function handlePostResponse(response) {
@@ -64,18 +62,11 @@ export default function SignInForm({ setIsSignedIn }) {
         import.meta.env.VITE_SERVER_ADDRESS + '/signin',
         JSON.stringify(formData),
         { 'Content-Type': 'application/json' },
+        true,
       );
       handlePostResponse(postResponse);
     }
     setBottomOfForm(signInButton);
-  }
-
-  function handleInputChange(event) {
-    setFormData((currentFormData) => {
-      const currentFormDataCopy = { ...currentFormData };
-      currentFormDataCopy[event.target.name] = event.target.value;
-      return currentFormDataCopy;
-    });
   }
 
   return (
