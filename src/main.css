@@ -7,6 +7,7 @@
     --element-color: white;
     --link-color: steelblue;
     --font-family: 'Roboto', serif;
+    --navbar-height: 3vw;
     background-color: var(--page-background-color);
     font-family: var(--font-family);
 }
@@ -44,4 +45,15 @@ a:hover {
 
 a:active {
     outline: solid;
+}
+
+ul {
+    list-style: none;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-inline-start: 0;
+}
+
+main {
+    padding-top: var(--navbar-height);
 }

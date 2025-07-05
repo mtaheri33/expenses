@@ -1,0 +1,23 @@
+/* These are styles for the Navbar component. */
+
+.nav {
+    background-color: var(--element-background-color);
+    height: var(--navbar-height);
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.ul {
+    display: flex;
+    gap: 1vw;
+    padding-left: 1vw;
+    font-size: 1.2vw;
+}
+
+.navLink {
+    color: var(--element-color);
+}

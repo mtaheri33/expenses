@@ -1,12 +1,9 @@
 // This is the component for the / page.
 
-import ExpensesHeader from '../../components/expenses-header/ExpensesHeader';
+import Home from './components/home/Home';
 import PageLoading from '../../components/page-loading/PageLoading';
-import ForgotPasswordContainer from './components/ForgotPasswordContainer';
-import SignInForm from './components/SignInForm';
-import styles from './Index.module.css';
+import SignIn from './components/sign-in/SignIn';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router';
 import { isAuthenticated } from '../../../utilities';
 
 export default function Index() {
@@ -28,14 +25,7 @@ export default function Index() {
     return <PageLoading />;
   }
   if (isAuthenticatedState === true) {
-    return (<div>Home Page</div>);
+    return <Home />;
   }
-  return (
-    <div className={'Index ' + styles.Index}>
-      <ExpensesHeader styleClass={styles.expensesHeader} />
-      <SignInForm setIsAuthenticatedState={setIsAuthenticatedState} />
-      <ForgotPasswordContainer />
-      <Link to='/signup' className={styles.signUpLink}>Sign Up</Link>
-    </div>
-  );
+  return <SignIn setIsAuthenticatedState={setIsAuthenticatedState} />;
 }

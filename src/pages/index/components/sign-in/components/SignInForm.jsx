@@ -1,9 +1,9 @@
 // This is a sign in form component of the / page.
 
-import Spinner from '../../../components/spinner/Spinner';
+import Spinner from '../../../../../components/spinner/Spinner';
 import { useState } from 'react';
 import styles from './SignInForm.module.css';
-import { createHandleInputChangeFunction, postRequest } from '../../../../utilities';
+import { createHandleInputChangeFunction, postRequest } from '../../../../../../utilities';
 
 export default function SignInForm({ setIsAuthenticatedState }) {
   /*
