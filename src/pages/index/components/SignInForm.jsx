@@ -59,7 +59,7 @@ export default function SignInForm({ setIsAuthenticatedState }) {
       setSubmitMessage('Please fill out all fields.');
     } else {
       const postResponse = await postRequest(
-        import.meta.env.VITE_SERVER_ADDRESS + '/api/signin',
+        '/api/signin',
         JSON.stringify(formData),
         { 'Content-Type': 'application/json' },
         true,

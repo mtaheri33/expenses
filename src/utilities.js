@@ -37,7 +37,7 @@ async function postRequest(url, body, headers = {}, includeCredentials = false) 
 
 async function isAuthenticated() {
   const response = await getRequest(
-    import.meta.env.VITE_SERVER_ADDRESS + '/api/session',
+    '/api/session',
     undefined,
     true,
   );
