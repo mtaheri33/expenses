@@ -27,10 +27,6 @@ app.use(session({
   }),
 }));
 
-app.get('/api', (req, res) => {
-  res.status(200).send('Expenses Server');
-});
-
 app.use(async (req, res, next) => {
   try {
     if (req.session.userId) {
