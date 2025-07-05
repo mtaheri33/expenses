@@ -4,7 +4,9 @@ function createHandleInputChangeFunction(setStateFunction) {
   return function handleInputChange(event) {
     setStateFunction((currentFormData) => {
       const currentFormDataCopy = { ...currentFormData };
-      currentFormDataCopy[event.target.name] = event.target.value;
+      if (event.target.type === 'text' || event.target.type === 'password') {
+        currentFormDataCopy[event.target.name] = event.target.value;
+      }
       return currentFormDataCopy;
     });
   }

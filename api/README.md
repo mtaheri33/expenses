@@ -1,1 +1,1 @@
-This folder contains files for the server.  Do not rename the folder.
+This folder contains files for the api server.  Do not rename the folder.

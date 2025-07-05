@@ -1,9 +1,7 @@
 // This sets up the server.
 
 import MongoStore from 'connect-mongo';
-import cors from 'cors';
-import dotenv from 'dotenv';
-dotenv.config();
+import 'dotenv/config';
 import express from 'express';
 import session from 'express-session';
 import mongoose from 'mongoose';
@@ -12,19 +10,15 @@ import users from './mongoose/users.js';
 mongoose.connect(process.env.DATABASE_ADDRESS);
 
 const app = express();
-app.set('trust proxy', 1);
-app.use(cors({
-  origin: process.env.CORS_ORIGIN,
-  credentials: true,
-}));
 app.use(express.json());
+app.set('trust proxy', 1);
 app.use(session({
   secret: process.env.EXPRESS_SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {
     secure: process.env.EXPRESS_SESSION_SECURE === 'false' ? false : true,
-    sameSite: process.env.EXPRESS_SESSION_SAME_SITE,
+    sameSite: 'lax',
   },
   store: MongoStore.create({
     client: mongoose.connection.getClient(),
@@ -33,7 +27,7 @@ app.use(session({
   }),
 }));
 
-app.get('/api/', (req, res) => {
+app.get('/api', (req, res) => {
   res.status(200).send('Expenses Server');
 });
 
@@ -61,14 +55,13 @@ import sessionRouter from './routes/session.js';
 app.use('/api/session', sessionRouter);
 
 app.use((req, res) => {
-  const message = `There is no route ${req.url} that supports a ${req.method} request.`;
-  res.status(404).send(message);
+  res.status(404).send(`There is no route ${req.url} that supports a ${req.method} request.`);
 });
 
 app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Sorry, an error occurred.' });
 });
 
-app.listen(3000);
+app.listen(Number(process.env.API_SERVER_PORT));
 
 export default app;

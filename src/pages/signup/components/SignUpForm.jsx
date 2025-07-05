@@ -1,10 +1,10 @@
-// This is a form component of the /signup page.
+// This is a sign up form component of the /signup page.
 
 import Spinner from '../../../components/spinner/Spinner';
 import { useState } from 'react';
 import { Link } from 'react-router';
 import styles from './SignUpForm.module.css';
-import { createHandleInputChangeFunction, postRequest } from '../../../utilities';
+import { createHandleInputChangeFunction, postRequest } from '../../../../utilities';
 
 export default function SignUpForm() {
   const signUpButton = <button className={styles.signUpButton}>Sign Up</button>;

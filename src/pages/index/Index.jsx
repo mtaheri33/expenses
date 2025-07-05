@@ -6,7 +6,7 @@ import SignInForm from './components/SignInForm';
 import styles from './Index.module.css';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
-import { isAuthenticated } from '../../utilities';
+import { isAuthenticated } from '../../../utilities';
 
 export default function Index() {
   const [isAuthenticatedState, setIsAuthenticatedState] = useState(null);
