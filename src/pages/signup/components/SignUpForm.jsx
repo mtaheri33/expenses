@@ -56,7 +56,7 @@ export default function SignUpForm() {
       setSubmitMessage('Please fill out all fields.');
     } else {
       const postResponse = await postRequest(
-        import.meta.env.VITE_SERVER_ADDRESS + '/signup',
+        import.meta.env.VITE_SERVER_ADDRESS + '/api/signup',
         JSON.stringify(formData),
         { 'Content-Type': 'application/json' },
       );
