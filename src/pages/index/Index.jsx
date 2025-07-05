@@ -1,6 +1,7 @@
 // This is the component for the / page.
 
 import ExpensesHeader from '../../components/expenses-header/ExpensesHeader';
+import PageLoading from '../../components/page-loading/PageLoading';
 import ForgotPasswordContainer from './components/ForgotPasswordContainer';
 import SignInForm from './components/SignInForm';
 import styles from './Index.module.css';
@@ -24,7 +25,7 @@ export default function Index() {
   }, []);
 
   if (isAuthenticatedState === null) {
-    return (<div>Loading...</div>);
+    return <PageLoading />;
   }
   if (isAuthenticatedState === true) {
     return (<div>Home Page</div>);

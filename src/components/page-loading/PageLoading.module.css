@@ -1,0 +1,9 @@
+/* These are styles for the PageLoading component. */
+
+.spinner {
+    width: 3.125vw;
+    padding: .5vw;
+    margin-top: 20vw;
+    margin-left: auto;
+    margin-right: auto;
+}
