@@ -26,3 +26,7 @@
     text-align: center;
     border-radius: .75vw;
 }
+
+.signOutButton:hover {
+    text-decoration: underline;
+}

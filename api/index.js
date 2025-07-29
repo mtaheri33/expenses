@@ -51,6 +51,8 @@ import signUpRouter from './routes/signUp.js';
 app.use('/api/signup', signUpRouter);
 import sessionRouter from './routes/session.js';
 app.use('/api/session', sessionRouter);
+import signOutRouter from './routes/signOut.js';
+app.use('/api/signout', signOutRouter);
 
 app.use((req, res) => {
   res.status(404).send(`There is no route ${req.url} that supports a ${req.method} request.`);
