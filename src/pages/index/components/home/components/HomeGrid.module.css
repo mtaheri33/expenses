@@ -1,0 +1,28 @@
+/* These are styles for the HomeGrid component. */
+
+.grid {
+    padding: 3vw 3vw 0 3vw;
+}
+
+.row {
+    display: flex;
+    gap: 3vw;
+    margin-bottom: 3vw;
+}
+
+.row:last-child {
+    margin-bottom: 0;
+}
+
+.col {
+    background-color: var(--element-background-color);
+    color: var(--element-color);
+    font-size: 2vw;
+    height: 10vw;
+    width: 10vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: .75vw;
+}

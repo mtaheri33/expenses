@@ -10,7 +10,7 @@ export default function App() {
     <Routes>
       <Route path='/' element={<Index />} />
       <Route path='/signup' element={<SignUp />} />
-      <Route path="/*" element={<InvalidPage />} />
+      <Route path='/*' element={<InvalidPage />} />
     </Routes>
   );
 }

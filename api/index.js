@@ -12,6 +12,7 @@ mongoose.connect(process.env.DATABASE_ADDRESS);
 const app = express();
 app.use(express.json());
 app.set('trust proxy', 1);
+const age = 30 * 24 * 60 * 60;
 app.use(session({
   secret: process.env.EXPRESS_SESSION_SECRET,
   resave: false,
@@ -19,11 +20,12 @@ app.use(session({
   cookie: {
     secure: process.env.EXPRESS_SESSION_SECURE === 'false' ? false : true,
     sameSite: 'lax',
+    maxAge: 1000 * age,
   },
   store: MongoStore.create({
     client: mongoose.connection.getClient(),
     collectionName: 'sessions',
-    ttl: 30 * 24 * 60 * 60,
+    ttl: age,
   }),
 }));
 
