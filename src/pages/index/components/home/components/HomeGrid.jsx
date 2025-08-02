@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import { postRequest } from '../../../../../../utilities';
 
 export default function HomeGrid() {
-  function handlePostResponse(response) {
+  function handleSignOutPostResponse(response) {
     if (response.status === 200) {
       window.location.reload();
     }
@@ -18,7 +18,7 @@ export default function HomeGrid() {
       undefined,
       true,
     );
-    handlePostResponse(postResponse);
+    handleSignOutPostResponse(postResponse);
   }
 
   return (

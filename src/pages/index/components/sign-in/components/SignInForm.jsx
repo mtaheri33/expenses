@@ -1,4 +1,4 @@
-// This is a sign in form component of the / page.
+// This is a sign in form component for the sign in page.
 
 import Spinner from '../../../../../components/spinner/Spinner';
 import { useState } from 'react';

@@ -11,6 +11,9 @@ mongoose.connect(process.env.DATABASE_ADDRESS);
 
 const app = express();
 app.use(express.json());
+// This allows the server to see where requests are originally sent from, since Vercel uses a proxy
+// to forward requests to the server.  Otherwise, the server would think the request is coming from
+// the proxy.
 app.set('trust proxy', 1);
 const age = 30 * 24 * 60 * 60;
 app.use(session({

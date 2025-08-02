@@ -1,4 +1,4 @@
-// This is a sign up form component of the /signup page.
+// This is a sign up form component for the sign up page.
 
 import Spinner from '../../../components/spinner/Spinner';
 import { useState } from 'react';

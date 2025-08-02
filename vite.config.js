@@ -8,6 +8,8 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   server: {
+    // This proxies requests from the frontend to the backend while in development so the request's
+    // origin is the same as the backend.
     proxy: {
       '/api': {
         target: 'http://localhost:' + process.env.API_SERVER_PORT,
