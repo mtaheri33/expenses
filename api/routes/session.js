@@ -1,4 +1,4 @@
-// This handles requests for the /session resource.
+// This handles requests for the /api/session resource.
 
 import express from 'express';
 
