@@ -1,13 +1,27 @@
 // This is a grid component for the home page.
 
+import { PageMessageType } from '../../../../../../constants';
 import styles from './HomeGrid.module.css';
 import { Link } from 'react-router';
 import { postRequest } from '../../../../../../utilities';
 
-export default function HomeGrid() {
+export default function HomeGrid({ setPageMessageProperties }) {
+  /*
+  setPageMessageProperties required function(object {
+    type required PageMessageType constant,
+    message required HTML element,
+    displayTime required number,
+  })
+  */
   function handleSignOutPostResponse(response) {
     if (response.status === 200) {
       window.location.reload();
+    } else {
+      setPageMessageProperties({
+        type: PageMessageType.FAILURE,
+        message: <span>Sorry, an error occurred. Please try again later.</span>,
+        displayTime: 3000,
+      });
     }
   }
 

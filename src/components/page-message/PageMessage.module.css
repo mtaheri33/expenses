@@ -1,0 +1,35 @@
+/* These are styles for the PageMessage component. */
+
+.PageMessage {
+    position: fixed;
+    top: 4vw;
+    left: 1vw;
+    max-width: 30vw;
+    padding: 1vw 2vw 1vw 1vw;
+    border-radius: .5vw;
+    font-size: 1vw;
+    color: white;
+}
+
+.success {
+    background-color: #4caf50;
+}
+
+.failure {
+    background-color: #f44336;
+}
+
+.closeButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    color: white;
+    font-size: 1.5vw;
+    padding: 0 .5vw;
+    transition: opacity .3s;
+}
+
+.closeButton:hover {
+    opacity: .7;
+}
