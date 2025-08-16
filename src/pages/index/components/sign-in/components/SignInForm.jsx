@@ -59,7 +59,7 @@ export default function SignInForm({ setIsAuthenticatedState }) {
       setSubmitMessage('Please fill out all fields.');
     } else {
       const postResponse = await postRequest(
-        '/api/signin',
+        '/api/sign-in',
         JSON.stringify(formData),
         { 'Content-Type': 'application/json' },
         true,

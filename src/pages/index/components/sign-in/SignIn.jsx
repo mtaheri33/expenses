@@ -16,7 +16,7 @@ export default function SignIn({ setIsAuthenticatedState }) {
       <ExpensesHeader styleClass={styles.expensesHeader} />
       <SignInForm setIsAuthenticatedState={setIsAuthenticatedState} />
       <ForgotPasswordContainer />
-      <Link to='/signup' className={styles.signUpLink}>Sign Up</Link>
+      <Link to='/sign-up' className={styles.signUpLink}>Sign Up</Link>
     </div>
   );
 }

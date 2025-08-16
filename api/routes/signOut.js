@@ -1,4 +1,4 @@
-// This handles requests for the /api/signout resource.
+// This handles requests for the /api/sign-out resource.
 
 import express from 'express';
 

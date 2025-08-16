@@ -56,7 +56,7 @@ export default function SignUpForm() {
       setSubmitMessage('Please fill out all fields.');
     } else {
       const postResponse = await postRequest(
-        '/api/signup',
+        '/api/sign-up',
         JSON.stringify(formData),
         { 'Content-Type': 'application/json' },
       );

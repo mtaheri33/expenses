@@ -1,4 +1,4 @@
-// This handles requests for the /api/signin resource.
+// This handles requests for the /api/sign-in resource.
 
 import express from 'express';
 import users from '../mongoose/users.js';

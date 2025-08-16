@@ -27,7 +27,7 @@ export default function HomeGrid({ setPageMessageProperties }) {
 
   async function signOut() {
     const postResponse = await postRequest(
-      '/api/signout',
+      '/api/sign-out',
       JSON.stringify({}),
       undefined,
       true,

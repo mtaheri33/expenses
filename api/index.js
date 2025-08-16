@@ -49,13 +49,13 @@ app.use(async (req, res, next) => {
 });
 
 import signInRouter from './routes/signIn.js';
-app.use('/api/signin', signInRouter);
+app.use('/api/sign-in', signInRouter);
 import signUpRouter from './routes/signUp.js';
-app.use('/api/signup', signUpRouter);
+app.use('/api/sign-up', signUpRouter);
 import sessionRouter from './routes/session.js';
 app.use('/api/session', sessionRouter);
 import signOutRouter from './routes/signOut.js';
-app.use('/api/signout', signOutRouter);
+app.use('/api/sign-out', signOutRouter);
 
 app.use((req, res) => {
   res.status(404).send(`There is no route ${req.url} that supports a ${req.method} request.`);

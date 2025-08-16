@@ -9,7 +9,7 @@ export default function App() {
   return (
     <Routes>
       <Route path='/' element={<Index />} />
-      <Route path='/signup' element={<SignUp />} />
+      <Route path='/sign-up' element={<SignUp />} />
       <Route path='/*' element={<InvalidPage />} />
     </Routes>
   );
