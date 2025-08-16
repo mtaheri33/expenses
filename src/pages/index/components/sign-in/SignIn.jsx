@@ -12,7 +12,7 @@ export default function SignIn({ setIsAuthenticatedState }) {
   */
 
   return (
-    <div className={'SignIn ' + styles.SignIn}>
+    <div className={`SignIn ${styles.SignIn}`}>
       <ExpensesHeader styleClass={styles.expensesHeader} />
       <SignInForm setIsAuthenticatedState={setIsAuthenticatedState} />
       <ForgotPasswordContainer />

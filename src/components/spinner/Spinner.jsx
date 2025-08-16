@@ -11,5 +11,5 @@ export default function Spinner({ styleClass }) {
   }
   */
 
-  return <div className={'Spinner ' + styles.Spinner + ' ' + styleClass}></div>;
+  return <div className={`Spinner ${styles.Spinner} ${styleClass}`}></div>;
 }

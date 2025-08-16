@@ -12,6 +12,6 @@ export default function ExpensesHeader({ styleClass }) {
   */
 
   return (
-    <h1 className={'ExpensesHeader ' + styles.ExpensesHeader + ' ' + styleClass}>Expenses</h1>
+    <h1 className={`ExpensesHeader ${styles.ExpensesHeader} ${styleClass}`}>Expenses</h1>
   );
 }

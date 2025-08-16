@@ -13,7 +13,7 @@ export default function ForgotPasswordContainer() {
   }
 
   return (
-    <div className={'ForgotPasswordContainer ' + styles.ForgotPasswordContainer}>
+    <div className={`ForgotPasswordContainer ${styles.ForgotPasswordContainer}`}>
       <span className={styles.forgotPasswordSpan} onClick={showForgotPasswordMessage}>
         Forgot password?
       </span>
