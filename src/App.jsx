@@ -2,7 +2,7 @@
 
 import Index from './pages/index/Index';
 import InvalidPage from './pages/invalid-page/InvalidPage';
-import SignUp from './pages/signup/SignUp';
+import SignUp from './pages/sign-up/SignUp';
 import { Routes, Route } from 'react-router';
 
 export default function App() {
