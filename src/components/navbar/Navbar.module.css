@@ -15,9 +15,9 @@
     display: flex;
     gap: 1vw;
     padding-left: 1vw;
-    font-size: 1.2vw;
 }
 
 .navLink {
+    font-size: 1.2vw;
     color: var(--element-color);
 }
