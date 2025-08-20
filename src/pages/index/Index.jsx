@@ -24,7 +24,7 @@ export default function Index() {
   if (isAuthenticatedState === null) {
     return <PageLoading />;
   }
-  if (isAuthenticatedState === true) {
+  if (isAuthenticatedState) {
     return <Home />;
   }
   return <SignIn setIsAuthenticatedState={setIsAuthenticatedState} />;

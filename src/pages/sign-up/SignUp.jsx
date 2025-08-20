@@ -1,4 +1,4 @@
-// This is the component for the /signup page.
+// This is the component for the /sign-up page.
 
 import ExpensesHeader from '../../components/expenses-header/ExpensesHeader';
 import SignUpForm from './components/SignUpForm';

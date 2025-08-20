@@ -20,7 +20,7 @@ async function getRequest(url, headers = {}, includeCredentials = false) {
       credentials: includeCredentials ? 'include' : 'omit',
     });
   } catch {
-    return { status: 503 };
+    return { status: 0 };
   }
 }
 
@@ -33,7 +33,7 @@ async function postRequest(url, body, headers = {}, includeCredentials = false) 
       credentials: includeCredentials ? 'include' : 'omit',
     });
   } catch {
-    return { status: 503 };
+    return { status: 0 };
   }
 }
 
