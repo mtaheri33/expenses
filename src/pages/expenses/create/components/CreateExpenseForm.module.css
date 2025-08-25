@@ -91,3 +91,16 @@
 .submitMessage {
     font-size: 1vw;
 }
+
+.clearFormContainer {
+    margin-top: 1.5vw;
+}
+
+.clearFormSpan {
+    font-size: 1vw;
+    cursor: pointer;
+}
+
+.clearFormSpan:hover {
+    text-decoration: underline;
+}

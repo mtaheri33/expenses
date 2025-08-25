@@ -84,6 +84,15 @@ export default function CreateExpenseForm() {
     setBottomOfForm(createButton);
   }
 
+  function clearForm() {
+    setFormData({
+      date: '',
+      description: '',
+      amount: '',
+      categories: [''],
+    });
+  }
+
   return (
     <div className={`CreateExpenseForm ${styles.CreateExpenseForm}`}>
       <h1 className={styles.h1}>Create Expense</h1>
@@ -152,6 +161,9 @@ export default function CreateExpenseForm() {
         {bottomOfForm}
       </form>
       {submitMessage !== '' ? <div className={styles.submitMessage}>{submitMessage}</div> : null}
+      <div className={styles.clearFormContainer}>
+        <span className={styles.clearFormSpan} onClick={clearForm}>Clear Form</span>
+      </div>
     </div>
   );
 }
