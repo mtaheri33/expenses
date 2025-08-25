@@ -4,7 +4,12 @@ function createHandleInputChangeFunction(setStateFunction) {
   return function handleInputChange(event) {
     setStateFunction((currentFormData) => {
       const currentFormDataCopy = { ...currentFormData };
-      if (event.target.type === 'text' || event.target.type === 'password') {
+      if (
+        event.target.type === 'text'
+        || event.target.type === 'password'
+        || event.target.type === 'date'
+        || event.target.type === 'number'
+      ) {
         currentFormDataCopy[event.target.name] = event.target.value;
       }
       return currentFormDataCopy;
@@ -49,9 +54,33 @@ async function isAuthenticated() {
   return false;
 }
 
+function checkStringInput(stringInput) {
+  return stringInput.trim();
+}
+
+function checkAmountInput(amountInput) {
+  if (amountInput === '') {
+    return null;
+  }
+  const amount = Number(amountInput);
+  const amountRoundedToTwoDecimalPlaces = Math.floor(Math.abs(amount) * 100) / 100;
+  if (amount < 0) {
+    return -1 * amountRoundedToTwoDecimalPlaces;
+  }
+  return amountRoundedToTwoDecimalPlaces;
+}
+
+function checkCategoriesInput(categoriesInput) {
+  const filteredCategories = categoriesInput.filter((category) => category !== '');
+  return filteredCategories.map((category) => category.trim());
+}
+
 export {
   createHandleInputChangeFunction,
   getRequest,
   postRequest,
   isAuthenticated,
+  checkStringInput,
+  checkAmountInput,
+  checkCategoriesInput,
 };

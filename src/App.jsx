@@ -1,5 +1,7 @@
 // This is the top level React component.
 
+import CreateExpense from './pages/expenses/create/CreateExpense';
+import Expenses from './pages/expenses/Expenses';
 import Index from './pages/index/Index';
 import InvalidPage from './pages/invalid-page/InvalidPage';
 import SignUp from './pages/sign-up/SignUp';
@@ -10,6 +12,8 @@ export default function App() {
     <Routes>
       <Route path='/' element={<Index />} />
       <Route path='/sign-up' element={<SignUp />} />
+      <Route path='/expenses' element={<Expenses />} />
+      <Route path='/expenses/create' element={<CreateExpense />} />
       <Route path='/*' element={<InvalidPage />} />
     </Routes>
   );

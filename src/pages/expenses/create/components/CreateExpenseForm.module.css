@@ -1,0 +1,93 @@
+/* These are styles for the CreateExpenseForm component. */
+
+.CreateExpenseForm {
+    margin-left: 1vw;
+}
+
+.h1 {
+    font-size: 3vw;
+}
+
+.form {
+    margin-bottom: .5vw;
+}
+
+.formGroup {
+    margin-bottom: 1vw;
+}
+
+.label {
+    font-size: 1.5vw;
+    margin-right: .5vw;
+}
+
+.formInputDate {
+    width: 8vw;
+    padding: .5vw;
+    font-size: 1vw;
+}
+
+.formInputText {
+    width: 20vw;
+    padding: .5vw;
+    font-size: 1vw;
+}
+
+.formInputNumber {
+    width: 7vw;
+    padding: .5vw;
+    font-size: 1vw;
+}
+
+.categoriesDiv {
+    font-size: 1.5vw;
+    margin-bottom: .5vw;
+}
+
+.formInputCategories {
+    margin-bottom: .5vw;
+    width: 10vw;
+    padding: .5vw;
+    font-size: 1vw;
+}
+
+.removeCategoryButton {
+    background: none;
+    font-size: 1vw;
+    padding: .25vw .5vw;
+}
+
+.removeCategoryButton:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.addCategorySpan {
+    font-size: 1vw;
+    cursor: pointer;
+}
+
+.addCategorySpan:hover {
+    text-decoration: underline;
+}
+
+.createButton {
+    background-color: var(--element-background-color);
+    color: var(--element-color);
+    font-size: 1.5vw;
+    padding: .5vw 1vw;
+}
+
+.createButton:hover {
+    background-color: var(--element-background-color-darker-shade);
+}
+
+.spinner {
+    width: 1.875vw;
+    padding: .3vw;
+    margin-top: 1vw;
+    margin-left: 1.75vw;
+}
+
+.submitMessage {
+    font-size: 1vw;
+}

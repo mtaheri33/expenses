@@ -67,7 +67,6 @@ async function readById(id) {
 };
 
 export default {
-  userSchema,
   create,
   signIn,
   readById,

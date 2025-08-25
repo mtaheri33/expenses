@@ -16,10 +16,14 @@ body {
     margin: 0;
 }
 
+input[type='number'],
+input[type='date'],
 input[type='text'] {
     font-family: var(--font-family);
 }
 
+input[type='number'],
+input[type='date'],
 input[type='text'],
 input[type='password'] {
     border: .05vw solid #cccccc;
