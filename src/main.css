@@ -16,12 +16,14 @@ body {
     margin: 0;
 }
 
+input[type='email'],
 input[type='number'],
 input[type='date'],
 input[type='text'] {
     font-family: var(--font-family);
 }
 
+input[type='email'],
 input[type='number'],
 input[type='date'],
 input[type='text'],

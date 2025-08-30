@@ -74,7 +74,7 @@ export default function SignInForm({ setIsAuthenticatedState }) {
       <h2 className={styles.h2}>Sign In</h2>
       <form className={styles.form} onSubmit={signIn}>
         <input
-          type='text'
+          type='email'
           className={styles.formInput}
           value={formData.email}
           onChange={handleInputChange}

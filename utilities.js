@@ -9,6 +9,7 @@ function createHandleInputChangeFunction(setStateFunction) {
         || event.target.type === 'password'
         || event.target.type === 'date'
         || event.target.type === 'number'
+        || event.target.type === 'email'
       ) {
         currentFormDataCopy[event.target.name] = event.target.value;
       }

@@ -70,7 +70,7 @@ export default function SignUpForm() {
       <h2 className={styles.h2}>Sign Up</h2>
       <form className={styles.form} onSubmit={signUp}>
         <input
-          type='text'
+          type='email'
           className={styles.formInput}
           value={formData.email}
           onChange={handleInputChange}
