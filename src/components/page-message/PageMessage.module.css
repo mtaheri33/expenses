@@ -27,9 +27,8 @@
     color: white;
     font-size: 1.5vw;
     padding: 0 .5vw;
-    transition: opacity .3s;
 }
 
 .closeButton:hover {
-    opacity: .7;
+    background-color: rgba(0, 0, 0, 0.1);
 }
