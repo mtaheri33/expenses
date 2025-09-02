@@ -14,6 +14,15 @@ const expenseSchema = new mongoose.Schema({
     index: true,
   },
 });
+expenseSchema.methods.convertToJSONObject = function () {
+  return {
+    id: this._id.toString(),
+    date: this.date ? this.date.toISOString().split('T')[0] : null,
+    description: this.description,
+    amount: this.amount,
+    categories: this.categories,
+  };
+};
 const Expense = mongoose.model('Expense', expenseSchema);
 
 async function create(date, description, amount, categories, userId) {
@@ -25,6 +34,11 @@ async function create(date, description, amount, categories, userId) {
   return await expense.save();
 }
 
+async function readByUserId(userId) {
+  return await Expense.find({ user: userId });
+};
+
 export default {
   create,
+  readByUserId,
 };

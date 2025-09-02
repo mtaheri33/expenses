@@ -25,4 +25,16 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+router.get('/', async (req, res, next) => {
+  try {
+    if (!req.user) {
+      return res.status(401).send();
+    }
+    const userExpenses = await expenses.readByUserId(req.user._id);
+    return res.status(200).json(userExpenses.map((expense) => expense.convertToJSONObject()));
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default router;

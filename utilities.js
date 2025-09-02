@@ -49,10 +49,7 @@ async function isAuthenticated() {
     undefined,
     true,
   );
-  if (response.status === 200) {
-    return await response.json();
-  }
-  return false;
+  return response.status === 200;
 }
 
 function checkStringInput(stringInput) {
