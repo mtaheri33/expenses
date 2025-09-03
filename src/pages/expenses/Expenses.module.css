@@ -3,3 +3,7 @@
 .addExpenseContainer {
     margin: 1vw 0 1vw 1vw;
 }
+
+.addExpenseLink {
+    font-size: 1vw;
+}

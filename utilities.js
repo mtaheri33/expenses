@@ -1,5 +1,7 @@
 // This contains code used throughout the files.
 
+const numberFormatter = new Intl.NumberFormat('en-US');
+
 function createHandleInputChangeFunction(setStateFunction) {
   return function handleInputChange(event) {
     setStateFunction((currentFormData) => {
@@ -73,6 +75,25 @@ function checkCategoriesInput(categoriesInput) {
   return filteredCategories.map((category) => category.trim());
 }
 
+function formatDateForDisplay(date) {
+  /*
+  date should be a string in the format YYYY-MM-DD.  For single digit months or days, it should
+  start with 0.
+  */
+  if (!date) {
+    return '';
+  }
+  const [year, month, day] = date.split('-');
+  return `${parseInt(month)}-${parseInt(day)}-${year}`;
+}
+
+function formatAmountForDisplay(amount) {
+  if (!amount) {
+    return '';
+  }
+  return numberFormatter.format(amount);
+}
+
 export {
   createHandleInputChangeFunction,
   getRequest,
@@ -81,4 +102,6 @@ export {
   checkStringInput,
   checkAmountInput,
   checkCategoriesInput,
+  formatDateForDisplay,
+  formatAmountForDisplay,
 };

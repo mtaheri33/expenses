@@ -78,7 +78,7 @@ export default function Expenses() {
             displayTime={pageMessageProperties.displayTime}
           />
           <div className={styles.addExpenseContainer}>
-            <Link to='/expenses/create'>Add Expense</Link>
+            <Link to='/expenses/create' className={styles.addExpenseLink}>Add Expense</Link>
           </div>
           <ExpensesTable expenses={expenses} />
         </main>
