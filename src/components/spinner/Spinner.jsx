@@ -10,6 +10,5 @@ export default function Spinner({ styleClass }) {
     padding required
   }
   */
-
   return <div className={`Spinner ${styles.Spinner} ${styleClass}`}></div>;
 }

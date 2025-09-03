@@ -1,6 +1,6 @@
 /* These are styles for the Navbar component. */
 
-.nav {
+.Navbar {
     background-color: var(--element-background-color);
     height: var(--navbar-height);
     display: flex;

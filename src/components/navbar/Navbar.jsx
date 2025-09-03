@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 
 export default function Navbar() {
   return (
-    <nav className={`Navbar ${styles.nav}`}>
+    <nav className={`Navbar ${styles.Navbar}`}>
       <ul className={styles.ul}>
         <li><Link to='/' className={styles.navLink}>Home</Link></li>
         <li><Link to='/expenses' className={styles.navLink}>Expenses</Link></li>

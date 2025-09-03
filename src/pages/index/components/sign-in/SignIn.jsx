@@ -10,7 +10,6 @@ export default function SignIn({ setIsAuthenticatedState }) {
   /*
   setIsAuthenticatedState required function(boolean)
   */
-
   return (
     <div className={`SignIn ${styles.SignIn}`}>
       <ExpensesHeader styleClass={styles.expensesHeader} />

@@ -17,20 +17,24 @@ export default function ExpensesTable({ expenses }) {
     <table className={`ExpensesTable ${styles.ExpensesTable}`}>
       <thead>
         <tr>
-          <th>Date</th>
-          <th>Description</th>
-          <th>Amount</th>
-          <th>Categories</th>
+          <th className={styles.th}>Date</th>
+          <th className={styles.th}>Description</th>
+          <th className={styles.th}>Amount</th>
+          <th className={styles.th}>Categories</th>
         </tr>
       </thead>
       <tbody>
         {expenses.map((expense) => {
           return (
-            <tr key={expense.id}>
-              <td>{formatDateForDisplay(expense.date)}</td>
-              <td title={expense.description}>{expense.description}</td>
-              <td title={formatAmountForDisplay(expense.amount)}>{formatAmountForDisplay(expense.amount)}</td>
-              <td title={expense.categories.join(' | ')}>{expense.categories.join(' | ')}</td>
+            <tr key={expense.id} className={styles.tbodyTr}>
+              <td className={styles.td}>{formatDateForDisplay(expense.date)}</td>
+              <td className={styles.td} title={expense.description}>{expense.description}</td>
+              <td className={styles.td} title={formatAmountForDisplay(expense.amount)}>
+                {formatAmountForDisplay(expense.amount)}
+              </td>
+              <td className={styles.td} title={expense.categories.join(' | ')}>
+                {expense.categories.join(' | ')}
+              </td>
             </tr>
           );
         })}

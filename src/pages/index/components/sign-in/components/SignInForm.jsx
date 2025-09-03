@@ -9,7 +9,6 @@ export default function SignInForm({ setIsAuthenticatedState }) {
   /*
   setIsAuthenticatedState required function(boolean)
   */
-
   const signInButton = <button className={styles.signInButton}>Sign In</button>;
   const spinner = <Spinner styleClass={styles.spinner} />;
   const [formData, setFormData] = useState({ email: '', password: '' });
