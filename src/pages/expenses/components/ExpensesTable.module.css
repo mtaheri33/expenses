@@ -26,6 +26,7 @@
     text-overflow: ellipsis;
 }
 
+.tdButton,
 .th,
 .td {
     height: 2vw;
@@ -39,7 +40,7 @@
 
 .th:nth-child(2),
 .td:nth-child(2) {
-    width: 33%;
+    width: 28%;
 }
 
 .th:nth-child(3),
@@ -49,5 +50,36 @@
 
 .th:nth-child(4),
 .td:nth-child(4) {
-    width: 53%;
+    width: 48%;
+}
+
+.tdButton {
+    width: 5%;
+    text-align: center;
+}
+
+.editLink {
+    background-color: var(--element-background-color);
+    border-radius: .5vw;
+    transition: background-color .3s;
+}
+
+.editLink:hover {
+    background-color: var(--element-background-color-darker-shade);
+    text-decoration: none;
+}
+
+.deleteButton {
+    background-color: crimson;
+}
+
+.deleteButton:hover {
+    background-color: #b01030;
+}
+
+.editLink,
+.deleteButton {
+    color: var(--element-color);
+    font-size: 1vw;
+    padding: .25vw .6vw;
 }
