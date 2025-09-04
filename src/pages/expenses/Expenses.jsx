@@ -7,10 +7,11 @@ import PageMessage from '../../components/page-message/PageMessage';
 import { PageMessageType } from '../../../constants';
 import styles from './Expenses.module.css';
 import { useState, useEffect } from 'react';
-import { Navigate, Link } from 'react-router';
+import { useNavigate, Link } from 'react-router';
 import { isAuthenticated, getRequest } from '../../../utilities';
 
 export default function Expenses() {
+  const navigate = useNavigate();
   const [isAuthenticatedState, setIsAuthenticatedState] = useState(null);
   const [expenses, setExpenses] = useState([]);
   const [pageMessageProperties, setPageMessageProperties] = useState({});
@@ -57,7 +58,7 @@ export default function Expenses() {
     if (authenticated) {
       handleAuthenticated();
     } else {
-      setIsAuthenticatedState(false);
+      navigate('/');
     }
   }
   useEffect(() => {
@@ -67,23 +68,20 @@ export default function Expenses() {
   if (isAuthenticatedState === null) {
     return <PageLoading />;
   }
-  if (isAuthenticatedState) {
-    return (
-      <div className='Expenses'>
-        <Navbar />
-        <main>
-          <PageMessage
-            type={pageMessageProperties.type}
-            message={pageMessageProperties.message}
-            displayTime={pageMessageProperties.displayTime}
-          />
-          <div className={styles.addExpenseContainer}>
-            <Link to='/expenses/create' className={styles.addExpenseLink}>Add Expense</Link>
-          </div>
-          <ExpensesTable expenses={expenses} />
-        </main>
-      </div>
-    );
-  }
-  return <Navigate to='/' replace />;
+  return (
+    <div className='Expenses'>
+      <Navbar />
+      <main>
+        <PageMessage
+          type={pageMessageProperties.type}
+          message={pageMessageProperties.message}
+          displayTime={pageMessageProperties.displayTime}
+        />
+        <div className={styles.addExpenseContainer}>
+          <Link to='/expenses/create' className={styles.addExpenseLink}>Add Expense</Link>
+        </div>
+        <ExpensesTable expenses={expenses} />
+      </main>
+    </div>
+  );
 }

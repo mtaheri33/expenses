@@ -4,10 +4,11 @@ import CreateExpenseForm from './components/CreateExpenseForm';
 import Navbar from '../../../components/navbar/Navbar';
 import PageLoading from '../../../components/page-loading/PageLoading';
 import { useState, useEffect } from 'react';
-import { Navigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { isAuthenticated } from '../../../../utilities';
 
 export default function CreateExpense() {
+  const navigate = useNavigate();
   const [isAuthenticatedState, setIsAuthenticatedState] = useState(null);
 
   async function checkIsAuthenticated() {
@@ -15,7 +16,7 @@ export default function CreateExpense() {
     if (authenticated) {
       setIsAuthenticatedState(true);
     } else {
-      setIsAuthenticatedState(false);
+      navigate('/');
     }
   }
   useEffect(() => {
@@ -25,15 +26,12 @@ export default function CreateExpense() {
   if (isAuthenticatedState === null) {
     return <PageLoading />;
   }
-  if (isAuthenticatedState) {
-    return (
-      <div className='CreateExpense'>
-        <Navbar />
-        <main>
-          <CreateExpenseForm />
-        </main>
-      </div>
-    );
-  }
-  return <Navigate to='/' replace />;
+  return (
+    <div className='CreateExpense'>
+      <Navbar />
+      <main>
+        <CreateExpenseForm />
+      </main>
+    </div>
+  );
 }
