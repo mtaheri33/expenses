@@ -61,7 +61,6 @@ async function deleteExpense(id) {
   return await Expense.findByIdAndDelete(id);
 };
 
-
 export default {
   create,
   readByUser,
