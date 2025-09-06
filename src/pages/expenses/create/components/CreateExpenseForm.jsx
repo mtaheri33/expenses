@@ -131,6 +131,7 @@ export default function CreateExpenseForm() {
             id='createExpenseAmount'
             name='amount'
             autoComplete='off'
+            onWheel={(event) => event.target.blur()}
           />
         </div>
         <div className={styles.formGroup}>
