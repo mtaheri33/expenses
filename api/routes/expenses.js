@@ -12,14 +12,14 @@ router.post('/', async (req, res, next) => {
       return res.status(401).send();
     }
     const { date, description, amount, categories } = req.body;
-    await expenses.create(
+    const expense = await expenses.create(
       date,
       checkStringInput(description),
       checkAmountInput(amount),
       checkCategoriesInput(categories),
       req.user._id
     );
-    return res.status(201).send();
+    return res.status(201).json(expense.convertToJSONObject());
   } catch (error) {
     next(error);
   }
