@@ -91,7 +91,7 @@ export default function UpdateExpense() {
           message={pageMessageProperties.message}
           displayTime={pageMessageProperties.displayTime}
         />
-        <UpdateExpenseForm />
+        <UpdateExpenseForm expense={expense} />
       </main>
     </div>
   );

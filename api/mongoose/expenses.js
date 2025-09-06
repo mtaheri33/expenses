@@ -53,9 +53,15 @@ function expenseBelongsToUser(expense, user) {
   return expense.user.equals(user._id);
 }
 
+async function update(id, update) {
+  return await Expense.findByIdAndUpdate(id, update, { new: true });
+};
+
+
 export default {
   create,
   readByUser,
   readById,
   expenseBelongsToUser,
+  update,
 };

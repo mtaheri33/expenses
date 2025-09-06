@@ -45,6 +45,19 @@ async function postRequest(url, body, headers = {}, includeCredentials = false) 
   }
 }
 
+async function patchRequest(url, body, headers = {}, includeCredentials = false) {
+  try {
+    return await fetch(url, {
+      method: 'PATCH',
+      body,
+      headers,
+      credentials: includeCredentials ? 'include' : 'omit',
+    });
+  } catch {
+    return { status: 0 };
+  }
+}
+
 async function isAuthenticated() {
   const response = await getRequest(
     '/api/session',
@@ -98,6 +111,7 @@ export {
   createHandleInputChangeFunction,
   getRequest,
   postRequest,
+  patchRequest,
   isAuthenticated,
   checkStringInput,
   checkAmountInput,

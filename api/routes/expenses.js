@@ -52,4 +52,26 @@ router.get('/:expenseId', async (req, res, next) => {
   }
 });
 
+router.patch('/:expenseId', async (req, res, next) => {
+  try {
+    if (!req.user) {
+      return res.status(401).send();
+    }
+    const expense = await expenses.readById(req.params.expenseId)
+    if (!expense || !expenses.expenseBelongsToUser(expense, req.user)) {
+      return res.status(404).send();
+    }
+    const { date, description, amount, categories } = req.body;
+    const updatedExpense = await expenses.update(expense._id, {
+      date,
+      description: checkStringInput(description),
+      amount: checkAmountInput(amount),
+      categories: checkCategoriesInput(categories),
+    });
+    return res.status(200).json(updatedExpense.convertToJSONObject());
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default router;
