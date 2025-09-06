@@ -58,6 +58,18 @@ async function patchRequest(url, body, headers = {}, includeCredentials = false)
   }
 }
 
+async function deleteRequest(url, headers = {}, includeCredentials = false) {
+  try {
+    return await fetch(url, {
+      method: 'DELETE',
+      headers,
+      credentials: includeCredentials ? 'include' : 'omit',
+    });
+  } catch {
+    return { status: 0 };
+  }
+}
+
 async function isAuthenticated() {
   const response = await getRequest(
     '/api/session',
@@ -112,6 +124,7 @@ export {
   getRequest,
   postRequest,
   patchRequest,
+  deleteRequest,
   isAuthenticated,
   checkStringInput,
   checkAmountInput,

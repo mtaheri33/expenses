@@ -57,6 +57,10 @@ async function update(id, update) {
   return await Expense.findByIdAndUpdate(id, update, { new: true });
 };
 
+async function deleteExpense(id) {
+  return await Expense.findByIdAndDelete(id);
+};
+
 
 export default {
   create,
@@ -64,4 +68,5 @@ export default {
   readById,
   expenseBelongsToUser,
   update,
+  deleteExpense,
 };

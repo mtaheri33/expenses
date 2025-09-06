@@ -4,7 +4,7 @@ import styles from './ExpensesTable.module.css';
 import { Link } from 'react-router';
 import { formatDateForDisplay, formatAmountForDisplay } from '../../../../utilities';
 
-export default function ExpensesTable({ expenses }) {
+export default function ExpensesTable({ expenses, deleteExpenseFunction }) {
   /*
   expenses required array [object {
     id required string,
@@ -13,6 +13,7 @@ export default function ExpensesTable({ expenses }) {
     amount required (nullable) number,
     categories required array [string],
   }]
+  deleteExpenseFunction required function(string)
   */
   return (
     <table className={`ExpensesTable ${styles.ExpensesTable}`}>
@@ -48,7 +49,12 @@ export default function ExpensesTable({ expenses }) {
                 <Link to={`/expenses/${expense.id}`} className={styles.editLink}>Edit</Link>
               </td>
               <td className={styles.tdButton}>
-                <button className={styles.deleteButton}>Delete</button>
+                <button
+                  className={styles.deleteButton}
+                  onClick={() => deleteExpenseFunction(expense.id)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           );

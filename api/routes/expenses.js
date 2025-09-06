@@ -74,4 +74,20 @@ router.patch('/:expenseId', async (req, res, next) => {
   }
 });
 
+router.delete('/:expenseId', async (req, res, next) => {
+  try {
+    if (!req.user) {
+      return res.status(401).send();
+    }
+    const expense = await expenses.readById(req.params.expenseId)
+    if (!expense || !expenses.expenseBelongsToUser(expense, req.user)) {
+      return res.status(404).send();
+    }
+    await expenses.deleteExpense(expense._id);
+    return res.status(204).send();
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default router;

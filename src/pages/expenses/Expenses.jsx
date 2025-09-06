@@ -8,7 +8,7 @@ import { PageMessageType } from '../../../constants';
 import styles from './Expenses.module.css';
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router';
-import { isAuthenticated, getRequest } from '../../../utilities';
+import { isAuthenticated, getRequest, deleteRequest } from '../../../utilities';
 
 export default function Expenses() {
   const navigate = useNavigate();
@@ -22,6 +22,42 @@ export default function Expenses() {
       message: <span>Sorry, an error occurred. Please try again later.</span>,
       displayTime: 3000,
     });
+  }
+
+  function removeExpenseFromExpenses(expenseId) {
+    setExpenses((currentExpenses) => {
+      return currentExpenses.filter((expense) => expense.id !== expenseId);
+    });
+  }
+
+  function handleExpenseDelete204Response(expenseId) {
+    removeExpenseFromExpenses(expenseId);
+    setPageMessageProperties({
+      type: PageMessageType.SUCCESS,
+      message: <span>Expense deleted successfully.</span>,
+      displayTime: 3000,
+    });
+  }
+
+  function handleExpenseDeleteResponse(response, expenseId) {
+    switch (response.status) {
+      case 204:
+        handleExpenseDelete204Response(expenseId);
+        break;
+      default:
+        handleDefaultResponse();
+    }
+  }
+
+  async function deleteExpense(expenseId) {
+    if (window.confirm('Are you sure you want to delete this expense?')) {
+      const deleteResponse = await deleteRequest(
+        `/api/expenses/${expenseId}`,
+        undefined,
+        true,
+      );
+      handleExpenseDeleteResponse(deleteResponse, expenseId);
+    }
   }
 
   async function handleExpenses200Response(response) {
@@ -80,7 +116,7 @@ export default function Expenses() {
         <div className={styles.addExpenseContainer}>
           <Link to='/expenses/create' className={styles.addExpenseLink}>Add Expense</Link>
         </div>
-        <ExpensesTable expenses={expenses} />
+        <ExpensesTable expenses={expenses} deleteExpenseFunction={deleteExpense} />
       </main>
     </div>
   );
