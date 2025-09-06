@@ -30,8 +30,23 @@ router.get('/', async (req, res, next) => {
     if (!req.user) {
       return res.status(401).send();
     }
-    const userExpenses = await expenses.readByUserId(req.user._id);
+    const userExpenses = await expenses.readByUser(req.user);
     return res.status(200).json(userExpenses.map((expense) => expense.convertToJSONObject()));
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/:expenseId', async (req, res, next) => {
+  try {
+    if (!req.user) {
+      return res.status(401).send();
+    }
+    const expense = await expenses.readById(req.params.expenseId)
+    if (!expense || !expenses.expenseBelongsToUser(expense, req.user)) {
+      return res.status(404).send();
+    }
+    return res.status(200).json(expense.convertToJSONObject());
   } catch (error) {
     next(error);
   }

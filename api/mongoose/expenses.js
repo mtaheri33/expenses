@@ -34,11 +34,28 @@ async function create(date, description, amount, categories, userId) {
   return await expense.save();
 }
 
-async function readByUserId(userId) {
-  return await Expense.find({ user: userId });
+async function readByUser(user) {
+  return await Expense.find({ user: user._id });
 };
+
+async function readById(id) {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return null;
+  }
+  const expense = await Expense.findById(id);
+  if (expense) {
+    return expense;
+  }
+  return null;
+};
+
+function expenseBelongsToUser(expense, user) {
+  return expense.user.equals(user._id);
+}
 
 export default {
   create,
-  readByUserId,
+  readByUser,
+  readById,
+  expenseBelongsToUser,
 };

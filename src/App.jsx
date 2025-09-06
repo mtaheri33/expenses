@@ -2,6 +2,7 @@
 
 import CreateExpense from './pages/expenses/create/CreateExpense';
 import Expenses from './pages/expenses/Expenses';
+import UpdateExpense from './pages/expenses/id/UpdateExpense';
 import Index from './pages/index/Index';
 import InvalidPage from './pages/invalid-page/InvalidPage';
 import SignUp from './pages/sign-up/SignUp';
@@ -14,6 +15,7 @@ export default function App() {
       <Route path='/sign-up' element={<SignUp />} />
       <Route path='/expenses' element={<Expenses />} />
       <Route path='/expenses/create' element={<CreateExpense />} />
+      <Route path='/expenses/:expenseId' element={<UpdateExpense />} />
       <Route path='/*' element={<InvalidPage />} />
     </Routes>
   );

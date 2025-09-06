@@ -9,6 +9,7 @@
     border-radius: .5vw;
     font-size: 1vw;
     color: white;
+    z-index: 999;
 }
 
 .success {
