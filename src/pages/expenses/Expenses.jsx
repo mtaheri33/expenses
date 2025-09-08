@@ -8,13 +8,34 @@ import { PageMessageType } from '../../../constants';
 import styles from './Expenses.module.css';
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router';
-import { isAuthenticated, getRequest, deleteRequest } from '../../../utilities';
+import {
+  isAuthenticated,
+  getRequest,
+  deleteRequest,
+  sortExpensesByDate,
+  sortExpensesByDescription,
+  sortExpensesByAmount,
+} from '../../../utilities';
 
 export default function Expenses() {
   const navigate = useNavigate();
   const [isAuthenticatedState, setIsAuthenticatedState] = useState(null);
   const [expenses, setExpenses] = useState([]);
   const [pageMessageProperties, setPageMessageProperties] = useState({});
+
+  function sortExpenses(key, sortOrder) {
+    setExpenses((currentExpenses) => {
+      const currentExpensesCopy = [...currentExpenses];
+      if (key === 'date') {
+        sortExpensesByDate(currentExpensesCopy, sortOrder);
+      } else if (key === 'description') {
+        sortExpensesByDescription(currentExpensesCopy, sortOrder);
+      } else if (key === 'amount') {
+        sortExpensesByAmount(currentExpensesCopy, sortOrder);
+      }
+      return currentExpensesCopy;
+    });
+  }
 
   function handleDefaultResponse() {
     setPageMessageProperties({
@@ -116,7 +137,11 @@ export default function Expenses() {
         <div className={styles.addExpenseContainer}>
           <Link to='/expenses/create' className={styles.addExpenseLink}>Add Expense</Link>
         </div>
-        <ExpensesTable expenses={expenses} deleteExpenseFunction={deleteExpense} />
+        <ExpensesTable
+          expenses={expenses}
+          deleteExpenseFunction={deleteExpense}
+          sortExpensesFunction={sortExpenses}
+        />
       </main>
     </div>
   );
