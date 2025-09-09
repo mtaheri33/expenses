@@ -4,7 +4,11 @@ import Spinner from '../../../../components/spinner/Spinner';
 import { useState } from 'react';
 import { Link } from 'react-router';
 import styles from './UpdateExpenseForm.module.css';
-import { createHandleInputChangeFunction, patchRequest } from '../../../../../utilities';
+import {
+  createHandleInputChangeFunction,
+  patchRequest,
+  generateId,
+} from '../../../../../utilities';
 
 export default function UpdateExpenseForm({ expense }) {
   /*
@@ -22,37 +26,46 @@ export default function UpdateExpenseForm({ expense }) {
     date: expense.date ? expense.date : '',
     description: expense.description,
     amount: expense.amount === null ? '' : String(expense.amount),
-    categories: expense.categories,
+    categories: expense.categories.map((category) => {
+      return {
+        id: generateId(),
+        category,
+      };
+    }),
   });
   const handleInputChange = createHandleInputChangeFunction(setFormData);
-  function handleCategoryInputChange(event, index) {
+  function handleCategoryInputChange(event, categoryObjectId) {
     setFormData((currentFormData) => {
-      const currentFormDataCategoriesCopy = [...currentFormData.categories];
-      currentFormDataCategoriesCopy[index] = event.target.value;
       return {
         ...currentFormData,
-        categories: currentFormDataCategoriesCopy,
+        categories: currentFormData.categories.map((categoryObject) => {
+          if (categoryObject.id === categoryObjectId) {
+            return { ...categoryObject, category: event.target.value };
+          }
+          return categoryObject;
+        }),
       };
     });
   }
   const [bottomOfForm, setBottomOfForm] = useState(saveButton);
   const [submitMessage, setSubmitMessage] = useState('');
 
-  function removeCategoryInput(index) {
+  function removeCategoryInput(categoryObjectId) {
     setFormData((currentFormData) => {
       return {
         ...currentFormData,
-        categories: currentFormData.categories.filter((_, i) => i !== index),
+        categories: currentFormData.categories.filter((categoryObject) => {
+          return categoryObject.id !== categoryObjectId;
+        }),
       };
     });
   }
 
   function addCategoryInput() {
     setFormData((currentFormData) => {
-      const currentFormDataCategoriesCopy = [...currentFormData.categories, ''];
       return {
         ...currentFormData,
-        categories: currentFormDataCategoriesCopy,
+        categories: [...currentFormData.categories, { id: generateId(), category: '' }],
       };
     });
   }
@@ -85,7 +98,10 @@ export default function UpdateExpenseForm({ expense }) {
     setSubmitMessage('');
     const patchResponse = await patchRequest(
       `/api/expenses/${expense.id}`,
-      JSON.stringify(formData),
+      JSON.stringify({
+        ...formData,
+        categories: formData.categories.map((categoryObject) => categoryObject.category),
+      }),
       { 'Content-Type': 'application/json' },
       true,
     );
@@ -136,22 +152,22 @@ export default function UpdateExpenseForm({ expense }) {
         </div>
         <div className={styles.formGroup}>
           <div className={styles.categoriesDiv}>Categories:</div>
-          {formData.categories.map((category, index) => {
+          {formData.categories.map((categoryObject) => {
             return (
-              <div key={index}>
+              <div key={categoryObject.id}>
                 <input
                   type='text'
                   className={styles.formInputCategories}
-                  value={category}
-                  onChange={(event) => handleCategoryInputChange(event, index)}
-                  id={`updateExpenseCategory${index}`}
-                  name={`category${index}`}
+                  value={categoryObject.category}
+                  onChange={(event) => handleCategoryInputChange(event, categoryObject.id)}
+                  id={`updateExpenseCategory${categoryObject.id}`}
+                  name={`category${categoryObject.id}`}
                   autoComplete='off'
                 />
                 <button
                   type='button'
                   className={styles.removeCategoryButton}
-                  onClick={() => removeCategoryInput(index)}
+                  onClick={() => removeCategoryInput(categoryObject.id)}
                 >
                   x</button>
               </div>

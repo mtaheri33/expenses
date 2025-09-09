@@ -98,8 +98,8 @@ function checkAmountInput(amountInput) {
 }
 
 function checkCategoriesInput(categoriesInput) {
-  const filteredCategories = categoriesInput.filter((category) => category !== '');
-  return filteredCategories.map((category) => category.trim());
+  const trimmedCategories = categoriesInput.map((category) => category.trim());
+  return trimmedCategories.filter((category) => category !== '');
 }
 
 function formatDateForDisplay(date) {
@@ -181,6 +181,10 @@ function sortExpensesByAmount(expenses, sortOrder) {
   });
 }
 
+function generateId() {
+  return crypto.randomUUID();
+}
+
 export {
   createHandleInputChangeFunction,
   getRequest,
@@ -196,4 +200,5 @@ export {
   sortExpensesByDate,
   sortExpensesByDescription,
   sortExpensesByAmount,
+  generateId,
 };

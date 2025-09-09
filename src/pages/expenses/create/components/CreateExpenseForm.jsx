@@ -4,7 +4,11 @@ import Spinner from '../../../../components/spinner/Spinner';
 import styles from './CreateExpenseForm.module.css';
 import { useState } from 'react';
 import { Link } from 'react-router';
-import { createHandleInputChangeFunction, postRequest } from '../../../../../utilities';
+import {
+  createHandleInputChangeFunction,
+  postRequest,
+  generateId,
+} from '../../../../../utilities';
 
 export default function CreateExpenseForm() {
   const createButton = <button className={styles.createButton}>Create</button>;
@@ -13,37 +17,41 @@ export default function CreateExpenseForm() {
     date: '',
     description: '',
     amount: '',
-    categories: [''],
+    categories: [{ id: generateId(), category: '' }],
   });
   const handleInputChange = createHandleInputChangeFunction(setFormData);
-  function handleCategoryInputChange(event, index) {
+  function handleCategoryInputChange(event, categoryObjectId) {
     setFormData((currentFormData) => {
-      const currentFormDataCategoriesCopy = [...currentFormData.categories];
-      currentFormDataCategoriesCopy[index] = event.target.value;
       return {
         ...currentFormData,
-        categories: currentFormDataCategoriesCopy,
+        categories: currentFormData.categories.map((categoryObject) => {
+          if (categoryObject.id === categoryObjectId) {
+            return { ...categoryObject, category: event.target.value };
+          }
+          return categoryObject;
+        }),
       };
     });
   }
   const [bottomOfForm, setBottomOfForm] = useState(createButton);
   const [submitMessage, setSubmitMessage] = useState('');
 
-  function removeCategoryInput(index) {
+  function removeCategoryInput(categoryObjectId) {
     setFormData((currentFormData) => {
       return {
         ...currentFormData,
-        categories: currentFormData.categories.filter((_, i) => i !== index),
+        categories: currentFormData.categories.filter((categoryObject) => {
+          return categoryObject.id !== categoryObjectId;
+        }),
       };
     });
   }
 
   function addCategoryInput() {
     setFormData((currentFormData) => {
-      const currentFormDataCategoriesCopy = [...currentFormData.categories, ''];
       return {
         ...currentFormData,
-        categories: currentFormDataCategoriesCopy,
+        categories: [...currentFormData.categories, { id: generateId(), category: '' }],
       };
     });
   }
@@ -76,7 +84,10 @@ export default function CreateExpenseForm() {
     setSubmitMessage('');
     const postResponse = await postRequest(
       '/api/expenses',
-      JSON.stringify(formData),
+      JSON.stringify({
+        ...formData,
+        categories: formData.categories.map((categoryObject) => categoryObject.category),
+      }),
       { 'Content-Type': 'application/json' },
       true,
     );
@@ -136,22 +147,22 @@ export default function CreateExpenseForm() {
         </div>
         <div className={styles.formGroup}>
           <div className={styles.categoriesDiv}>Categories:</div>
-          {formData.categories.map((category, index) => {
+          {formData.categories.map((categoryObject) => {
             return (
-              <div key={index}>
+              <div key={categoryObject.id}>
                 <input
                   type='text'
                   className={styles.formInputCategories}
-                  value={category}
-                  onChange={(event) => handleCategoryInputChange(event, index)}
-                  id={`createExpenseCategory${index}`}
-                  name={`category${index}`}
+                  value={categoryObject.category}
+                  onChange={(event) => handleCategoryInputChange(event, categoryObject.id)}
+                  id={`createExpenseCategory${categoryObject.id}`}
+                  name={`category${categoryObject.id}`}
                   autoComplete='off'
                 />
                 <button
                   type='button'
                   className={styles.removeCategoryButton}
-                  onClick={() => removeCategoryInput(index)}
+                  onClick={() => removeCategoryInput(categoryObject.id)}
                 >
                   x</button>
               </div>
