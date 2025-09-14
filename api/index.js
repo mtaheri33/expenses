@@ -58,6 +58,8 @@ import signOutRouter from './routes/signOut.js';
 app.use('/api/sign-out', signOutRouter);
 import expensesRouter from './routes/expenses.js';
 app.use('/api/expenses', expensesRouter);
+import importRouter from './routes/import.js';
+app.use('/api/import', importRouter);
 
 app.use((req, res) => {
   res.status(404).send(`There is no route ${req.url} that supports a ${req.method} request.`);

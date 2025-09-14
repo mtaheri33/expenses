@@ -90,11 +90,11 @@ function checkAmountInput(amountInput) {
     return null;
   }
   const amount = Number(amountInput);
-  const amountRoundedToTwoDecimalPlaces = Math.floor(Math.abs(amount) * 100) / 100;
+  const amountRoundedDownToTwoDecimalPlaces = Math.floor(Math.abs(amount) * 100) / 100;
   if (amount < 0) {
-    return -1 * amountRoundedToTwoDecimalPlaces;
+    return -1 * amountRoundedDownToTwoDecimalPlaces;
   }
-  return amountRoundedToTwoDecimalPlaces;
+  return amountRoundedDownToTwoDecimalPlaces;
 }
 
 function checkCategoriesInput(categoriesInput) {
@@ -185,6 +185,65 @@ function generateId() {
   return crypto.randomUUID();
 }
 
+function parseImportRow(row) {
+  if (row === '') {
+    return;
+  }
+
+  const data = {};
+  let i = 0;
+
+  let date = '';
+  while (row[i] !== ',') {
+    date += row[i];
+    i += 1;
+  }
+  data.date = date;
+  i += 1;
+
+  let description = '';
+  let descriptionEndValue;
+  if (row[i] === '"') {
+    descriptionEndValue = '"';
+    i += 1;
+  } else {
+    descriptionEndValue = ',';
+  }
+  while (row[i] !== descriptionEndValue) {
+    description += row[i];
+    i += 1;
+  }
+  data.description = description;
+  if (descriptionEndValue === '"') {
+    i += 1;
+  }
+  i += 1;
+
+  let amount = '';
+  while (row[i] !== ',') {
+    amount += row[i];
+    i += 1;
+  }
+  data.amount = amount;
+  i += 1;
+
+  data.categories = row.substr(i).split(',');
+
+  return data;
+}
+
+function parseImportFileContents(fileContents) {
+  const parsedFileContents = [];
+  const rows = fileContents.split('\n');
+  for (let i = 1; i < rows.length; i += 1) {
+    const row = parseImportRow(rows[i]);
+    if (row) {
+      parsedFileContents.push(row);
+    }
+  }
+  return parsedFileContents;
+}
+
 export {
   createHandleInputChangeFunction,
   getRequest,
@@ -201,4 +260,5 @@ export {
   sortExpensesByDescription,
   sortExpensesByAmount,
   generateId,
+  parseImportFileContents,
 };

@@ -39,6 +39,7 @@ export default function HomeGrid({ setPageMessageProperties }) {
     <div className={`HomeGrid ${styles.grid}`}>
       <div className={styles.row}>
         <Link to='/expenses' className={styles.col}>Expenses</Link>
+        <Link to='/import' className={styles.col}>Import</Link>
         <button
           onClick={signOut}
           className={`${styles.col} ${styles.signOutButton}`}
