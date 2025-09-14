@@ -1,10 +1,10 @@
-// This is an expenses table component for the expenses page.
+// This is a component for an expenses table.
 
-import { SortOrder, SortOrderCharacter } from '../../../../constants';
+import { SortOrder, SortOrderCharacter } from '../../../constants';
 import styles from './ExpensesTable.module.css';
 import { useState } from 'react';
 import { Link } from 'react-router';
-import { formatDateForDisplay, formatAmountForDisplay } from '../../../../utilities';
+import { formatDateForDisplay, formatAmountForDisplay } from '../../../utilities';
 
 export default function ExpensesTable({ expenses, deleteExpenseFunction, sortExpensesFunction }) {
   /*

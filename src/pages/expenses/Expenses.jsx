@@ -1,6 +1,6 @@
 // This is the component for the /expenses page.
 
-import ExpensesTable from './components/ExpensesTable';
+import ExpensesTable from '../../components/expenses-table/ExpensesTable';
 import Navbar from '../../components/navbar/Navbar';
 import PageLoading from '../../components/page-loading/PageLoading';
 import PageMessage from '../../components/page-message/PageMessage';
@@ -139,7 +139,7 @@ export default function Expenses() {
         </div>
         <ExpensesTable
           expenses={expenses}
-          deleteExpenseFunction={deleteExpense}
+          // deleteExpenseFunction={deleteExpense}
           sortExpensesFunction={sortExpenses}
         />
       </main>
