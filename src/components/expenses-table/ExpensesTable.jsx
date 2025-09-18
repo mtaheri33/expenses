@@ -6,7 +6,12 @@ import { useState } from 'react';
 import { Link } from 'react-router';
 import { formatDateForDisplay, formatAmountForDisplay } from '../../../utilities';
 
-export default function ExpensesTable({ expenses, deleteExpenseFunction, sortExpensesFunction }) {
+export default function ExpensesTable({
+  expenses,
+  showButtons,
+  deleteExpenseFunction,
+  sortExpensesFunction,
+}) {
   /*
   expenses required array [object {
     id required string,
@@ -15,8 +20,9 @@ export default function ExpensesTable({ expenses, deleteExpenseFunction, sortExp
     amount required (nullable) number,
     categories required array [string],
   }]
-  deleteExpenseFunction required function(string)
-  sortExpensesFunction required function(string, SortOrder constant)
+  showButtons optional boolean
+  deleteExpenseFunction required if showButtons is true function(string)
+  sortExpensesFunction optional function(string, SortOrder constant)
   */
   const [dateSortOrder, setDateSortOrder] = useState('');
   const [descriptionSortOrder, setDescriptionSortOrder] = useState('');
@@ -61,56 +67,94 @@ export default function ExpensesTable({ expenses, deleteExpenseFunction, sortExp
   return (
     <table className={`ExpensesTable ${styles.ExpensesTable}`}>
       <thead>
-        <tr>
-          <th className={`${styles.th} ${styles.thSortable}`} onClick={sortByDate}>
+        <tr className={styles.theadTr}>
+          <th
+            className={
+              `${styles.th} ${styles.dateCol}`
+              + `${sortExpensesFunction ? ' ' + styles.thSortable : ''}`
+            }
+            onClick={sortExpensesFunction ? sortByDate : undefined}
+          >
             Date
             {dateSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : null}
             {dateSortOrder === SortOrder.DESC ? SortOrderCharacter.DESC : null}
           </th>
-          <th className={`${styles.th} ${styles.thSortable}`} onClick={sortByDescription}>
+          <th
+            className={
+              `${styles.th} ${styles.descriptionCol}`
+              + `${sortExpensesFunction ? ' ' + styles.thSortable : ''}`
+            }
+            onClick={sortExpensesFunction ? sortByDescription : undefined}
+          >
             Description
             {descriptionSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : null}
             {descriptionSortOrder === SortOrder.DESC ? SortOrderCharacter.DESC : null}
           </th>
-          <th className={`${styles.th} ${styles.thSortable}`} onClick={sortByAmount}>
+          <th
+            className={
+              `${styles.th} ${styles.amountCol}`
+              + `${sortExpensesFunction ? ' ' + styles.thSortable : ''}`
+            }
+            onClick={sortExpensesFunction ? sortByAmount : undefined}
+          >
             Amount
             {amountSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : null}
             {amountSortOrder === SortOrder.DESC ? SortOrderCharacter.DESC : null}
           </th>
-          <th className={styles.th}>Categories</th>
-          <th className={styles.th}></th>
-          <th className={styles.th}></th>
+          <th
+            className={
+              `${styles.th} `
+              + `${showButtons ? styles.categoriesColNarrower : styles.categoriesColWider}`
+            }
+          >
+            Categories
+          </th>
+          {showButtons ? <th className={`${styles.th} ${styles.buttonCol}`}></th> : null}
+          {showButtons ? <th className={`${styles.th} ${styles.buttonCol}`}></th> : null}
         </tr>
       </thead>
       <tbody>
         {expenses.map((expense) => {
           return (
             <tr key={expense.id} className={styles.tbodyTr}>
-              <td className={styles.td}>{formatDateForDisplay(expense.date)}</td>
-              <td className={styles.td}>
+              <td className={`${styles.td} ${styles.dateCol}`}>
+                {formatDateForDisplay(expense.date)}
+              </td>
+              <td className={`${styles.td} ${styles.descriptionCol}`}>
                 <span title={expense.description}>{expense.description}</span>
               </td>
-              <td className={styles.td}>
+              <td className={`${styles.td} ${styles.amountCol}`}>
                 <span title={formatAmountForDisplay(expense.amount)}>
                   {formatAmountForDisplay(expense.amount)}
                 </span>
               </td>
-              <td className={styles.td}>
+              <td
+                className={
+                  `${styles.td} `
+                  + `${showButtons ? styles.categoriesColNarrower : styles.categoriesColWider}`
+                }
+              >
                 <span title={expense.categories.join(' | ')}>
                   {expense.categories.join(' | ')}
                 </span>
               </td>
-              <td className={styles.tdButton}>
-                <Link to={`/expenses/${expense.id}`} className={styles.editLink}>Edit</Link>
-              </td>
-              <td className={styles.tdButton}>
-                <button
-                  className={styles.deleteButton}
-                  onClick={() => deleteExpenseFunction(expense.id)}
-                >
-                  Delete
-                </button>
-              </td>
+              {showButtons ?
+                <td className={`${styles.td} ${styles.buttonCol}`}>
+                  <Link to={`/expenses/${expense.id}`} className={styles.editLink}>Edit</Link>
+                </td>
+                : null
+              }
+              {showButtons ?
+                <td className={`${styles.td} ${styles.buttonCol}`}>
+                  <button
+                    className={styles.deleteButton}
+                    onClick={() => deleteExpenseFunction(expense.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+                : null
+              }
             </tr>
           );
         })}

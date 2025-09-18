@@ -9,16 +9,50 @@
     font-size: 1vw;
 }
 
-.th {
-    text-align: left;
+.theadTr {
     position: sticky;
     top: var(--navbar-height);
     background-color: var(--page-background-color);
 }
 
+.th {
+    text-align: left;
+}
+
+.th,
+.td {
+    height: 2vw;
+    border-bottom: .1vw solid lightgrey;
+}
+
 .thSortable:hover {
     cursor: pointer;
     text-decoration: underline;
+}
+
+.dateCol {
+    width: 7%;
+}
+
+.descriptionCol {
+    width: 28%;
+}
+
+.amountCol {
+    width: 7%;
+}
+
+.categoriesColNarrower {
+    width: 48%;
+}
+
+.categoriesColWider {
+    width: 58%;
+}
+
+.buttonCol {
+    width: 5%;
+    text-align: center;
 }
 
 .tbodyTr:hover {
@@ -29,38 +63,6 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-}
-
-.tdButton,
-.th,
-.td {
-    height: 2vw;
-    border-bottom: .1vw solid lightgrey;
-}
-
-.th:nth-child(1),
-.td:nth-child(1) {
-    width: 7%;
-}
-
-.th:nth-child(2),
-.td:nth-child(2) {
-    width: 28%;
-}
-
-.th:nth-child(3),
-.td:nth-child(3) {
-    width: 7%;
-}
-
-.th:nth-child(4),
-.td:nth-child(4) {
-    width: 48%;
-}
-
-.tdButton {
-    width: 5%;
-    text-align: center;
 }
 
 .editLink {

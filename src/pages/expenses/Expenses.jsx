@@ -139,6 +139,7 @@ export default function Expenses() {
         </div>
         <ExpensesTable
           expenses={expenses}
+          showButtons={true}
           deleteExpenseFunction={deleteExpense}
           sortExpensesFunction={sortExpenses}
         />
