@@ -1,0 +1,14 @@
+/* These are styles for the ImportPage component. */
+
+.main {
+    margin-left: 1vw;
+}
+
+.h1 {
+    font-size: 3vw;
+}
+
+.message {
+    margin-top: .5vw;
+    font-size: 1vw;
+}

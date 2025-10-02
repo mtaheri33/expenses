@@ -23,15 +23,33 @@ expenseSchema.methods.convertToJSONObject = function () {
     categories: this.categories,
   };
 };
+expenseSchema.methods.valid = function () {
+  const keys = Object.keys(this.toObject());
+  return (
+    keys.includes('date')
+    && keys.includes('description')
+    && keys.includes('amount')
+    && keys.includes('categories')
+    && keys.includes('user')
+  );
+};
 const Expense = mongoose.model('Expense', expenseSchema);
 
-async function create(date, description, amount, categories, userId) {
+function create(date, description, amount, categories, userId) {
   /*
   date should be a string in the format YYYY-MM-DD.  For single digit months or days, it should
   start with 0.
   */
-  const expense = new Expense({ date, description, amount, categories, user: userId });
+  return new Expense({ date, description, amount, categories, user: userId });
+}
+
+async function createWithSave(date, description, amount, categories, userId) {
+  const expense = create(date, description, amount, categories, userId);
   return await expense.save();
+}
+
+function createWithoutSave(date, description, amount, categories, userId) {
+  return create(date, description, amount, categories, userId);
 }
 
 async function readByUser(user) {
@@ -62,7 +80,8 @@ async function deleteExpense(id) {
 };
 
 export default {
-  create,
+  createWithSave,
+  createWithoutSave,
   readByUser,
   readById,
   expenseBelongsToUser,

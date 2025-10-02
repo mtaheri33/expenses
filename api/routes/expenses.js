@@ -12,7 +12,7 @@ router.post('/', async (req, res, next) => {
       return res.status(401).send();
     }
     const { date, description, amount, categories } = req.body;
-    const expense = await expenses.create(
+    const expense = await expenses.createWithSave(
       date,
       checkStringInput(description),
       checkAmountInput(amount),

@@ -26,6 +26,7 @@ export default function PageMessage({ type, message, displayTime }) {
     // navigates away from the page.  If those scenarios happen and the timeout is not cancelled,
     // it will cause issues.
     return () => {
+      setDisplayMessage(false);
       clearTimeout(timer);
     };
   }, [message]);

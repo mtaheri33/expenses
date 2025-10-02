@@ -186,7 +186,7 @@ function generateId() {
 }
 
 function parseImportRow(row) {
-  if (row === '') {
+  if (row.split(',').length < 4) {
     return;
   }
 
@@ -194,7 +194,7 @@ function parseImportRow(row) {
   let i = 0;
 
   let date = '';
-  while (row[i] !== ',') {
+  while (row[i] !== ',' && i < row.length) {
     date += row[i];
     i += 1;
   }
@@ -209,7 +209,7 @@ function parseImportRow(row) {
   } else {
     descriptionEndValue = ',';
   }
-  while (row[i] !== descriptionEndValue) {
+  while (row[i] !== descriptionEndValue && i < row.length) {
     description += row[i];
     i += 1;
   }
@@ -220,7 +220,7 @@ function parseImportRow(row) {
   i += 1;
 
   let amount = '';
-  while (row[i] !== ',') {
+  while (row[i] !== ',' && i < row.length) {
     amount += row[i];
     i += 1;
   }
@@ -239,6 +239,8 @@ function parseImportFileContents(fileContents) {
     const row = parseImportRow(rows[i]);
     if (row) {
       parsedFileContents.push(row);
+    } else {
+      return i + 1;
     }
   }
   return parsedFileContents;

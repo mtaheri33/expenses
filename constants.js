@@ -15,8 +15,14 @@ const SortOrderCharacter = {
   DESC: '\u2193',
 };
 
+const ImportMode = {
+  PREVIEW: 'preview',
+  SAVE: 'save',
+};
+
 export {
   PageMessageType,
   SortOrder,
   SortOrderCharacter,
+  ImportMode,
 };

@@ -1,0 +1,25 @@
+/* These are styles for the ImportFileInput component. */
+
+.fileInputContainer {
+    font-size: 1.5vw;
+    margin-bottom: 1vw;
+}
+
+.fileInputLabel {
+    cursor: pointer;
+    margin-right: 1vw;
+}
+
+.fileInputLabel:hover {
+    text-decoration: underline;
+}
+
+.fileInput {
+    display: none;
+}
+
+.spinner {
+    width: 1.25vw;
+    padding: .2vw;
+    margin-left: 3.5vw;
+}
