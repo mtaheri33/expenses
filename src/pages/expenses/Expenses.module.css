@@ -1,5 +1,9 @@
 /* These are styles for the Expenses component. */
 
+.main {
+    padding-bottom: 5vw;
+}
+
 .addExpenseContainer {
     margin: 1vw 0 1vw 1vw;
 }

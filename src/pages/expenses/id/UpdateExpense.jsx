@@ -2,9 +2,8 @@
 
 import Navbar from '../../../components/navbar/Navbar';
 import PageLoading from '../../../components/page-loading/PageLoading';
-import PageMessage from '../../../components/page-message/PageMessage';
 import UpdateExpenseForm from './components/UpdateExpenseForm';
-import { PageMessageType } from '../../../../constants';
+import ErrorPage from '../../error-page/ErrorPage';
 import InvalidPage from '../../invalid-page/InvalidPage';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
@@ -17,14 +16,9 @@ export default function UpdateExpense() {
   const [isAuthenticatedState, setIsAuthenticatedState] = useState(null);
   const [validExpense, setValidExpense] = useState(null);
   const [expense, setExpense] = useState({});
-  const [pageMessageProperties, setPageMessageProperties] = useState({});
 
   function handleDefaultResponse() {
-    setPageMessageProperties({
-      type: PageMessageType.FAILURE,
-      message: <span>Sorry, an error occurred. Please try again later.</span>,
-      displayTime: 3000,
-    });
+    setValidExpense(null);
   }
 
   function handleExpenses404Response() {
@@ -79,6 +73,9 @@ export default function UpdateExpense() {
   if (isAuthenticatedState === null) {
     return <PageLoading />;
   }
+  if (validExpense === null) {
+    return <ErrorPage />;
+  }
   if (validExpense === false) {
     return <InvalidPage />;
   }
@@ -86,11 +83,6 @@ export default function UpdateExpense() {
     <div className='UpdateExpense'>
       <Navbar />
       <main>
-        <PageMessage
-          type={pageMessageProperties.type}
-          message={pageMessageProperties.message}
-          displayTime={pageMessageProperties.displayTime}
-        />
         <UpdateExpenseForm expense={expense} />
       </main>
     </div>

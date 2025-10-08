@@ -128,7 +128,7 @@ export default function Expenses() {
   return (
     <div className='Expenses'>
       <Navbar />
-      <main>
+      <main className={styles.main}>
         <PageMessage
           type={pageMessageProperties.type}
           message={pageMessageProperties.message}
