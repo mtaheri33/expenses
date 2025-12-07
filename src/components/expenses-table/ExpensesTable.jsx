@@ -1,8 +1,7 @@
 // This is a component for an expenses table.
 
-import { SortOrder, SortOrderCharacter } from '../../../constants';
+import { ExpenseSortProperty, SortOrder, SortOrderCharacter } from '../../../constants';
 import styles from './ExpensesTable.module.css';
-import { useState } from 'react';
 import { Link } from 'react-router';
 import { formatDateForDisplay, formatAmountForDisplay } from '../../../utilities';
 
@@ -11,6 +10,8 @@ export default function ExpensesTable({
   showButtons,
   deleteExpenseFunction,
   sortExpensesFunction,
+  tableSortProperty,
+  tableSortOrder,
 }) {
   /*
   expenses required array [object {
@@ -22,46 +23,30 @@ export default function ExpensesTable({
   }]
   showButtons optional boolean
   deleteExpenseFunction required if showButtons is true function(string)
-  sortExpensesFunction optional function(string, SortOrder constant)
+  sortExpensesFunction optional function(ExpenseSortProperty constant, SortOrder constant)
+  tableSortProperty required if sortExpensesFunction is given ExpenseSortProperty constant
+  tableSortOrder required if sortExpensesFunction is given SortOrder constant
   */
-  const [dateSortOrder, setDateSortOrder] = useState('');
-  const [descriptionSortOrder, setDescriptionSortOrder] = useState('');
-  const [amountSortOrder, setAmountSortOrder] = useState('');
+  function sortExpenses(sortProperty) {
+    let sortOrder;
+    if (sortProperty === tableSortProperty && tableSortOrder === SortOrder.DESC) {
+      sortOrder = SortOrder.ASC;
+    } else {
+      sortOrder = SortOrder.DESC;
+    }
+    sortExpensesFunction(sortProperty, sortOrder);
+  }
 
   function sortByDate() {
-    if (dateSortOrder === '' || dateSortOrder === SortOrder.DESC) {
-      sortExpensesFunction('date', SortOrder.ASC);
-      setDateSortOrder(SortOrder.ASC);
-    } else {
-      sortExpensesFunction('date', SortOrder.DESC);
-      setDateSortOrder(SortOrder.DESC);
-    }
-    setDescriptionSortOrder('');
-    setAmountSortOrder('');
+    sortExpenses(ExpenseSortProperty.DATE);
   }
 
   function sortByDescription() {
-    if (descriptionSortOrder === '' || descriptionSortOrder === SortOrder.DESC) {
-      sortExpensesFunction('description', SortOrder.ASC);
-      setDescriptionSortOrder(SortOrder.ASC);
-    } else {
-      sortExpensesFunction('description', SortOrder.DESC);
-      setDescriptionSortOrder(SortOrder.DESC);
-    }
-    setDateSortOrder('');
-    setAmountSortOrder('');
+    sortExpenses(ExpenseSortProperty.DESCRIPTION);
   }
 
   function sortByAmount() {
-    if (amountSortOrder === '' || amountSortOrder === SortOrder.DESC) {
-      sortExpensesFunction('amount', SortOrder.ASC);
-      setAmountSortOrder(SortOrder.ASC);
-    } else {
-      sortExpensesFunction('amount', SortOrder.DESC);
-      setAmountSortOrder(SortOrder.DESC);
-    }
-    setDateSortOrder('');
-    setDescriptionSortOrder('');
+    sortExpenses(ExpenseSortProperty.AMOUNT);
   }
 
   return (
@@ -76,8 +61,10 @@ export default function ExpensesTable({
             onClick={sortExpensesFunction ? sortByDate : undefined}
           >
             Date
-            {dateSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : null}
-            {dateSortOrder === SortOrder.DESC ? SortOrderCharacter.DESC : null}
+            {sortExpensesFunction && tableSortProperty === ExpenseSortProperty.DATE ?
+              tableSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : SortOrderCharacter.DESC
+              : null
+            }
           </th>
           <th
             className={
@@ -87,8 +74,10 @@ export default function ExpensesTable({
             onClick={sortExpensesFunction ? sortByDescription : undefined}
           >
             Description
-            {descriptionSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : null}
-            {descriptionSortOrder === SortOrder.DESC ? SortOrderCharacter.DESC : null}
+            {sortExpensesFunction && tableSortProperty === ExpenseSortProperty.DESCRIPTION ?
+              tableSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : SortOrderCharacter.DESC
+              : null
+            }
           </th>
           <th
             className={
@@ -98,8 +87,10 @@ export default function ExpensesTable({
             onClick={sortExpensesFunction ? sortByAmount : undefined}
           >
             Amount
-            {amountSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : null}
-            {amountSortOrder === SortOrder.DESC ? SortOrderCharacter.DESC : null}
+            {sortExpensesFunction && tableSortProperty === ExpenseSortProperty.AMOUNT ?
+              tableSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : SortOrderCharacter.DESC
+              : null
+            }
           </th>
           <th
             className={

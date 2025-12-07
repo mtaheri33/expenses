@@ -5,6 +5,12 @@ const PageMessageType = {
   FAILURE: 'failure',
 };
 
+const ExpenseSortProperty = {
+  DATE: 'date',
+  DESCRIPTION: 'description',
+  AMOUNT: 'amount',
+};
+
 const SortOrder = {
   ASC: 'ascending',
   DESC: 'descending',
@@ -22,6 +28,7 @@ const ImportMode = {
 
 export {
   PageMessageType,
+  ExpenseSortProperty,
   SortOrder,
   SortOrderCharacter,
   ImportMode,

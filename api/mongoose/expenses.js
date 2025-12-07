@@ -1,5 +1,6 @@
 // This is for the expenses MongoDB collection.
 
+import { ExpenseSortProperty, SortOrder } from '../../constants.js';
 import mongoose from 'mongoose';
 
 const expenseSchema = new mongoose.Schema({
@@ -14,6 +15,19 @@ const expenseSchema = new mongoose.Schema({
     index: true,
   },
 });
+// This creates compound indexes.  It first finds expenses belonging to the specified user.  The
+// sign can be positive or negative.  It then orders the expenses by property descending, since the
+// sign is negative.  In the query it can still order them by property ascending by using 1 in the
+// sort, but since descending order is the default then in this definition use negative.  Finally,
+// if expenses have the same value for the property it orders them by id.  The sign should match
+// the sign for the property.
+expenseSchema.index({ user: 1, date: -1, _id: -1 });
+expenseSchema.index(
+  { user: 1, description: -1, _id: -1 },
+  // This compares descriptions case-insensitive.
+  { collation: { locale: 'en', strength: 2 } },
+);
+expenseSchema.index({ user: 1, amount: -1, _id: -1 });
 expenseSchema.methods.convertToJSONObject = function () {
   return {
     id: this._id.toString(),
@@ -52,10 +66,6 @@ function createWithoutSave(date, description, amount, categories, userId) {
   return create(date, description, amount, categories, userId);
 }
 
-async function readByUser(user) {
-  return await Expense.find({ user: user._id });
-};
-
 async function readById(id) {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return null;
@@ -66,6 +76,39 @@ async function readById(id) {
   }
   return null;
 };
+
+async function readByUser(userId, sortProperty, sortOrder, lastExpenseId, limit) {
+  const filter = { user: userId };
+  const dir = sortOrder === SortOrder.ASC ? 1 : -1;
+  const sort = { [sortProperty]: dir, _id: dir };
+  const cmp = dir === 1 ? '$gt' : '$lt';
+  if (lastExpenseId && mongoose.Types.ObjectId.isValid(lastExpenseId)) {
+    const anchor = await Expense.findOne({ _id: lastExpenseId, user: userId })
+      .select({ [sortProperty]: 1, _id: 1 });
+    if (anchor) {
+      const anchorPropertyValue = anchor[sortProperty];
+      const anchorId = anchor._id;
+      // This makes the query get all expenses that come after the anchor (given last expense).
+      // The first or condition gets expenses with property values greater/less than the anchor's
+      // property value.  The second or condition gets expenses with property values equal to the
+      // anchor's property value.  For these expenses, it uses the ids to determine which ones come
+      // after the anchor.
+      filter.$or = [
+        { [sortProperty]: { [cmp]: anchorPropertyValue } },
+        { [sortProperty]: anchorPropertyValue, _id: { [cmp]: anchorId } },
+      ];
+    }
+  }
+
+  const query = Expense.find(filter);
+  if (sortProperty === ExpenseSortProperty.DESCRIPTION) {
+    query.collation({ locale: 'en', strength: 2 });
+  }
+  const pageExpensesPlusNext = await query.sort(sort).limit(limit + 1);
+  const hasMore = pageExpensesPlusNext.length > limit;
+  const pageExpenses = hasMore ? pageExpensesPlusNext.slice(0, limit) : pageExpensesPlusNext;
+  return { pageExpenses, hasMore };
+}
 
 function expenseBelongsToUser(expense, user) {
   return expense.user.equals(user._id);
@@ -82,8 +125,8 @@ async function deleteExpense(id) {
 export default {
   createWithSave,
   createWithoutSave,
-  readByUser,
   readById,
+  readByUser,
   expenseBelongsToUser,
   update,
   deleteExpense,

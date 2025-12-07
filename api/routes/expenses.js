@@ -1,5 +1,6 @@
 // This handles requests for the /api/expenses resource.
 
+import { ExpenseSortProperty, SortOrder } from '../../constants.js';
 import express from 'express';
 import expenses from '../mongoose/expenses.js';
 import { checkStringInput, checkAmountInput, checkCategoriesInput } from '../../utilities.js';
@@ -30,8 +31,21 @@ router.get('/', async (req, res, next) => {
     if (!req.user) {
       return res.status(401).send();
     }
-    const userExpenses = await expenses.readByUser(req.user);
-    return res.status(200).json(userExpenses.map((expense) => expense.convertToJSONObject()));
+    const sortProperty = (
+      Object.values(ExpenseSortProperty).includes(req.query.sortProperty) ?
+        req.query.sortProperty : ExpenseSortProperty.DATE
+    );
+    const sortOrder = (
+      Object.values(SortOrder).includes(req.query.sortOrder) ?
+        req.query.sortOrder : SortOrder.DESC
+    );
+    const lastExpenseId = req.query.lastExpenseId === 'null' ? null : req.query.lastExpenseId;
+    const limit = 100;
+    const results = await expenses.readByUser(req.user._id, sortProperty, sortOrder, lastExpenseId, limit);
+    return res.status(200).json({
+      pageExpenses: results.pageExpenses.map((expense) => expense.convertToJSONObject()),
+      hasMore: results.hasMore,
+    });
   } catch (error) {
     next(error);
   }

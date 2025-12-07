@@ -1,7 +1,5 @@
 // This contains code used throughout the files.
 
-import { SortOrder } from './constants.js';
-
 const numberFormatter = new Intl.NumberFormat('en-US');
 
 function createHandleInputChangeFunction(setStateFunction) {
@@ -121,66 +119,6 @@ function formatAmountForDisplay(amount) {
   return numberFormatter.format(amount);
 }
 
-function sortExpensesByDate(expenses, sortOrder) {
-  expenses.sort((a, b) => {
-    if (!a.date && !b.date) {
-      return 0;
-    }
-    if (!a.date) {
-      return 1;
-    }
-    if (!b.date) {
-      return -1;
-    }
-    const aDate = new Date(a.date);
-    const bDate = new Date(b.date);
-    if (sortOrder === SortOrder.ASC) {
-      return aDate - bDate;
-    }
-    return bDate - aDate;
-  });
-}
-
-function sortExpensesByDescription(expenses, sortOrder) {
-  expenses.sort((a, b) => {
-    if (!a.description && !b.description) {
-      return 0;
-    }
-    if (!a.description) {
-      return 1;
-    }
-    if (!b.description) {
-      return -1;
-    }
-    const aDescription = a.description.toLowerCase();
-    const bDescription = b.description.toLowerCase();
-    if (sortOrder === SortOrder.ASC) {
-      return aDescription.localeCompare(bDescription);
-    }
-    return bDescription.localeCompare(aDescription);
-  });
-}
-
-function sortExpensesByAmount(expenses, sortOrder) {
-  expenses.sort((a, b) => {
-    const aNull = a.amount === null;
-    const bNull = b.amount === null;
-    if (aNull && bNull) {
-      return 0;
-    }
-    if (aNull) {
-      return 1;
-    }
-    if (bNull) {
-      return -1;
-    }
-    if (sortOrder === SortOrder.ASC) {
-      return a.amount - b.amount;
-    }
-    return b.amount - a.amount;
-  });
-}
-
 function generateId() {
   return crypto.randomUUID();
 }
@@ -258,9 +196,6 @@ export {
   checkCategoriesInput,
   formatDateForDisplay,
   formatAmountForDisplay,
-  sortExpensesByDate,
-  sortExpensesByDescription,
-  sortExpensesByAmount,
   generateId,
   parseImportFileContents,
 };
