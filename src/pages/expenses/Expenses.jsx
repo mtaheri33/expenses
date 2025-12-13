@@ -23,6 +23,7 @@ export default function Expenses() {
   const [tableSortOrder, setTableSortOrder] = useState(SortOrder.DESC);
   const [hasMoreExpenses, setHasMoreExpenses] = useState(null);
   const [loadingMoreExpenses, setLoadingMoreExpenses] = useState(false);
+  const [changingSort, setChangingSort] = useState(false);
 
   function handleDefaultResponse() {
     setPageMessageProperties({
@@ -120,11 +121,12 @@ export default function Expenses() {
   }, []);
 
   async function sortExpenses(sortProperty, sortOrder) {
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    setChangingSort(true);
     const response = await getExpenses(sortProperty, sortOrder);
     await handleExpensesResponse(response, true);
     setTableSortProperty(sortProperty);
     setTableSortOrder(sortOrder);
+    setChangingSort(false);
   }
 
   async function getMoreExpenses() {
@@ -180,7 +182,7 @@ export default function Expenses() {
     tableSortOrder,
   ]);
 
-  if (isAuthenticatedState === null) {
+  if (isAuthenticatedState === null || changingSort) {
     return <PageLoading />;
   }
   return (
