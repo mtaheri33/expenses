@@ -4,6 +4,7 @@ import ExpensesTable from '../../components/expenses-table/ExpensesTable';
 import Navbar from '../../components/navbar/Navbar';
 import PageLoading from '../../components/page-loading/PageLoading';
 import PageMessage from '../../components/page-message/PageMessage';
+import Spinner from '../../components/spinner/Spinner';
 import { PageMessageType, ExpenseSortProperty, SortOrder } from '../../../constants';
 import styles from './Expenses.module.css';
 import { useState, useEffect, useRef } from 'react';
@@ -203,7 +204,7 @@ export default function Expenses() {
           tableSortOrder={tableSortOrder}
         />
         {hasMoreExpenses ? <div ref={sentinelRef} className={styles.sentinelRefDiv}></div> : null}
-        {loadingMoreExpenses ? <div>Loading more expenses...</div> : null}
+        {loadingMoreExpenses ? <Spinner styleClass={styles.loadingMoreExpensesSpinner} /> : null}
       </main>
     </div>
   );
