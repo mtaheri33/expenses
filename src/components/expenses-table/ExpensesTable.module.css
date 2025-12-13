@@ -19,9 +19,18 @@
     text-align: left;
 }
 
+.tfootTd {
+    font-weight: bold;
+}
+
+.th,
+.td,
+.tfootTd {
+    height: 2vw;
+}
+
 .th,
 .td {
-    height: 2vw;
     border-bottom: .1vw solid lightgrey;
 }
 
@@ -59,7 +68,8 @@
     background-color: white;
 }
 
-.td {
+.td,
+.tfootTd {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

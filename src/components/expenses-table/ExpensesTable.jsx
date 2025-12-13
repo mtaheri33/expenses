@@ -27,6 +27,10 @@ export default function ExpensesTable({
   tableSortProperty required if sortExpensesFunction is given ExpenseSortProperty constant
   tableSortOrder required if sortExpensesFunction is given SortOrder constant
   */
+  const expensesTotal = expenses.reduce((sum, expense) => {
+    return sum + (expense.amount !== null ? expense.amount : 0)
+  }, 0);
+
   function sortExpenses(sortProperty) {
     let sortOrder;
     if (sortProperty === tableSortProperty && tableSortOrder === SortOrder.DESC) {
@@ -150,6 +154,25 @@ export default function ExpensesTable({
           );
         })}
       </tbody>
+      <tfoot>
+        <tr>
+          <td className={`${styles.tfootTd} ${styles.dateCol}`}></td>
+          <td className={`${styles.tfootTd} ${styles.descriptionCol}`}>Total</td>
+          <td className={`${styles.tfootTd} ${styles.amountCol}`}>
+            <span title={formatAmountForDisplay(expensesTotal)}>
+              {formatAmountForDisplay(expensesTotal)}
+            </span>
+          </td>
+          <td
+            className={
+              `${styles.tfootTd} `
+              + `${showButtons ? styles.categoriesColNarrower : styles.categoriesColWider}`
+            }
+          ></td>
+          {showButtons ? <td className={`${styles.tfootTd} ${styles.buttonCol}`}></td> : null}
+          {showButtons ? <td className={`${styles.tfootTd} ${styles.buttonCol}`}></td> : null}
+        </tr>
+      </tfoot>
     </table>
   );
 }
