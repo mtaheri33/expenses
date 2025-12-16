@@ -1,6 +1,7 @@
 // This is the component for the /import page.
 
 import ImportFileInput from './components/ImportFileInput';
+import ImportInstructions from './components/ImportInstructions';
 import ImportPreview from './components/ImportPreview';
 import Navbar from '../../components/navbar/Navbar';
 import PageLoading from '../../components/page-loading/PageLoading';
@@ -36,6 +37,7 @@ export default function ImportPage() {
       <Navbar />
       <main className={styles.main}>
         <h1 className={styles.h1}>Import</h1>
+        <ImportInstructions />
         <ImportFileInput
           setFileContents={setFileContents}
           setPreviewExpenses={setPreviewExpenses}

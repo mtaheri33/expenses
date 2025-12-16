@@ -1,0 +1,24 @@
+/* These are styles for the ImportInstructions component. */
+
+.ImportInstructions {
+    margin-bottom: 2vw;
+    font-size: 1.25vw
+}
+
+.h2 {
+    font-size: 2vw;
+    margin-bottom: 0;
+}
+
+.ul {
+    list-style-position: inside;
+}
+
+.exampleContainer {
+    margin-top: .5vw;
+}
+
+.pre {
+    font-family: var(--font-family);
+    margin: .5vw 0 0 0;
+}
