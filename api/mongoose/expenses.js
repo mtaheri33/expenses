@@ -84,6 +84,7 @@ async function readByUser(
   lastExpenseId,
   fromDate,
   toDate,
+  regexDescription,
   limit,
 ) {
   const filter = { user: userId };
@@ -95,6 +96,9 @@ async function readByUser(
     if (toDate) {
       filter.date.$lte = new Date(toDate + 'T23:59:59.999Z');
     }
+  }
+  if (regexDescription) {
+    filter.description = { $regex: regexDescription, $options: 'i' };
   }
   const dir = sortOrder === SortOrder.ASC ? 1 : -1;
   const sort = { [sortProperty]: dir, _id: dir };

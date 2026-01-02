@@ -34,10 +34,12 @@ export default function Expenses() {
   const [searchFormDataForReq, setSearchFormDataForReq] = useState({
     fromDate: '',
     toDate: '',
+    description: '',
   });
   const [currentSearchFormData, setCurrentSearchFormData] = useState({
     fromDate: '',
     toDate: '',
+    description: '',
   });
   const handleSearchFormInputChange = createHandleInputChangeFunction(setCurrentSearchFormData);
 
@@ -113,6 +115,7 @@ export default function Expenses() {
       + `&lastExpenseId=${lastExpenseId}`
       + `&fromDate=${encodeURIComponent(searchFormData.fromDate)}`
       + `&toDate=${encodeURIComponent(searchFormData.toDate)}`
+      + `&description=${encodeURIComponent(searchFormData.description)}`
     );
     const expensesResponse = await getRequest(
       url,

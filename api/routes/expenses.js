@@ -42,6 +42,7 @@ router.get('/', async (req, res, next) => {
     const lastExpenseId = req.query.lastExpenseId === 'null' ? null : req.query.lastExpenseId;
     const fromDate = req.query.fromDate;
     const toDate = req.query.toDate;
+    const description = req.query.description;
     const limit = 100;
     const results = await expenses.readByUser(
       req.user._id,
@@ -50,6 +51,7 @@ router.get('/', async (req, res, next) => {
       lastExpenseId,
       fromDate,
       toDate,
+      checkStringInput(description, true),
       limit,
     );
     return res.status(200).json({

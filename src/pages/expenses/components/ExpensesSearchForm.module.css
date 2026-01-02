@@ -19,6 +19,12 @@
     font-size: 1vw;
 }
 
+.formInputText {
+    width: 20vw;
+    padding: .25vw;
+    font-size: 1vw;
+}
+
 .searchButton {
     background-color: var(--element-background-color);
     color: var(--element-color);

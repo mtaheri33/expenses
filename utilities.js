@@ -79,8 +79,12 @@ async function isAuthenticated() {
   return response.status === 200;
 }
 
-function checkStringInput(stringInput) {
-  return stringInput.trim();
+function checkStringInput(stringInput, escapeForRegex = false) {
+  const trimmed = stringInput.trim();
+  if (escapeForRegex) {
+    return trimmed.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+  return trimmed;
 }
 
 function checkAmountInput(amountInput) {

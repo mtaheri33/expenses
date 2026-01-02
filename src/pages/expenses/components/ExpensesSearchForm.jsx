@@ -12,6 +12,7 @@ export default function ExpensesSearchForm({
   formData required object {
     fromDate required string,
     toDate required string,
+    description required string,
   }
   handleInputChange required function(event)
   searchExpensesFunction required function()
@@ -42,26 +43,38 @@ export default function ExpensesSearchForm({
   return (
     <form className={`ExpensesSearchForm ${styles.ExpensesSearchForm}`} onSubmit={searchExpenses}>
       <div className={styles.formGroup}>
-        <label className={styles.label} htmlFor='fromDate'>From Date</label>
+        <label className={styles.label} htmlFor='searchFormFromDate'>From Date</label>
         <input
           type='date'
           className={styles.formInputDate}
           value={formData.fromDate}
           onChange={handleInputChange}
-          id='fromDate'
+          id='searchFormFromDate'
           name='fromDate'
           autoComplete='off'
         />
       </div>
       <div className={styles.formGroup}>
-        <label className={styles.label} htmlFor='toDate'>To Date</label>
+        <label className={styles.label} htmlFor='searchFormToDate'>To Date</label>
         <input
           type='date'
           className={styles.formInputDate}
           value={formData.toDate}
           onChange={handleInputChange}
-          id='toDate'
+          id='searchFormToDate'
           name='toDate'
+          autoComplete='off'
+        />
+      </div>
+      <div className={styles.formGroup}>
+        <label className={styles.label} htmlFor='searchFormDescription'>Description</label>
+        <input
+          type='text'
+          className={styles.formInputText}
+          value={formData.description}
+          onChange={handleInputChange}
+          id='searchFormDescription'
+          name='description'
           autoComplete='off'
         />
       </div>
