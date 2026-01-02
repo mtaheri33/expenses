@@ -1,5 +1,6 @@
 // This is the component for the /expenses page.
 
+import ExpensesSearchForm from './components/ExpensesSearchForm';
 import ExpensesTable from '../../components/expenses-table/ExpensesTable';
 import Navbar from '../../components/navbar/Navbar';
 import PageLoading from '../../components/page-loading/PageLoading';
@@ -9,7 +10,12 @@ import { PageMessageType, ExpenseSortProperty, SortOrder } from '../../../consta
 import styles from './Expenses.module.css';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router';
-import { isAuthenticated, getRequest, deleteRequest } from '../../../utilities';
+import {
+  isAuthenticated,
+  getRequest,
+  deleteRequest,
+  createHandleInputChangeFunction,
+} from '../../../utilities';
 
 export default function Expenses() {
   const navigate = useNavigate();
@@ -24,6 +30,16 @@ export default function Expenses() {
   const [hasMoreExpenses, setHasMoreExpenses] = useState(null);
   const [loadingMoreExpenses, setLoadingMoreExpenses] = useState(false);
   const [changingSort, setChangingSort] = useState(false);
+  const [searching, setSearching] = useState(false);
+  const [searchFormDataForReq, setSearchFormDataForReq] = useState({
+    fromDate: '',
+    toDate: '',
+  });
+  const [currentSearchFormData, setCurrentSearchFormData] = useState({
+    fromDate: '',
+    toDate: '',
+  });
+  const handleSearchFormInputChange = createHandleInputChangeFunction(setCurrentSearchFormData);
 
   function handleDefaultResponse() {
     setPageMessageProperties({
@@ -89,10 +105,14 @@ export default function Expenses() {
     }
   }
 
-  async function getExpenses(sortProperty, sortOrder, lastExpenseId = 'null') {
+  async function getExpenses(sortProperty, sortOrder, searchFormData, lastExpenseId = 'null') {
     const url = (
-      `/api/expenses?sortProperty=${sortProperty}&sortOrder=${sortOrder}`
+      `/api/expenses`
+      + `?sortProperty=${sortProperty}`
+      + `&sortOrder=${sortOrder}`
       + `&lastExpenseId=${lastExpenseId}`
+      + `&fromDate=${encodeURIComponent(searchFormData.fromDate)}`
+      + `&toDate=${encodeURIComponent(searchFormData.toDate)}`
     );
     const expensesResponse = await getRequest(
       url,
@@ -103,7 +123,7 @@ export default function Expenses() {
   }
 
   async function handleAuthenticated() {
-    const response = await getExpenses(tableSortProperty, tableSortOrder);
+    const response = await getExpenses(tableSortProperty, tableSortOrder, searchFormDataForReq);
     await handleExpensesResponse(response, true);
     setIsAuthenticatedState(true);
   }
@@ -122,7 +142,7 @@ export default function Expenses() {
 
   async function sortExpenses(sortProperty, sortOrder) {
     setChangingSort(true);
-    const response = await getExpenses(sortProperty, sortOrder);
+    const response = await getExpenses(sortProperty, sortOrder, searchFormDataForReq);
     await handleExpensesResponse(response, true);
     setTableSortProperty(sortProperty);
     setTableSortOrder(sortOrder);
@@ -130,14 +150,25 @@ export default function Expenses() {
   }
 
   async function getMoreExpenses() {
-    if (expenses.length === 0 || !hasMoreExpenses || loadingMoreRef.current) {
+    if (
+      expenses.length === 0
+      || !hasMoreExpenses
+      || loadingMoreRef.current
+      || changingSort
+      || searching
+    ) {
       return;
     }
     const lastExpense = expenses[expenses.length - 1];
     const lastExpenseId = lastExpense.id;
     loadingMoreRef.current = true;
     setLoadingMoreExpenses(true);
-    const response = await getExpenses(tableSortProperty, tableSortOrder, lastExpenseId);
+    const response = await getExpenses(
+      tableSortProperty,
+      tableSortOrder,
+      searchFormDataForReq,
+      lastExpenseId,
+    );
     await handleExpensesResponse(response, false);
     loadingMoreRef.current = false;
     setLoadingMoreExpenses(false);
@@ -180,9 +211,21 @@ export default function Expenses() {
     expenses.length,
     tableSortProperty,
     tableSortOrder,
+    changingSort,
+    searching,
+    searchFormDataForReq,
   ]);
 
-  if (isAuthenticatedState === null || changingSort) {
+  async function searchExpenses() {
+    setSearching(true);
+    const data = { ...currentSearchFormData }
+    setSearchFormDataForReq(data);
+    const response = await getExpenses(tableSortProperty, tableSortOrder, data);
+    await handleExpensesResponse(response, true);
+    setSearching(false);
+  }
+
+  if (isAuthenticatedState === null || changingSort || searching) {
     return <PageLoading />;
   }
   return (
@@ -197,6 +240,11 @@ export default function Expenses() {
         <div className={styles.addExpenseContainer}>
           <Link to='/expenses/create' className={styles.addExpenseLink}>Add Expense</Link>
         </div>
+        <ExpensesSearchForm
+          formData={currentSearchFormData}
+          handleInputChange={handleSearchFormInputChange}
+          searchExpensesFunction={searchExpenses}
+        />
         <ExpensesTable
           expenses={expenses}
           showButtons={true}

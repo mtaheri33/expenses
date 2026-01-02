@@ -77,8 +77,25 @@ async function readById(id) {
   return null;
 };
 
-async function readByUser(userId, sortProperty, sortOrder, lastExpenseId, limit) {
+async function readByUser(
+  userId,
+  sortProperty,
+  sortOrder,
+  lastExpenseId,
+  fromDate,
+  toDate,
+  limit,
+) {
   const filter = { user: userId };
+  if (fromDate || toDate) {
+    filter.date = {};
+    if (fromDate) {
+      filter.date.$gte = new Date(fromDate + 'T00:00:00.000Z');
+    }
+    if (toDate) {
+      filter.date.$lte = new Date(toDate + 'T23:59:59.999Z');
+    }
+  }
   const dir = sortOrder === SortOrder.ASC ? 1 : -1;
   const sort = { [sortProperty]: dir, _id: dir };
   const cmp = dir === 1 ? '$gt' : '$lt';

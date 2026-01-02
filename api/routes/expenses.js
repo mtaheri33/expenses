@@ -40,8 +40,18 @@ router.get('/', async (req, res, next) => {
         req.query.sortOrder : SortOrder.DESC
     );
     const lastExpenseId = req.query.lastExpenseId === 'null' ? null : req.query.lastExpenseId;
+    const fromDate = req.query.fromDate;
+    const toDate = req.query.toDate;
     const limit = 100;
-    const results = await expenses.readByUser(req.user._id, sortProperty, sortOrder, lastExpenseId, limit);
+    const results = await expenses.readByUser(
+      req.user._id,
+      sortProperty,
+      sortOrder,
+      lastExpenseId,
+      fromDate,
+      toDate,
+      limit,
+    );
     return res.status(200).json({
       pageExpenses: results.pageExpenses.map((expense) => expense.convertToJSONObject()),
       hasMore: results.hasMore,
