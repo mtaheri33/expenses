@@ -53,8 +53,6 @@ export default function ExpensesSearchForm({
           name='fromDate'
           autoComplete='off'
         />
-      </div>
-      <div className={styles.formGroup}>
         <label className={styles.label} htmlFor='searchFormToDate'>To Date</label>
         <input
           type='date'
