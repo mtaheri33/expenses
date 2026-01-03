@@ -43,6 +43,8 @@ router.get('/', async (req, res, next) => {
     const fromDate = req.query.fromDate;
     const toDate = req.query.toDate;
     const description = req.query.description;
+    const fromAmount = req.query.fromAmount;
+    const toAmount = req.query.toAmount;
     const limit = 100;
     const results = await expenses.readByUser(
       req.user._id,
@@ -52,6 +54,8 @@ router.get('/', async (req, res, next) => {
       fromDate,
       toDate,
       checkStringInput(description, true),
+      checkAmountInput(fromAmount),
+      checkAmountInput(toAmount),
       limit,
     );
     return res.status(200).json({

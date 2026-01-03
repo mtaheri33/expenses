@@ -2,6 +2,7 @@
 
 import styles from './ExpensesSearchForm.module.css';
 import { useState } from 'react';
+import { checkAmountInput } from '../../../../utilities';
 
 export default function ExpensesSearchForm({
   formData,
@@ -13,6 +14,8 @@ export default function ExpensesSearchForm({
     fromDate required string,
     toDate required string,
     description required string,
+    fromAmount required string,
+    toAmount required string,
   }
   handleInputChange required function(event)
   searchExpensesFunction required function()
@@ -26,6 +29,14 @@ export default function ExpensesSearchForm({
       && formData.fromDate > formData.toDate
     ) {
       setSubmitMessage('From Date cannot be after To Date');
+      return false;
+    }
+    if (
+      formData.fromAmount !== ''
+      && formData.toAmount !== ''
+      && checkAmountInput(formData.fromAmount) > checkAmountInput(formData.toAmount)
+    ) {
+      setSubmitMessage('From Amount cannot be greater than To Amount');
       return false;
     }
     setSubmitMessage('');
@@ -74,6 +85,30 @@ export default function ExpensesSearchForm({
           id='searchFormDescription'
           name='description'
           autoComplete='off'
+        />
+      </div>
+      <div className={styles.formGroup}>
+        <label className={styles.label} htmlFor='searchFormFromAmount'>From Amount</label>
+        <input
+          type='number'
+          className={styles.formInputNumber}
+          value={formData.fromAmount}
+          onChange={handleInputChange}
+          id='searchFormFromAmount'
+          name='fromAmount'
+          autoComplete='off'
+          onWheel={(event) => event.target.blur()}
+        />
+        <label className={styles.label} htmlFor='searchFormToAmount'>To Amount</label>
+        <input
+          type='number'
+          className={styles.formInputNumber}
+          value={formData.toAmount}
+          onChange={handleInputChange}
+          id='searchFormToAmount'
+          name='toAmount'
+          autoComplete='off'
+          onWheel={(event) => event.target.blur()}
         />
       </div>
       <button className={styles.searchButton}>Search</button>

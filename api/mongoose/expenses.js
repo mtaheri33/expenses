@@ -85,6 +85,8 @@ async function readByUser(
   fromDate,
   toDate,
   regexDescription,
+  fromAmount,
+  toAmount,
   limit,
 ) {
   const filter = { user: userId };
@@ -99,6 +101,15 @@ async function readByUser(
   }
   if (regexDescription) {
     filter.description = { $regex: regexDescription, $options: 'i' };
+  }
+  if (fromAmount != null || toAmount != null) {
+    filter.amount = {};
+    if (fromAmount != null) {
+      filter.amount.$gte = fromAmount;
+    }
+    if (toAmount != null) {
+      filter.amount.$lte = toAmount;
+    }
   }
   const dir = sortOrder === SortOrder.ASC ? 1 : -1;
   const sort = { [sortProperty]: dir, _id: dir };
