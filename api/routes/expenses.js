@@ -3,7 +3,12 @@
 import { ExpenseSortProperty, SortOrder } from '../../constants.js';
 import express from 'express';
 import expenses from '../mongoose/expenses.js';
-import { checkStringInput, checkAmountInput, checkCategoriesInput } from '../../utilities.js';
+import {
+  checkStringInput,
+  checkAmountInput,
+  checkCategoriesInput,
+  parseCategoriesInput,
+} from '../../utilities.js';
 
 const router = express.Router();
 
@@ -45,6 +50,8 @@ router.get('/', async (req, res, next) => {
     const description = req.query.description;
     const fromAmount = req.query.fromAmount;
     const toAmount = req.query.toAmount;
+    const categoryType = req.query.categoryType;
+    const categories = req.query.categories;
     const limit = 100;
     const results = await expenses.readByUser(
       req.user._id,
@@ -53,15 +60,29 @@ router.get('/', async (req, res, next) => {
       lastExpenseId,
       fromDate,
       toDate,
-      checkStringInput(description, true),
+      checkStringInput(description),
       checkAmountInput(fromAmount),
       checkAmountInput(toAmount),
+      categoryType,
+      parseCategoriesInput(categories),
       limit,
     );
     return res.status(200).json({
       pageExpenses: results.pageExpenses.map((expense) => expense.convertToJSONObject()),
       hasMore: results.hasMore,
     });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/categories', async (req, res, next) => {
+  try {
+    if (!req.user) {
+      return res.status(401).send();
+    }
+    const categories = await expenses.categories(req.user._id);
+    return res.status(200).json(categories);
   } catch (error) {
     next(error);
   }

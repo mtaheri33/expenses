@@ -12,6 +12,7 @@ function createHandleInputChangeFunction(setStateFunction) {
         || event.target.type === 'date'
         || event.target.type === 'number'
         || event.target.type === 'email'
+        || event.target.type === 'select-one'
       ) {
         currentFormDataCopy[event.target.name] = event.target.value;
       }
@@ -79,12 +80,12 @@ async function isAuthenticated() {
   return response.status === 200;
 }
 
-function checkStringInput(stringInput, escapeForRegex = false) {
-  const trimmed = stringInput.trim();
-  if (escapeForRegex) {
-    return trimmed.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  }
-  return trimmed;
+function escapeRegex(input) {
+  return input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function checkStringInput(stringInput) {
+  return stringInput.trim();
 }
 
 function checkAmountInput(amountInput) {
@@ -188,6 +189,16 @@ function parseImportFileContents(fileContents) {
   return parsedFileContents;
 }
 
+function parseCategoriesInput(categoriesInput) {
+  if (typeof categoriesInput === 'string') {
+    if (categoriesInput === '') {
+      return [];
+    }
+    return [checkStringInput(categoriesInput)];
+  }
+  return checkCategoriesInput(categoriesInput);
+}
+
 export {
   createHandleInputChangeFunction,
   getRequest,
@@ -195,6 +206,7 @@ export {
   patchRequest,
   deleteRequest,
   isAuthenticated,
+  escapeRegex,
   checkStringInput,
   checkAmountInput,
   checkCategoriesInput,
@@ -202,4 +214,5 @@ export {
   formatAmountForDisplay,
   generateId,
   parseImportFileContents,
+  parseCategoriesInput,
 };

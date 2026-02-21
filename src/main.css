@@ -16,6 +16,7 @@ body {
     margin: 0;
 }
 
+select,
 input[type='email'],
 input[type='number'],
 input[type='date'],
@@ -23,6 +24,7 @@ input[type='text'] {
     font-family: var(--font-family);
 }
 
+select,
 input[type='email'],
 input[type='number'],
 input[type='date'],

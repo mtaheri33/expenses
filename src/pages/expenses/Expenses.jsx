@@ -37,6 +37,8 @@ export default function Expenses() {
     description: '',
     fromAmount: '',
     toAmount: '',
+    categoryType: '',
+    categories: [],
   });
   const [currentSearchFormData, setCurrentSearchFormData] = useState({
     fromDate: '',
@@ -44,8 +46,23 @@ export default function Expenses() {
     description: '',
     fromAmount: '',
     toAmount: '',
+    categoryType: '',
+    categories: [],
   });
   const handleSearchFormInputChange = createHandleInputChangeFunction(setCurrentSearchFormData);
+  function handleSearchFormCategoryInputChange(event) {
+    const category = event.target.value;
+    if (currentSearchFormData.categories.includes(category)) {
+      return;
+    }
+    setCurrentSearchFormData((currentFormData) => {
+      return {
+        ...currentFormData,
+        categories: [...currentSearchFormData.categories, category],
+      };
+    });
+  }
+  const [userCategories, setUserCategories] = useState([]);
 
   function handleDefaultResponse() {
     setPageMessageProperties({
@@ -112,7 +129,7 @@ export default function Expenses() {
   }
 
   async function getExpenses(sortProperty, sortOrder, searchFormData, lastExpenseId = 'null') {
-    const url = (
+    let url = (
       `/api/expenses`
       + `?sortProperty=${sortProperty}`
       + `&sortOrder=${sortOrder}`
@@ -122,7 +139,15 @@ export default function Expenses() {
       + `&description=${encodeURIComponent(searchFormData.description)}`
       + `&fromAmount=${encodeURIComponent(searchFormData.fromAmount)}`
       + `&toAmount=${encodeURIComponent(searchFormData.toAmount)}`
+      + `&categoryType=${searchFormData.categoryType}`
     );
+    if (searchFormData.categories.length === 0) {
+      url += '&categories=';
+    } else {
+      for (let category of searchFormData.categories) {
+        url += `&categories=${encodeURIComponent(category)}`;
+      }
+    }
     const expensesResponse = await getRequest(
       url,
       undefined,
@@ -131,9 +156,31 @@ export default function Expenses() {
     return expensesResponse;
   }
 
+  async function getUserCategories() {
+    const userCategoriesResponse = await getRequest('/api/expenses/categories', undefined, true);
+    return userCategoriesResponse;
+  }
+
+  async function handleUserCategories200Response(response) {
+    const userCategories = await response.json();
+    setUserCategories(userCategories);
+  }
+
+  async function handleUserCategoriesResponse(response) {
+    switch (response.status) {
+      case 200:
+        await handleUserCategories200Response(response);
+        break;
+      default:
+        handleDefaultResponse();
+    }
+  }
+
   async function handleAuthenticated() {
     const response = await getExpenses(tableSortProperty, tableSortOrder, searchFormDataForReq);
     await handleExpensesResponse(response, true);
+    const userCategoriesResponse = await getUserCategories();
+    await handleUserCategoriesResponse(userCategoriesResponse);
     setIsAuthenticatedState(true);
   }
 
@@ -227,7 +274,7 @@ export default function Expenses() {
 
   async function searchExpenses() {
     setSearching(true);
-    const data = { ...currentSearchFormData }
+    const data = { ...currentSearchFormData, categories: [...currentSearchFormData.categories] };
     setSearchFormDataForReq(data);
     const response = await getExpenses(tableSortProperty, tableSortOrder, data);
     await handleExpensesResponse(response, true);
@@ -252,7 +299,9 @@ export default function Expenses() {
         <ExpensesSearchForm
           formData={currentSearchFormData}
           handleInputChange={handleSearchFormInputChange}
+          handleCategoryInputChange={handleSearchFormCategoryInputChange}
           searchExpensesFunction={searchExpenses}
+          userCategories={userCategories}
         />
         <ExpensesTable
           expenses={expenses}

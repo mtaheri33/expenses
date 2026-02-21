@@ -1,7 +1,8 @@
 // This is for the expenses MongoDB collection.
 
-import { ExpenseSortProperty, SortOrder } from '../../constants.js';
+import { ExpenseSortProperty, SortOrder, CategoryType } from '../../constants.js';
 import mongoose from 'mongoose';
+import { escapeRegex } from '../../utilities.js';
 
 const expenseSchema = new mongoose.Schema({
   date: Date,
@@ -84,9 +85,11 @@ async function readByUser(
   lastExpenseId,
   fromDate,
   toDate,
-  regexDescription,
+  description,
   fromAmount,
   toAmount,
+  categoryType,
+  categories,
   limit,
 ) {
   const filter = { user: userId };
@@ -99,8 +102,8 @@ async function readByUser(
       filter.date.$lte = new Date(toDate + 'T23:59:59.999Z');
     }
   }
-  if (regexDescription) {
-    filter.description = { $regex: regexDescription, $options: 'i' };
+  if (description) {
+    filter.description = { $regex: escapeRegex(description), $options: 'i' };
   }
   if (fromAmount != null || toAmount != null) {
     filter.amount = {};
@@ -111,6 +114,18 @@ async function readByUser(
       filter.amount.$lte = toAmount;
     }
   }
+  if (categoryType && categories.length > 0) {
+    if (categoryType === CategoryType.INCLUDE) {
+      filter.categories = {
+        $in: categories.map((category) => new RegExp(`^${escapeRegex(category)}$`, 'i')),
+      };
+    } else if (categoryType === CategoryType.EXCLUDE) {
+      filter.categories = {
+        $nin: categories.map((category) => new RegExp(`^${escapeRegex(category)}$`, 'i')),
+      };
+    }
+  }
+
   const dir = sortOrder === SortOrder.ASC ? 1 : -1;
   const sort = { [sortProperty]: dir, _id: dir };
   const cmp = dir === 1 ? '$gt' : '$lt';
@@ -154,6 +169,24 @@ async function deleteExpense(id) {
   return await Expense.findByIdAndDelete(id);
 };
 
+async function categories(userId) {
+  const rows = await Expense.aggregate([
+    // Get all expenses for the given user.
+    { $match: { user: userId } },
+    // For each expense, turn it into multiple expense objects for each element in categories, with
+    // key categories having a single string value now instead of an array.
+    { $unwind: '$categories' },
+    // Group objects by the categories string lowercase value.  _id is the lowercase value, and
+    // category is the original value of one of the strings in the group.
+    { $group: { _id: { $toLower: '$categories' }, category: { $first: '$categories' } } },
+    // Sort ascending case insensitive since the _id values are all lowercase.
+    { $sort: { _id: 1 } },
+    // Remove the _id key value pair from the objects.
+    { $project: { _id: 0, category: 1 } },
+  ]);
+  return rows.map((row) => row.category);
+}
+
 export default {
   createWithSave,
   createWithoutSave,
@@ -162,4 +195,5 @@ export default {
   expenseBelongsToUser,
   update,
   deleteExpense,
+  categories,
 };

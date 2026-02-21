@@ -26,10 +26,13 @@ const ImportMode = {
   SAVE: 'save',
 };
 
+const CategoryType = { INCLUDE: 'include', EXCLUDE: 'exclude' };
+
 export {
   PageMessageType,
   ExpenseSortProperty,
   SortOrder,
   SortOrderCharacter,
   ImportMode,
+  CategoryType,
 };
