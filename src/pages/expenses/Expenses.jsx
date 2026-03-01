@@ -239,7 +239,7 @@ export default function Expenses() {
   // and starts a new observer.
   useEffect(() => {
     const sentinel = sentinelRef.current;
-    if (!hasMoreExpenses || loadingMoreExpenses || !sentinel) {
+    if (!hasMoreExpenses || loadingMoreExpenses || !sentinel || !isAuthenticatedState) {
       return;
     }
     const observer = new IntersectionObserver(
@@ -262,6 +262,7 @@ export default function Expenses() {
       observer.disconnect();
     };
   }, [
+    isAuthenticatedState,
     hasMoreExpenses,
     loadingMoreExpenses,
     expenses.length,
