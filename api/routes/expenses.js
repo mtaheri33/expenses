@@ -2,6 +2,7 @@
 
 import { ExpenseSortProperty, SortOrder } from '../../constants.js';
 import express from 'express';
+import { requireUser } from '../middleware.js';
 import expenses from '../mongoose/expenses.js';
 import {
   checkStringInput,
@@ -25,7 +26,7 @@ router.post('/', async (req, res, next) => {
       checkCategoriesInput(categories),
       req.user._id
     );
-    return res.status(201).json(expense.convertToJSONObject());
+    return res.status(201).json(expense.objectForJson());
   } catch (error) {
     next(error);
   }
@@ -68,7 +69,7 @@ router.get('/', async (req, res, next) => {
       limit,
     );
     return res.status(200).json({
-      pageExpenses: results.pageExpenses.map((expense) => expense.convertToJSONObject()),
+      pageExpenses: results.pageExpenses.map((expense) => expense.objectForJson()),
       hasMore: results.hasMore,
     });
   } catch (error) {
@@ -88,16 +89,14 @@ router.get('/categories', async (req, res, next) => {
   }
 });
 
-router.get('/:expenseId', async (req, res, next) => {
+router.get('/:expenseId', requireUser, async (req, res, next) => {
   try {
-    if (!req.user) {
-      return res.status(401).send();
-    }
-    const expense = await expenses.readById(req.params.expenseId)
+    console.log(typeof req.params.expenseId)
+    const expense = await expenses.readById(req.params.expenseId);
     if (!expense || !expenses.expenseBelongsToUser(expense, req.user)) {
       return res.status(404).send();
     }
-    return res.status(200).json(expense.convertToJSONObject());
+    return res.status(200).json(expense.objectForJson());
   } catch (error) {
     next(error);
   }
@@ -119,7 +118,7 @@ router.patch('/:expenseId', async (req, res, next) => {
       amount: checkAmountInput(amount),
       categories: checkCategoriesInput(categories),
     });
-    return res.status(200).json(updatedExpense.convertToJSONObject());
+    return res.status(200).json(updatedExpense.objectForJson());
   } catch (error) {
     next(error);
   }

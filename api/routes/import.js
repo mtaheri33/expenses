@@ -23,9 +23,9 @@ function importPreview(parsedFileContents, userId) {
       checkCategoriesInput(parsedRow.categories),
       userId,
     );
-    if (!expense.valid()) {
-      return i + 2;
-    }
+    // if (!expense.valid()) {
+    //   return i + 2;
+    // }
     previewExpenses.push(expense);
   }
   return previewExpenses;
@@ -57,7 +57,7 @@ router.post('/', async (req, res, next) => {
       if (Number.isInteger(previewExpenses)) {
         return res.status(400).send(previewExpenses);
       }
-      return res.status(200).json(previewExpenses.map((expense) => expense.convertToJSONObject()));
+      return res.status(200).json(previewExpenses.map((expense) => expense.objectForJson()));
     } else if (req.query.mode === ImportMode.SAVE) {
       await importSave(parsedFileContents, req.user._id);
       return res.status(201).send();

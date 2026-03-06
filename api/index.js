@@ -62,7 +62,9 @@ import importRouter from './routes/import.js';
 app.use('/api/import', importRouter);
 
 app.use((req, res) => {
-  res.status(404).send(`There is no route ${req.url} that supports a ${req.method} request.`);
+  res.status(404).json(
+    { message: `There is no route ${req.url} that supports a ${req.method} request.` }
+  );
 });
 
 app.use((err, req, res, next) => {

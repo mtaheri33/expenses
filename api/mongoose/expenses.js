@@ -5,16 +5,11 @@ import mongoose from 'mongoose';
 import { escapeRegex } from '../../utilities.js';
 
 const expenseSchema = new mongoose.Schema({
-  date: Date,
-  description: String,
-  amount: Number,
+  date: { type: Date, required: true },
+  description: { type: String, required: true, trim: true },
+  amount: { type: Number, required: true },
   categories: [String],
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-    index: true,
-  },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, index: true },
 });
 // This creates compound indexes.  It first finds expenses belonging to the specified user.  The
 // sign can be positive or negative.  It then orders the expenses by property descending, since the
@@ -29,32 +24,19 @@ expenseSchema.index(
   { collation: { locale: 'en', strength: 2 } },
 );
 expenseSchema.index({ user: 1, amount: -1, _id: -1 });
-expenseSchema.methods.convertToJSONObject = function () {
+expenseSchema.methods.objectForJson = function () {
   return {
     id: this._id.toString(),
-    date: this.date ? this.date.toISOString().split('T')[0] : null,
+    date: this.date.toISOString().split('T')[0],
     description: this.description,
     amount: this.amount,
     categories: this.categories,
+    userId: this.user._id.toString(),
   };
-};
-expenseSchema.methods.valid = function () {
-  const keys = Object.keys(this.toObject());
-  return (
-    keys.includes('date')
-    && keys.includes('description')
-    && keys.includes('amount')
-    && keys.includes('categories')
-    && keys.includes('user')
-  );
 };
 const Expense = mongoose.model('Expense', expenseSchema);
 
 function create(date, description, amount, categories, userId) {
-  /*
-  date should be a string in the format YYYY-MM-DD.  For single digit months or days, it should
-  start with 0.
-  */
   return new Expense({ date, description, amount, categories, user: userId });
 }
 
@@ -103,29 +85,34 @@ async function readByUser(
     }
   }
   if (description) {
+    // This filters for expenses with descriptions that contain the given description case
+    // insensitive.
     filter.description = { $regex: escapeRegex(description), $options: 'i' };
   }
-  if (fromAmount != null || toAmount != null) {
+  if (fromAmount !== null || toAmount !== null) {
     filter.amount = {};
-    if (fromAmount != null) {
+    if (fromAmount !== null) {
       filter.amount.$gte = fromAmount;
     }
-    if (toAmount != null) {
+    if (toAmount !== null) {
       filter.amount.$lte = toAmount;
     }
   }
   if (categoryType && categories.length > 0) {
     if (categoryType === CategoryType.INCLUDE) {
+      // This filters for expenses where the categories array contains at least one category equal
+      // to one of the given categories case insensitive.
       filter.categories = {
         $in: categories.map((category) => new RegExp(`^${escapeRegex(category)}$`, 'i')),
       };
     } else if (categoryType === CategoryType.EXCLUDE) {
+      // This filters for expenses where the categories array contains none of the given categories
+      // case insensitive.
       filter.categories = {
         $nin: categories.map((category) => new RegExp(`^${escapeRegex(category)}$`, 'i')),
       };
     }
   }
-
   const dir = sortOrder === SortOrder.ASC ? 1 : -1;
   const sort = { [sortProperty]: dir, _id: dir };
   const cmp = dir === 1 ? '$gt' : '$lt';
@@ -138,15 +125,14 @@ async function readByUser(
       // This makes the query get all expenses that come after the anchor (given last expense).
       // The first or condition gets expenses with property values greater/less than the anchor's
       // property value.  The second or condition gets expenses with property values equal to the
-      // anchor's property value.  For these expenses, it uses the ids to determine which ones come
-      // after the anchor.
+      // anchor's property value.  For the expenses with equal values, it uses the ids to determine
+      // which ones come before/after the anchor.
       filter.$or = [
         { [sortProperty]: { [cmp]: anchorPropertyValue } },
         { [sortProperty]: anchorPropertyValue, _id: { [cmp]: anchorId } },
       ];
     }
   }
-
   const query = Expense.find(filter);
   if (sortProperty === ExpenseSortProperty.DESCRIPTION) {
     query.collation({ locale: 'en', strength: 2 });
@@ -179,7 +165,7 @@ async function categories(userId) {
     // Group objects by the categories string lowercase value.  _id is the lowercase value, and
     // category is the original value of one of the strings in the group.
     { $group: { _id: { $toLower: '$categories' }, category: { $first: '$categories' } } },
-    // Sort ascending case insensitive since the _id values are all lowercase.
+    // Sort ascending, which also makes it case insensitive since the _id values are all lowercase.
     { $sort: { _id: 1 } },
     // Remove the _id key value pair from the objects.
     { $project: { _id: 0, category: 1 } },
