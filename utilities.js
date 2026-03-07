@@ -189,7 +189,7 @@ function parseImportFileContents(fileContents) {
   return parsedFileContents;
 }
 
-function parseCategoriesInput(categoriesInput) {
+function checkCategoriesReqQuery(categoriesInput) {
   if (typeof categoriesInput === 'string') {
     if (categoriesInput === '') {
       return [];
@@ -214,5 +214,5 @@ export {
   formatAmountForDisplay,
   generateId,
   parseImportFileContents,
-  parseCategoriesInput,
+  checkCategoriesReqQuery,
 };
