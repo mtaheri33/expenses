@@ -32,7 +32,7 @@ async function readByEmail(email) {
 async function create(email, password) {
   const existingUser = await readByEmail(email);
   if (existingUser) {
-    return;
+    return null;
   }
   const hashedPassword = await hashPassword(password);
   const user = new User({ email, password: hashedPassword });
@@ -46,13 +46,13 @@ async function checkPassword(password, hashedPassword) {
 async function signIn(email, password) {
   const user = await readByEmail(email);
   if (!user) {
-    return;
+    return null;
   }
   const success = await checkPassword(password, user.password);
   if (success) {
     return user;
   }
-  return;
+  return null;
 }
 
 async function readById(id) {
