@@ -2,6 +2,7 @@
 
 import { ImportMode } from '../../constants.js';
 import express from 'express';
+import { requireUser } from '../middleware.js';
 import expenses from '../mongoose/expenses.js';
 import {
   parseImportFileContents,
@@ -23,9 +24,9 @@ function importPreview(parsedFileContents, userId) {
       checkCategoriesInput(parsedRow.categories),
       userId,
     );
-    // if (!expense.valid()) {
-    //   return i + 2;
-    // }
+    if (!expense.valid()) {
+      return i + 2;
+    }
     previewExpenses.push(expense);
   }
   return previewExpenses;
@@ -43,11 +44,8 @@ async function importSave(parsedFileContents, userId) {
   }
 }
 
-router.post('/', async (req, res, next) => {
+router.post('/', requireUser, async (req, res, next) => {
   try {
-    if (!req.user) {
-      return res.status(401).send();
-    }
     const parsedFileContents = parseImportFileContents(req.body.fileContents);
     if (Number.isInteger(parsedFileContents)) {
       return res.status(400).send(parsedFileContents);
@@ -62,7 +60,7 @@ router.post('/', async (req, res, next) => {
       await importSave(parsedFileContents, req.user._id);
       return res.status(201).send();
     }
-    return res.status(400).send('Import mode is invalid.');
+    return res.status(422).send();
   } catch (error) {
     next(error);
   }

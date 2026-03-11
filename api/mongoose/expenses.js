@@ -34,6 +34,9 @@ expenseSchema.methods.objectForJson = function () {
     userId: this.user._id.toString(),
   };
 };
+expenseSchema.methods.valid = function () {
+  return this.validateSync() === undefined;
+};
 const Expense = mongoose.model('Expense', expenseSchema);
 
 function create(date, description, amount, categories, userId) {
