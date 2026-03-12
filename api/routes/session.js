@@ -1,15 +1,13 @@
 // This handles requests for the /api/session resource.
 
 import express from 'express';
+import { requireUser } from '../middleware.js';
 
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
+router.get('/', requireUser, async (req, res, next) => {
   try {
-    if (req.user) {
-      return res.status(200).send();
-    }
-    return res.status(401).send();
+    return res.status(200).send();
   } catch (error) {
     next(error);
   }
