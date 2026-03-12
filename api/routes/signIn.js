@@ -7,8 +7,7 @@ const router = express.Router();
 
 router.post('/', async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-    const user = await users.signIn(email, password);
+    const user = await users.signIn(req.body.email, req.body.password);
     if (user) {
       req.session.userId = user.id;
       return res.status(200).send();
