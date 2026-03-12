@@ -7,8 +7,7 @@ const router = express.Router();
 
 router.post('/', async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-    const user = await users.create(email, password);
+    const user = await users.create(req.body.email, req.body.password);
     if (user) {
       return res.status(201).send();
     }
