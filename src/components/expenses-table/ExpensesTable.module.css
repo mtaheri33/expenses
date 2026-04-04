@@ -6,6 +6,10 @@
     margin-right: auto;
     border-collapse: collapse;
     table-layout: fixed;
+}
+
+.ExpensesTable,
+.deleteButton {
     font-size: 1vw;
 }
 
@@ -15,40 +19,17 @@
     background-color: var(--page-background-color);
 }
 
-.th {
-    text-align: left;
+.tbodyTr:hover {
+    background-color: white;
 }
 
-.tfootTd {
-    font-weight: bold;
-}
-
-.th,
-.td,
-.tfootTd {
-    height: 2vw;
-}
-
-.th,
-.td {
-    border-bottom: .1vw solid lightgrey;
-}
-
-.thSortable:hover {
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-.dateCol {
+.dateCol,
+.amountCol {
     width: 7%;
 }
 
 .descriptionCol {
     width: 28%;
-}
-
-.amountCol {
-    width: 7%;
 }
 
 .categoriesColNarrower {
@@ -64,15 +45,30 @@
     text-align: center;
 }
 
-.tbodyTr:hover {
-    background-color: white;
+.th {
+    text-align: left;
 }
 
-.td,
+.th,
+.tbodyTd {
+    border-bottom: .1vw solid lightgrey;
+}
+
+.th,
+.tbodyTd,
+.tfootTd {
+    height: 2vw;
+}
+
+.tbodyTd,
 .tfootTd {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.tfootTd {
+    font-weight: bold;
 }
 
 .editLink {
@@ -86,17 +82,16 @@
     text-decoration: none;
 }
 
+.editLink,
+.deleteButton {
+    color: var(--element-color);
+    padding: .25vw .6vw;
+}
+
 .deleteButton {
     background-color: crimson;
 }
 
 .deleteButton:hover {
     background-color: #b01030;
-}
-
-.editLink,
-.deleteButton {
-    color: var(--element-color);
-    font-size: 1vw;
-    padding: .25vw .6vw;
 }

@@ -64,3 +64,11 @@ ul {
 main {
     padding-top: var(--navbar-height);
 }
+
+.clickableSpan {
+    cursor: pointer;
+}
+
+.clickableSpan:hover {
+    text-decoration: underline;
+}

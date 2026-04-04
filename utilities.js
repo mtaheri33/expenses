@@ -1,6 +1,10 @@
 // This contains code used throughout the files.
 
-const numberFormatter = new Intl.NumberFormat('en-US');
+const integerFormatter = new Intl.NumberFormat('en-US');
+const decimalFormatter = new Intl.NumberFormat('en-US', {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
 
 function createHandleInputChangeFunction(setStateFunction) {
   return function handleInputChange(event) {
@@ -118,10 +122,15 @@ function formatDateForDisplay(date) {
 }
 
 function formatAmountForDisplay(amount) {
-  if (amount === null) {
+  if (amount === 0) {
+    return '0';
+  }
+  if (!amount) {
     return '';
   }
-  return numberFormatter.format(amount);
+  return Number.isInteger(amount) ?
+    integerFormatter.format(amount)
+    : decimalFormatter.format(amount);
 }
 
 function generateId() {

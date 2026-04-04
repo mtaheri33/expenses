@@ -14,22 +14,14 @@ export default function ExpensesTable({
   tableSortOrder,
 }) {
   /*
-  expenses required array [object {
-    id required string,
-    date required (nullable) string,
-    description required string,
-    amount required (nullable) number,
-    categories required array [string],
-  }]
+  expenses required array [Expense object]
   showButtons optional boolean
   deleteExpenseFunction required if showButtons is true function(string)
   sortExpensesFunction optional function(ExpenseSortProperty constant, SortOrder constant)
   tableSortProperty required if sortExpensesFunction is given ExpenseSortProperty constant
   tableSortOrder required if sortExpensesFunction is given SortOrder constant
   */
-  const expensesTotal = expenses.reduce((sum, expense) => {
-    return sum + (expense.amount !== null ? expense.amount : 0)
-  }, 0);
+  const expensesTotal = expenses.reduce((sum, expense) => sum + expense.amount, 0);
 
   function sortExpenses(sortProperty) {
     let sortOrder;
@@ -57,44 +49,38 @@ export default function ExpensesTable({
     <table className={`ExpensesTable ${styles.ExpensesTable}`}>
       <thead>
         <tr className={styles.theadTr}>
-          <th
-            className={
-              `${styles.th} ${styles.dateCol}`
-              + `${sortExpensesFunction ? ' ' + styles.thSortable : ''}`
-            }
-            onClick={sortExpensesFunction ? sortByDate : undefined}
-          >
-            Date
-            {sortExpensesFunction && tableSortProperty === ExpenseSortProperty.DATE ?
-              tableSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : SortOrderCharacter.DESC
-              : null
-            }
+          <th className={`${styles.th} ${styles.dateCol}`}>
+            <span
+              className={sortExpensesFunction ? 'clickableSpan' : undefined}
+              onClick={sortExpensesFunction ? sortByDate : undefined}
+            >
+              Date
+              {sortExpensesFunction && tableSortProperty === ExpenseSortProperty.DATE ?
+                tableSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : SortOrderCharacter.DESC
+                : null}
+            </span>
           </th>
-          <th
-            className={
-              `${styles.th} ${styles.descriptionCol}`
-              + `${sortExpensesFunction ? ' ' + styles.thSortable : ''}`
-            }
-            onClick={sortExpensesFunction ? sortByDescription : undefined}
-          >
-            Description
-            {sortExpensesFunction && tableSortProperty === ExpenseSortProperty.DESCRIPTION ?
-              tableSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : SortOrderCharacter.DESC
-              : null
-            }
+          <th className={`${styles.th} ${styles.descriptionCol}`}>
+            <span
+              className={sortExpensesFunction ? 'clickableSpan' : undefined}
+              onClick={sortExpensesFunction ? sortByDescription : undefined}
+            >
+              Description
+              {sortExpensesFunction && tableSortProperty === ExpenseSortProperty.DESCRIPTION ?
+                tableSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : SortOrderCharacter.DESC
+                : null}
+            </span>
           </th>
-          <th
-            className={
-              `${styles.th} ${styles.amountCol}`
-              + `${sortExpensesFunction ? ' ' + styles.thSortable : ''}`
-            }
-            onClick={sortExpensesFunction ? sortByAmount : undefined}
-          >
-            Amount
-            {sortExpensesFunction && tableSortProperty === ExpenseSortProperty.AMOUNT ?
-              tableSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : SortOrderCharacter.DESC
-              : null
-            }
+          <th className={`${styles.th} ${styles.amountCol}`}>
+            <span
+              className={sortExpensesFunction ? 'clickableSpan' : undefined}
+              onClick={sortExpensesFunction ? sortByAmount : undefined}
+            >
+              Amount
+              {sortExpensesFunction && tableSortProperty === ExpenseSortProperty.AMOUNT ?
+                tableSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : SortOrderCharacter.DESC
+                : null}
+            </span>
           </th>
           <th
             className={
@@ -112,20 +98,20 @@ export default function ExpensesTable({
         {expenses.map((expense) => {
           return (
             <tr key={expense.id} className={styles.tbodyTr}>
-              <td className={`${styles.td} ${styles.dateCol}`}>
+              <td className={`${styles.tbodyTd} ${styles.dateCol}`}>
                 {formatDateForDisplay(expense.date)}
               </td>
-              <td className={`${styles.td} ${styles.descriptionCol}`}>
+              <td className={`${styles.tbodyTd} ${styles.descriptionCol}`}>
                 <span title={expense.description}>{expense.description}</span>
               </td>
-              <td className={`${styles.td} ${styles.amountCol}`}>
+              <td className={`${styles.tbodyTd} ${styles.amountCol}`}>
                 <span title={formatAmountForDisplay(expense.amount)}>
                   {formatAmountForDisplay(expense.amount)}
                 </span>
               </td>
               <td
                 className={
-                  `${styles.td} `
+                  `${styles.tbodyTd} `
                   + `${showButtons ? styles.categoriesColNarrower : styles.categoriesColWider}`
                 }
               >
@@ -134,13 +120,13 @@ export default function ExpensesTable({
                 </span>
               </td>
               {showButtons ?
-                <td className={`${styles.td} ${styles.buttonCol}`}>
+                <td className={`${styles.tbodyTd} ${styles.buttonCol}`}>
                   <Link to={`/expenses/${expense.id}`} className={styles.editLink}>Edit</Link>
                 </td>
                 : null
               }
               {showButtons ?
-                <td className={`${styles.td} ${styles.buttonCol}`}>
+                <td className={`${styles.tbodyTd} ${styles.buttonCol}`}>
                   <button
                     className={styles.deleteButton}
                     onClick={() => deleteExpenseFunction(expense.id)}
