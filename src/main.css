@@ -1,6 +1,8 @@
 /* These are styles that are applied everywhere on the website. */
 
 :root {
+    --z-navbar: 500;
+    --z-page-message: 600;
     --page-background-color: whitesmoke;
     --element-background-color: steelblue;
     --element-background-color-darker-shade: #386890;

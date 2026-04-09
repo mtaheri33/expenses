@@ -9,14 +9,14 @@
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 998;
+    z-index: var(--z-navbar);
 }
 
 .ul {
     list-style: none;
     display: flex;
     gap: 1vw;
-    padding-left: 1vw;
+    margin-left: 1vw;
 }
 
 .navLink {
