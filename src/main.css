@@ -8,6 +8,8 @@
     --link-color: steelblue;
     --font-family: 'Roboto', serif;
     --navbar-height: 3vw;
+    --button-radius: .5vw;
+    --button-transition: background-color .3s;
     background-color: var(--page-background-color);
     font-family: var(--font-family);
 }
@@ -37,9 +39,9 @@ input[type='password'] {
 button {
     font-family: var(--font-family);
     border: none;
-    border-radius: .5vw;
+    border-radius: var(--button-radius);
     cursor: pointer;
-    transition: background-color .3s;
+    transition: var(--button-transition);
 }
 
 a {
@@ -71,4 +73,13 @@ main {
 
 .clickableSpan:hover {
     text-decoration: underline;
+}
+
+.linkButton {
+    border-radius: var(--button-radius);
+    transition: var(--button-transition);
+}
+
+.linkButton:hover {
+    text-decoration: none;
 }

@@ -121,7 +121,7 @@ export default function ExpensesTable({
               </td>
               {showButtons ?
                 <td className={`${styles.tbodyTd} ${styles.buttonCol}`}>
-                  <Link to={`/expenses/${expense.id}`} className={styles.editLink}>Edit</Link>
+                  <Link to={`/expenses/${expense.id}`} className={`linkButton ${styles.editLink}`}>Edit</Link>
                 </td>
                 : null
               }

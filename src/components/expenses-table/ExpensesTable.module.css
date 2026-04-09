@@ -73,13 +73,10 @@
 
 .editLink {
     background-color: var(--element-background-color);
-    border-radius: .5vw;
-    transition: background-color .3s;
 }
 
 .editLink:hover {
     background-color: var(--element-background-color-darker-shade);
-    text-decoration: none;
 }
 
 .editLink,
