@@ -10,7 +10,5 @@ export default function ExpensesHeader({ styleClass }) {
     font-size required
   }
   */
-  return (
-    <h1 className={`ExpensesHeader ${styles.ExpensesHeader} ${styleClass}`}>Expenses</h1>
-  );
+  return <h1 className={`ExpensesHeader ${styles.ExpensesHeader} ${styleClass}`}>Expenses</h1>;
 }
