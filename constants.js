@@ -1,10 +1,5 @@
 // This contains constants used throughout the files.
 
-const PageMessageType = {
-  SUCCESS: 'success',
-  FAILURE: 'failure',
-};
-
 const ExpenseSortProperty = {
   DATE: 'date',
   DESCRIPTION: 'description',
@@ -29,7 +24,6 @@ const ImportMode = {
 const CategoryType = { INCLUDE: 'include', EXCLUDE: 'exclude' };
 
 export {
-  PageMessageType,
   ExpenseSortProperty,
   SortOrder,
   SortOrderCharacter,

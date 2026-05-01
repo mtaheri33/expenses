@@ -4,12 +4,12 @@ import ExpensesSearchForm from './components/ExpensesSearchForm';
 import ExpensesTable from '../../components/expenses-table/ExpensesTable';
 import Navbar from '../../components/navbar/Navbar';
 import PageLoading from '../../components/page-loading/PageLoading';
-import PageMessage from '../../components/page-message/PageMessage';
 import Spinner from '../../components/spinner/Spinner';
-import { PageMessageType, ExpenseSortProperty, SortOrder } from '../../../constants';
+import { ExpenseSortProperty, SortOrder } from '../../../constants';
 import styles from './Expenses.module.css';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router';
+import { toast } from 'sonner';
 import {
   isAuthenticated,
   getRequest,
@@ -24,7 +24,6 @@ export default function Expenses() {
   const loadingMoreRef = useRef(false);
   const [isAuthenticatedState, setIsAuthenticatedState] = useState(null);
   const [expenses, setExpenses] = useState([]);
-  const [pageMessageProperties, setPageMessageProperties] = useState({});
   const [tableSortProperty, setTableSortProperty] = useState(ExpenseSortProperty.DATE);
   const [tableSortOrder, setTableSortOrder] = useState(SortOrder.DESC);
   const [hasMoreExpenses, setHasMoreExpenses] = useState(null);
@@ -65,11 +64,7 @@ export default function Expenses() {
   const [userCategories, setUserCategories] = useState([]);
 
   function handleDefaultResponse() {
-    setPageMessageProperties({
-      type: PageMessageType.FAILURE,
-      message: <span>Sorry, an error occurred. Please try again later.</span>,
-      displayTime: 3000,
-    });
+    toast.error('Sorry, an error occurred. Please try again later.');
   }
 
   function removeExpenseFromExpenses(expenseId) {
@@ -80,11 +75,7 @@ export default function Expenses() {
 
   function handleExpenseDelete204Response(expenseId) {
     removeExpenseFromExpenses(expenseId);
-    setPageMessageProperties({
-      type: PageMessageType.SUCCESS,
-      message: <span>Expense deleted successfully.</span>,
-      displayTime: 3000,
-    });
+    toast.success('Expense deleted successfully')
   }
 
   function handleExpenseDeleteResponse(response, expenseId) {
@@ -289,11 +280,6 @@ export default function Expenses() {
     <div className='Expenses'>
       <Navbar />
       <main className={styles.main}>
-        <PageMessage
-          type={pageMessageProperties.type}
-          message={pageMessageProperties.message}
-          displayTime={pageMessageProperties.displayTime}
-        />
         <div className={styles.addExpenseContainer}>
           <Link to='/expenses/create' className={styles.addExpenseLink}>Add Expense</Link>
         </div>

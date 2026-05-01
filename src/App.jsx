@@ -8,17 +8,21 @@ import Index from './pages/index/Index';
 import InvalidPage from './pages/invalid-page/InvalidPage';
 import SignUp from './pages/sign-up/SignUp';
 import { Routes, Route } from 'react-router';
+import { Toaster } from 'sonner';
 
 export default function App() {
   return (
-    <Routes>
-      <Route path='/' element={<Index />} />
-      <Route path='/sign-up' element={<SignUp />} />
-      <Route path='/expenses' element={<Expenses />} />
-      <Route path='/expenses/create' element={<CreateExpense />} />
-      <Route path='/expenses/:expenseId' element={<UpdateExpense />} />
-      <Route path='/import' element={<ImportPage />} />
-      <Route path='/*' element={<InvalidPage />} />
-    </Routes>
+    <>
+      <Toaster position='top-right' richColors closeButton />
+      <Routes>
+        <Route path='/' element={<Index />} />
+        <Route path='/sign-up' element={<SignUp />} />
+        <Route path='/expenses' element={<Expenses />} />
+        <Route path='/expenses/create' element={<CreateExpense />} />
+        <Route path='/expenses/:expenseId' element={<UpdateExpense />} />
+        <Route path='/import' element={<ImportPage />} />
+        <Route path='/*' element={<InvalidPage />} />
+      </Routes>
+    </>
   );
 }
