@@ -5,10 +5,10 @@ import styles from './Spinner.module.css';
 export default function Spinner({ styleClass }) {
   /*
   styleClass required string (CSS class) {
-    Width to padding ratio should be 6.25 to 1
     width required
-    padding required
+    border-width required
+    color required
   }
   */
-  return <div className={`Spinner ${styles.Spinner} ${styleClass}`}></div>;
+  return <span className={`Spinner ${styles.Spinner} ${styleClass}`}></span>;
 }
