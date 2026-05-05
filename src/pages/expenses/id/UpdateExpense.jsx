@@ -3,10 +3,10 @@
 import Navbar from '../../../components/navbar/Navbar';
 import PageLoading from '../../../components/page-loading/PageLoading';
 import UpdateExpenseForm from './components/UpdateExpenseForm';
-import ErrorPage from '../../error-page/ErrorPage';
 import InvalidPage from '../../invalid-page/InvalidPage';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
+import { toast } from 'sonner';
 import { isAuthenticated, getRequest } from '../../../../utilities';
 
 export default function UpdateExpense() {
@@ -18,6 +18,7 @@ export default function UpdateExpense() {
   const [expense, setExpense] = useState({});
 
   function handleDefaultResponse() {
+    toast.error('Sorry, an error occurred. Please try again later.');
     setValidExpense(null);
   }
 
@@ -74,7 +75,11 @@ export default function UpdateExpense() {
     return <PageLoading />;
   }
   if (validExpense === null) {
-    return <ErrorPage />;
+    return (
+      <div className='UpdateExpense'>
+        <Navbar />
+      </div>
+    );
   }
   if (validExpense === false) {
     return <InvalidPage />;
