@@ -1,7 +1,7 @@
 // This handles requests for the /api/expenses resource.
 
 import express from 'express';
-import { requireUser } from '../middleware.js';
+import { requireUser, requireExpense } from '../middleware.js';
 import expenses from '../mongoose/expenses.js';
 import {
   checkStringInput,
@@ -61,33 +61,17 @@ router.get('/categories', requireUser, async (req, res, next) => {
   }
 });
 
-async function getExpenseById(expenseId, user) {
-  const expense = await expenses.readById(expenseId);
-  if (!expense || !expenses.expenseBelongsToUser(expense, user)) {
-    return null;
-  }
-  return expense;
-}
-
-router.get('/:expenseId', requireUser, async (req, res, next) => {
+router.get('/:expenseId', requireUser, requireExpense, async (req, res, next) => {
   try {
-    const expense = await getExpenseById(req.params.expenseId, req.user);
-    if (!expense) {
-      return res.status(404).send();
-    }
-    return res.status(200).json(expense.objectForJson());
+    return res.status(200).json(req.expense.objectForJson());
   } catch (error) {
     next(error);
   }
 });
 
-router.patch('/:expenseId', requireUser, async (req, res, next) => {
+router.patch('/:expenseId', requireUser, requireExpense, async (req, res, next) => {
   try {
-    const expense = await getExpenseById(req.params.expenseId, req.user);
-    if (!expense) {
-      return res.status(404).send();
-    }
-    const updatedExpense = await expenses.update(expense._id, {
+    const updatedExpense = await expenses.update(req.expense._id, {
       date: req.body.date,
       description: checkStringInput(req.body.description),
       amount: checkAmountInput(req.body.amount),
@@ -99,13 +83,9 @@ router.patch('/:expenseId', requireUser, async (req, res, next) => {
   }
 });
 
-router.delete('/:expenseId', requireUser, async (req, res, next) => {
+router.delete('/:expenseId', requireUser, requireExpense, async (req, res, next) => {
   try {
-    const expense = await getExpenseById(req.params.expenseId, req.user);
-    if (!expense) {
-      return res.status(404).send();
-    }
-    await expenses.deleteExpense(expense._id);
+    await expenses.deleteExpense(req.expense._id);
     return res.status(204).send();
   } catch (error) {
     next(error);
