@@ -1,0 +1,57 @@
+/* These are styles for the ExpensesSearchForm component. */
+
+.ExpensesSearchForm,
+.dateInput,
+.textInput,
+.numberInput,
+.selectInputCategoryType,
+.selectInput,
+.searchButton {
+    font-size: 1vw;
+}
+
+.formRow,
+.submitMessage {
+    margin-bottom: .5vw;
+}
+
+.label {
+    display: inline-block;
+    width: 7vw;
+}
+
+.dateInput,
+.numberInput {
+    width: 8vw;
+    margin-right: 2vw;
+}
+
+.textInput {
+    width: 25.6vw;
+}
+
+.selectInputCategoryType {
+    margin-right: 1vw;
+}
+
+.selectInput {
+    width: 19.7vw;
+}
+
+.dateInput,
+.textInput,
+.numberInput,
+.selectInputCategoryType,
+.selectInput {
+    padding: .25vw;
+}
+
+.searchButton {
+    background-color: var(--element-background-color);
+    color: var(--element-color);
+    padding: .4vw .8vw;
+}
+
+.searchButton:hover {
+    background-color: var(--element-background-color-darker-shade);
+}

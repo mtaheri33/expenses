@@ -1,6 +1,6 @@
 // This is the component for the /expenses page.
 
-import ExpensesSearchForm from './components/ExpensesSearchForm';
+import ExpensesSearchForm from '../../components/expenses-search-form/ExpensesSearchForm';
 import ExpensesTable from '../../components/expenses-table/ExpensesTable';
 import Navbar from '../../components/navbar/Navbar';
 import PageLoading from '../../components/page-loading/PageLoading';
@@ -264,13 +264,13 @@ export default function Expenses() {
     searchFormDataForReq,
   ]);
 
-  async function searchExpenses() {
-    setSearching(true);
-    const data = { ...currentSearchFormData, categories: [...currentSearchFormData.categories] };
-    setSearchFormDataForReq(data);
-    const response = await getExpenses(tableSortProperty, tableSortOrder, data);
+  async function searchExpenses(formData) {
+    // setSearching(true);
+    // const data = { ...currentSearchFormData, categories: [...currentSearchFormData.categories] };
+    // setSearchFormDataForReq(data);
+    const response = await getExpenses(tableSortProperty, tableSortOrder, formData);
     await handleExpensesResponse(response, true);
-    setSearching(false);
+    // setSearching(false);
   }
 
   if (isAuthenticatedState === null || changingSort || searching) {
@@ -284,9 +284,9 @@ export default function Expenses() {
           <Link to='/expenses/create' className={styles.addExpenseLink}>Add Expense</Link>
         </div>
         <ExpensesSearchForm
-          formData={currentSearchFormData}
-          handleInputChange={handleSearchFormInputChange}
-          handleCategoryInputChange={handleSearchFormCategoryInputChange}
+          // formData={currentSearchFormData}
+          // handleInputChange={handleSearchFormInputChange}
+          // handleCategoryInputChange={handleSearchFormCategoryInputChange}
           searchExpensesFunction={searchExpenses}
           userCategories={userCategories}
         />

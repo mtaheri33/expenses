@@ -14,7 +14,7 @@ export default function ExpensesTable({
   tableSortOrder,
 }) {
   /*
-  expenses required array [Expense object]
+  expenses required array [object]
   showButtons optional boolean
   deleteExpenseFunction required if showButtons is true function(string)
   sortExpensesFunction optional function(ExpenseSortProperty constant, SortOrder constant)
