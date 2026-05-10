@@ -80,6 +80,15 @@ export default function ExpensesSearchForm({ searchExpensesFunction, userCategor
     event.target.value = '';
   }
 
+  function removeCategory(index) {
+    setFormData((currentFormData) => {
+      return {
+        ...currentFormData,
+        categories: currentFormData.categories.filter((_, i) => i !== index),
+      };
+    });
+  }
+
   return (
     <form
       className={`ExpensesSearchForm ${styles.ExpensesSearchForm}`}
@@ -160,6 +169,19 @@ export default function ExpensesSearchForm({ searchExpensesFunction, userCategor
             return <option key={category} value={category}>{category}</option>;
           })}
         </select>
+        {formData.categories.map((category, index) => {
+          return (
+            <span key={category}>
+              <span
+                className='clickableSpan'
+                onClick={() => removeCategory(index)}
+              >
+                {category}
+              </span>
+              {index !== formData.categories.length - 1 ? <span> | </span> : null}
+            </span>
+          );
+        })}
       </div>
       {submitMessages.map((message) => {
         return <div key={message} className={styles.submitMessage}>{message}</div>;

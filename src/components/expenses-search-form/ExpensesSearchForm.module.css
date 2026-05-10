@@ -30,7 +30,8 @@
     width: 25.6vw;
 }
 
-.selectInputCategoryType {
+.selectInputCategoryType,
+.selectInput {
     margin-right: 1vw;
 }
 
