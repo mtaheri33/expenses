@@ -7,7 +7,6 @@
 }
 
 .Spinner {
-    display: inline-block;
     box-sizing: border-box;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
@@ -15,4 +14,12 @@
     border-color: currentColor;
     border-right-color: transparent;
     animation: spinner-rotate .85s linear infinite;
+}
+
+.displayBlock {
+    display: block;
+}
+
+.displayInlineBlock {
+    display: inline-block;
 }

@@ -79,7 +79,6 @@ export default function ExpensesSearchForm({ searchExpensesFunction, userCategor
     handleCategoryInputChange(event);
     event.target.value = '';
   }
-
   function removeCategory(index) {
     setFormData((currentFormData) => {
       return {
