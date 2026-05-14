@@ -208,6 +208,12 @@ function checkCategoriesReqQuery(categoriesInput) {
   return checkCategoriesInput(categoriesInput);
 }
 
+function createAddSubmitMessageFunction(setStateFunction) {
+  return function addSubmitMessage(message) {
+    setStateFunction((currentSubmitMessages) => [...currentSubmitMessages, message]);
+  }
+}
+
 export {
   createHandleInputChangeFunction,
   getRequest,
@@ -224,4 +230,5 @@ export {
   generateId,
   parseImportFileContents,
   checkCategoriesReqQuery,
+  createAddSubmitMessageFunction,
 };

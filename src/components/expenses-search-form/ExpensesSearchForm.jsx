@@ -3,7 +3,11 @@
 import { CategoryType } from '../../../constants';
 import styles from './ExpensesSearchForm.module.css';
 import { useState } from 'react';
-import { createHandleInputChangeFunction, checkAmountInput } from '../../../utilities';
+import {
+  createHandleInputChangeFunction,
+  checkAmountInput,
+  createAddSubmitMessageFunction,
+} from '../../../utilities';
 
 export default function ExpensesSearchForm({ searchExpensesFunction, userCategories }) {
   /*
@@ -34,9 +38,7 @@ export default function ExpensesSearchForm({ searchExpensesFunction, userCategor
       };
     });
   }
-  function addSubmitMessage(message) {
-    setSubmitMessages((currentSubmitMessages) => [...currentSubmitMessages, message]);
-  }
+  const addSubmitMessage = createAddSubmitMessageFunction(setSubmitMessages);
 
   function validDates() {
     if (
