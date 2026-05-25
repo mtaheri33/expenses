@@ -1,0 +1,9 @@
+/* These are styles for the ClearButton component. */
+
+.ClearButton {
+    background: none;
+}
+
+.ClearButton:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
