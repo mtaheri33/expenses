@@ -1,0 +1,87 @@
+/* These are styles for the ExpenseForm component. */
+
+.ExpenseForm,
+.saveButton {
+    font-size: 1.5vw;
+}
+
+.formRow {
+    margin-bottom: 1vw;
+}
+
+.label,
+.categoryInput {
+    width: 10vw;
+}
+
+.label {
+    display: inline-block;
+}
+
+.dateInput,
+.textInput,
+.numberInput,
+.categoryInput {
+    padding: .25vw;
+}
+
+.dateInput,
+.textInput,
+.numberInput,
+.categoryInput,
+.removeCategoryButton,
+.addCategorySpan,
+.submitMessage,
+.clearFormSpan {
+    font-size: 1vw;
+}
+
+.dateInput,
+.numberInput {
+    width: 8vw;
+}
+
+.textInput {
+    width: 24vw;
+}
+
+.categoriesSpan,
+.categoryRow {
+    margin-bottom: .5vw;
+}
+
+.removeCategoryButton {
+    padding: .25vw .5vw;
+}
+
+.saveButton,
+.spinner {
+    color: var(--element-color);
+}
+
+.saveButton {
+    background-color: var(--element-background-color);
+    padding: .5vw 1vw;
+    display: inline-flex;
+    min-width: 6.3vw;
+    min-height: 2.75vw;
+    align-items: center;
+    justify-content: center;
+}
+
+.saveButton:hover {
+    background-color: var(--element-background-color-darker-shade);
+}
+
+.spinner {
+    width: 1.5vw;
+    border-width: .15vw;
+}
+
+.submitMessage {
+    margin-top: .5vw;
+}
+
+.clearFormContainer {
+    margin-top: 1.5vw;
+}
