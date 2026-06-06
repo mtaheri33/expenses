@@ -2,7 +2,7 @@
 
 .spinner {
     width: 4vw;
-    border-width: .3vw;
+    border-width: .4vw;
     color: var(--element-background-color);
     margin-top: 20vw;
     margin-left: auto;
