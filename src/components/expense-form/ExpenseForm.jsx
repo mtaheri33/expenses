@@ -150,7 +150,7 @@ export default function ExpenseForm({ expenseData, requestMethod, requestUrl }) 
       onSubmit={submitExpense}
     >
       <div className={styles.formRow}>
-        <label className={styles.label} htmlFor='expenseFormDate'>Date</label>
+        <label className={styles.label} htmlFor='expenseFormDate'>Date*</label>
         <input
           type='date'
           className={styles.dateInput}
@@ -161,7 +161,7 @@ export default function ExpenseForm({ expenseData, requestMethod, requestUrl }) 
         />
       </div>
       <div className={styles.formRow}>
-        <label className={styles.label} htmlFor='expenseFormDescription'>Description</label>
+        <label className={styles.label} htmlFor='expenseFormDescription'>Description*</label>
         <input
           type='text'
           className={styles.textInput}
@@ -172,7 +172,7 @@ export default function ExpenseForm({ expenseData, requestMethod, requestUrl }) 
         />
       </div>
       <div className={styles.formRow}>
-        <label className={styles.label} htmlFor='expenseFormAmount'>Amount</label>
+        <label className={styles.label} htmlFor='expenseFormAmount'>Amount*</label>
         <input
           type='number'
           className={styles.numberInput}
