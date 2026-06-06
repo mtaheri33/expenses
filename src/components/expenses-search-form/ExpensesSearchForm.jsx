@@ -184,10 +184,10 @@ export default function ExpensesSearchForm({ searchExpensesFunction, userCategor
           );
         })}
       </div>
+      <button className={styles.searchButton}>Search</button>
       {submitMessages.map((message) => {
         return <div key={message} className={styles.submitMessage}>{message}</div>;
       })}
-      <button className={styles.searchButton}>Search</button>
     </form>
   );
 }

@@ -10,8 +10,7 @@
     font-size: 1vw;
 }
 
-.formRow,
-.submitMessage {
+.formRow {
     margin-bottom: .5vw;
 }
 
@@ -55,4 +54,8 @@
 
 .searchButton:hover {
     background-color: var(--element-background-color-darker-shade);
+}
+
+.submitMessage {
+    margin-top: .5vw;
 }
