@@ -92,3 +92,9 @@
 .deleteButton:hover {
     background-color: #b01030;
 }
+
+.sortingSpinner {
+    width: 1vw;
+    border-width: .1vw;
+    color: var(--element-background-color);
+}

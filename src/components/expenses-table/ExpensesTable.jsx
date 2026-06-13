@@ -3,6 +3,7 @@
 import { ExpenseSortProperty, SortOrder, SortOrderCharacter } from '../../../constants';
 import styles from './ExpensesTable.module.css';
 import { Link } from 'react-router';
+import Spinner from '../spinner/Spinner';
 import { formatDateForDisplay, formatAmountForDisplay } from '../../../utilities';
 
 export default function ExpensesTable({
@@ -12,6 +13,7 @@ export default function ExpensesTable({
   sortExpensesFunction,
   tableSortProperty,
   tableSortOrder,
+  changingSort,
 }) {
   /*
   expenses required array [object]
@@ -20,8 +22,10 @@ export default function ExpensesTable({
   sortExpensesFunction optional function(ExpenseSortProperty constant, SortOrder constant)
   tableSortProperty required if sortExpensesFunction is given ExpenseSortProperty constant
   tableSortOrder required if sortExpensesFunction is given SortOrder constant
+  changingSort required if sortExpensesFunction is given boolean
   */
   const expensesTotal = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+  const sortingSpinner = <Spinner styleClass={styles.sortingSpinner} />;
 
   function sortExpenses(sortProperty) {
     let sortOrder;
@@ -50,37 +54,46 @@ export default function ExpensesTable({
       <thead>
         <tr className={styles.theadTr}>
           <th className={`${styles.th} ${styles.dateCol}`}>
-            <span
-              className={sortExpensesFunction ? 'clickableSpan' : undefined}
-              onClick={sortExpensesFunction ? sortByDate : undefined}
-            >
-              Date
-              {sortExpensesFunction && tableSortProperty === ExpenseSortProperty.DATE ?
-                tableSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : SortOrderCharacter.DESC
-                : null}
-            </span>
+            {changingSort && tableSortProperty === ExpenseSortProperty.DATE ?
+              sortingSpinner
+              : <span
+                className={sortExpensesFunction ? 'clickableSpan' : undefined}
+                onClick={sortExpensesFunction ? sortByDate : undefined}
+              >
+                Date
+                {tableSortProperty === ExpenseSortProperty.DATE ?
+                  tableSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : SortOrderCharacter.DESC
+                  : null}
+              </span>
+            }
           </th>
           <th className={`${styles.th} ${styles.descriptionCol}`}>
-            <span
-              className={sortExpensesFunction ? 'clickableSpan' : undefined}
-              onClick={sortExpensesFunction ? sortByDescription : undefined}
-            >
-              Description
-              {sortExpensesFunction && tableSortProperty === ExpenseSortProperty.DESCRIPTION ?
-                tableSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : SortOrderCharacter.DESC
-                : null}
-            </span>
+            {changingSort && tableSortProperty === ExpenseSortProperty.DESCRIPTION ?
+              sortingSpinner
+              : <span
+                className={sortExpensesFunction ? 'clickableSpan' : undefined}
+                onClick={sortExpensesFunction ? sortByDescription : undefined}
+              >
+                Description
+                {tableSortProperty === ExpenseSortProperty.DESCRIPTION ?
+                  tableSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : SortOrderCharacter.DESC
+                  : null}
+              </span>
+            }
           </th>
           <th className={`${styles.th} ${styles.amountCol}`}>
-            <span
-              className={sortExpensesFunction ? 'clickableSpan' : undefined}
-              onClick={sortExpensesFunction ? sortByAmount : undefined}
-            >
-              Amount
-              {sortExpensesFunction && tableSortProperty === ExpenseSortProperty.AMOUNT ?
-                tableSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : SortOrderCharacter.DESC
-                : null}
-            </span>
+            {changingSort && tableSortProperty === ExpenseSortProperty.AMOUNT ?
+              sortingSpinner
+              : <span
+                className={sortExpensesFunction ? 'clickableSpan' : undefined}
+                onClick={sortExpensesFunction ? sortByAmount : undefined}
+              >
+                Amount
+                {tableSortProperty === ExpenseSortProperty.AMOUNT ?
+                  tableSortOrder === SortOrder.ASC ? SortOrderCharacter.ASC : SortOrderCharacter.DESC
+                  : null}
+              </span>
+            }
           </th>
           <th
             className={
