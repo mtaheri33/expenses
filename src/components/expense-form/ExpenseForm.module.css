@@ -63,8 +63,8 @@
     background-color: var(--element-background-color);
     padding: .5vw 1vw;
     display: inline-flex;
-    min-width: 6.3vw;
-    min-height: 2.75vw;
+    min-width: 5.3vw;
+    min-height: 2.8vw;
     align-items: center;
     justify-content: center;
 }

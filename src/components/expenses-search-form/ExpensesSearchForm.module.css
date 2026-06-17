@@ -48,8 +48,17 @@
 
 .searchButton {
     background-color: var(--element-background-color);
-    color: var(--element-color);
     padding: .4vw .8vw;
+    display: inline-flex;
+    min-width: 4.7vw;
+    min-height: 2vw;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchButton,
+.searchingSpinner {
+    color: var(--element-color);
 }
 
 .searchButton:hover {
@@ -58,4 +67,9 @@
 
 .submitMessage {
     margin-top: .5vw;
+}
+
+.searchingSpinner {
+    width: 1vw;
+    border-width: .1vw;
 }

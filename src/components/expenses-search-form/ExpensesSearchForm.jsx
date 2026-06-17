@@ -3,16 +3,24 @@
 import { CategoryType } from '../../../constants';
 import styles from './ExpensesSearchForm.module.css';
 import { useState } from 'react';
+import Spinner from '../spinner/Spinner';
 import {
   createHandleInputChangeFunction,
   checkAmountInput,
   createAddSubmitMessageFunction,
 } from '../../../utilities';
 
-export default function ExpensesSearchForm({ searchExpensesFunction, userCategories }) {
+export default function ExpensesSearchForm({
+  searchExpensesFunction,
+  userCategories,
+  searching,
+  styleClass,
+}) {
   /*
   searchExpensesFunction required function(object)
   userCategories required array [string]
+  searching required boolean
+  styleClass optional string (CSS class)
   */
   const [formData, setFormData] = useState({
     fromDate: '',
@@ -92,7 +100,9 @@ export default function ExpensesSearchForm({ searchExpensesFunction, userCategor
 
   return (
     <form
-      className={`ExpensesSearchForm ${styles.ExpensesSearchForm}`}
+      className={
+        `ExpensesSearchForm ${styles.ExpensesSearchForm}${styleClass ? ' ' + styleClass : ''}`
+      }
       autoComplete='off'
       onSubmit={searchExpenses}
     >
@@ -184,7 +194,9 @@ export default function ExpensesSearchForm({ searchExpensesFunction, userCategor
           );
         })}
       </div>
-      <button className={styles.searchButton}>Search</button>
+      <button className={styles.searchButton}>
+        {searching ? <Spinner styleClass={styles.searchingSpinner} /> : 'Search'}
+      </button>
       {submitMessages.map((message) => {
         return <div key={message} className={styles.submitMessage}>{message}</div>;
       })}
