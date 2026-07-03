@@ -9,7 +9,79 @@
     font-size: 3vw;
 }
 
+.importInstructions {
+    margin-bottom: 2vw;
+    font-size: 1.25vw;
+}
+
+.h2 {
+    font-size: 2vw;
+    margin-bottom: 0;
+}
+
+.ul {
+    list-style-position: inside;
+}
+
+.exampleContainer,
 .message {
     margin-top: .5vw;
+}
+
+.pre {
+    font-family: var(--font-family);
+    margin: 0;
+}
+
+.previewSpinner {
+    width: 2vw;
+    border-width: .2vw;
+    color: var(--element-background-color);
+}
+
+.fileInputLabel {
+    cursor: pointer;
+    margin-right: 1vw;
+}
+
+.fileInputLabel:hover {
+    text-decoration: underline;
+}
+
+.fileInputLabel,
+.fileName,
+.submitButton {
+    font-size: 1.5vw;
+}
+
+.fileInput {
+    display: none;
+}
+
+.message {
     font-size: 1vw;
+}
+
+.submitButton {
+    background-color: var(--element-background-color);
+    padding: .5vw 1vw;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 6.8vw;
+    min-height: 2.8vw;
+}
+
+.submitButton,
+.submitSpinner {
+    color: var(--element-color);
+}
+
+.submitButton:hover {
+    background-color: var(--element-background-color-darker-shade);
+}
+
+.submitSpinner {
+    width: 1.5vw;
+    border-width: .15vw;
 }
