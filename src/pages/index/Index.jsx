@@ -1,9 +1,9 @@
 // This is the component for the / page.
 
-import Home from './components/home/Home';
 import PageLoading from '../../components/page-loading/PageLoading';
-import SignIn from './components/sign-in/SignIn';
+import Home from './home/Home';
 import { useState, useEffect } from 'react';
+import SignIn from './sign-in/SignIn';
 import { isAuthenticated } from '../../../utilities';
 
 export default function Index() {

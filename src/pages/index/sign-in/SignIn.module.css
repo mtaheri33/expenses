@@ -1,0 +1,80 @@
+/* These are styles for the SignIn component. */
+
+.SignIn {
+    text-align: center;
+}
+
+.SignIn,
+.formInput,
+.signInButton {
+    font-size: 1vw;
+}
+
+.expensesHeader {
+    margin-top: 5vw;
+    margin-bottom: 7.5vw;
+    width: 35vw;
+    font-size: 7vw;
+}
+
+.expensesHeader,
+.formInput {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.h2 {
+    margin-bottom: .5vw;
+}
+
+.h2,
+.signUpLink {
+    font-size: 2vw;
+}
+
+.form {
+    margin-bottom: 1vw;
+}
+
+.formInput {
+    display: block;
+    margin-bottom: .25vw;
+    width: 18vw;
+    padding: .5vw;
+}
+
+.signInButton {
+    background-color: var(--element-background-color);
+    padding: .5vw 1vw;
+    display: inline-flex;
+    min-width: 5.1vw;
+    min-height: 2.2vw;
+    align-items: center;
+    justify-content: center;
+}
+
+.signInButton,
+.signInSpinner {
+    color: var(--element-color);
+}
+
+.signInButton:hover {
+    background-color: var(--element-background-color-darker-shade);
+}
+
+.signInSpinner {
+    width: 1vw;
+    border-width: .1vw;
+}
+
+.submitMessage {
+    margin-top: .5vw;
+}
+
+.forgotPasswordContainer {
+    margin-bottom: 1.5vw;
+}
+
+.forgotPasswordMessage {
+    margin-top: .25vw;
+}
