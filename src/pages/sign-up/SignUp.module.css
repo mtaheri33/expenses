@@ -4,11 +4,61 @@
     text-align: center;
 }
 
+.SignUp,
+.formInput,
+.signUpButton {
+    font-size: 1vw;
+}
+
 .expensesHeader {
     margin-top: 5vw;
     margin-bottom: 7.5vw;
     width: 35vw;
     font-size: 7vw;
+}
+
+.expensesHeader,
+.formInput {
     margin-left: auto;
     margin-right: auto;
+}
+
+.h2 {
+    margin-bottom: .5vw;
+    font-size: 2vw;
+}
+
+.formInput {
+    display: block;
+    margin-bottom: .25vw;
+    width: 18vw;
+    padding: .5vw;
+}
+
+.signUpButton {
+    background-color: var(--element-background-color);
+    padding: .5vw 1vw;
+    display: inline-flex;
+    min-width: 5.5vw;
+    min-height: 2.2vw;
+    align-items: center;
+    justify-content: center;
+}
+
+.signUpButton,
+.signUpSpinner {
+    color: var(--element-color);
+}
+
+.signUpButton:hover {
+    background-color: var(--element-background-color-darker-shade);
+}
+
+.signUpSpinner {
+    width: 1vw;
+    border-width: .1vw;
+}
+
+.submitMessage {
+    margin-top: .5vw;
 }
