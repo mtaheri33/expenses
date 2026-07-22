@@ -1,4 +1,4 @@
-// This is the component for any page the user goes to that doesn't exist.
+// This is the component for any page that doesn't exist.
 
 import { Link } from 'react-router';
 
