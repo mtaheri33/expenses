@@ -1,4 +1,4 @@
-// This contains code used throughout the files.
+// This contains functions used throughout the files.
 
 const integerFormatter = new Intl.NumberFormat('en-US');
 const decimalFormatter = new Intl.NumberFormat('en-US', {
@@ -141,10 +141,8 @@ function parseImportRow(row) {
   if (row.split(',').length < 4) {
     return;
   }
-
   const data = {};
   let i = 0;
-
   let date = '';
   while (row[i] !== ',' && i < row.length) {
     date += row[i];
@@ -152,7 +150,6 @@ function parseImportRow(row) {
   }
   data.date = date;
   i += 1;
-
   let description = '';
   let descriptionEndValue;
   if (row[i] === '"') {
@@ -170,7 +167,6 @@ function parseImportRow(row) {
     i += 1;
   }
   i += 1;
-
   let amount = '';
   while (row[i] !== ',' && i < row.length) {
     amount += row[i];
@@ -178,16 +174,14 @@ function parseImportRow(row) {
   }
   data.amount = amount;
   i += 1;
-
   data.categories = row.substr(i).split(',');
-
   return data;
 }
 
 function parseImportFileContents(fileContents) {
   const parsedFileContents = [];
   const rows = fileContents.split('\n');
-  for (let i = 1; i < rows.length; i += 1) {
+  for (let i = 1; i < rows.length; i++) {
     const row = parseImportRow(rows[i]);
     if (row) {
       parsedFileContents.push(row);
