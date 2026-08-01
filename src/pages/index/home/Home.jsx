@@ -32,6 +32,7 @@ export default function Home() {
         <div className={styles.grid}>
           <div className={styles.row}>
             <Link to='/expenses' className={styles.col}>Expenses</Link>
+            <Link to='/charts' className={styles.col}>Charts</Link>
             <Link to='/import' className={styles.col}>Import</Link>
             <button onClick={signOut} className={`${styles.col} ${styles.signOutButton}`}>
               Sign Out

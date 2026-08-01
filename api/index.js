@@ -60,6 +60,8 @@ import expensesRouter from './routes/expenses.js';
 app.use('/api/expenses', expensesRouter);
 import importRouter from './routes/import.js';
 app.use('/api/import', importRouter);
+import chartsRouter from './routes/charts.js';
+app.use('/api/charts', chartsRouter);
 
 app.use((req, res) => {
   res.status(404).json(

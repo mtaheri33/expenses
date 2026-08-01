@@ -146,6 +146,10 @@ async function readByUser(
   return { pageExpenses, hasMore };
 }
 
+async function readAllByUser(userId) {
+  return await Expense.find({ user: userId });
+}
+
 function expenseBelongsToUser(expense, user) {
   return expense.user.equals(user._id);
 }
@@ -181,6 +185,7 @@ export default {
   createWithoutSave,
   readById,
   readByUser,
+  readAllByUser,
   expenseBelongsToUser,
   update,
   deleteExpense,

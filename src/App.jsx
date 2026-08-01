@@ -1,5 +1,6 @@
 // This is the top level React component.
 
+import Charts from './pages/charts/Charts';
 import CreateExpense from './pages/expenses/create/CreateExpense';
 import Expenses from './pages/expenses/Expenses';
 import UpdateExpense from './pages/expenses/id/UpdateExpense';
@@ -21,6 +22,7 @@ export default function App() {
         <Route path='/expenses/create' element={<CreateExpense />} />
         <Route path='/expenses/:expenseId' element={<UpdateExpense />} />
         <Route path='/import' element={<ImportPage />} />
+        <Route path='/charts' element={<Charts />} />
         <Route path='/*' element={<InvalidPage />} />
       </Routes>
     </>
