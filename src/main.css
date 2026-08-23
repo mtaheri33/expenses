@@ -13,13 +13,14 @@
     --button-transition: background-color .3s;
     --chart-card-background-color: white;
     background-color: var(--page-background-color);
-    font-family: var(--font-family);
 }
 
 body {
     margin: 0;
 }
 
+:root,
+button,
 select,
 input[type='email'],
 input[type='number'],
@@ -40,19 +41,31 @@ input[type='password'] {
 }
 
 button {
-    font-family: var(--font-family);
     border: none;
+}
+
+button,
+.linkButton {
     border-radius: var(--button-radius);
-    cursor: pointer;
     transition: var(--button-transition);
 }
 
+button,
+.clickableSpan {
+    cursor: pointer;
+}
+
 a {
-    text-decoration: none;
     color: var(--link-color);
 }
 
-a:hover {
+a,
+.linkButton:hover {
+    text-decoration: none;
+}
+
+a:hover,
+.clickableSpan:hover {
     text-decoration: underline;
 }
 
@@ -68,23 +81,6 @@ ul {
 
 main {
     padding-top: var(--navbar-height);
-}
-
-.clickableSpan {
-    cursor: pointer;
-}
-
-.clickableSpan:hover {
-    text-decoration: underline;
-}
-
-.linkButton {
-    border-radius: var(--button-radius);
-    transition: var(--button-transition);
-}
-
-.linkButton:hover {
-    text-decoration: none;
 }
 
 .linkButton:active {

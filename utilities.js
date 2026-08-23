@@ -5,7 +5,7 @@ const decimalFormatter = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 });
-const monthYearFormatter = new Intl.DateTimeFormat('en-US', { month: 'short', year: 'numeric' });
+const yearMonthFormatter = new Intl.DateTimeFormat('en-US', { month: 'short', year: 'numeric' });
 
 function createHandleInputChangeFunction(setStateFunction) {
   return function handleInputChange(event) {
@@ -223,7 +223,7 @@ function formatYearMonthForDisplay(yearMonth) {
   with 0.
   */
   const [year, month] = yearMonth.split('-');
-  return monthYearFormatter.format(new Date(Number(year), Number(month) - 1, 1));
+  return yearMonthFormatter.format(new Date(Number(year), Number(month) - 1, 1));
 }
 
 export {
