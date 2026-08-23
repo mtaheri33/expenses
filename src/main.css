@@ -11,6 +11,7 @@
     --navbar-height: 3vw;
     --button-radius: .5vw;
     --button-transition: background-color .3s;
+    --chart-card-background-color: white;
     background-color: var(--page-background-color);
     font-family: var(--font-family);
 }
@@ -27,6 +28,7 @@ input[type='text'] {
     font-family: var(--font-family);
 }
 
+.chartTooltip,
 select,
 input[type='email'],
 input[type='number'],
@@ -87,4 +89,23 @@ main {
 
 .linkButton:active {
     outline: none;
+}
+
+.chartTooltip,
+.chartCard {
+    background-color: var(--chart-card-background-color);
+}
+
+.chartTooltipLabel {
+    font-weight: bold;
+}
+
+.chartCard {
+    border-radius: 1vw;
+}
+
+.chartEmpty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

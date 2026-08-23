@@ -5,6 +5,7 @@ const decimalFormatter = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 });
+const monthYearFormatter = new Intl.DateTimeFormat('en-US', { month: 'short', year: 'numeric' });
 
 function createHandleInputChangeFunction(setStateFunction) {
   return function handleInputChange(event) {
@@ -208,6 +209,23 @@ function createAddSubmitMessageFunction(setStateFunction) {
   }
 }
 
+function totalsByMonth(expenses) {
+  return expenses.reduce((monthlyTotals, expense) => {
+    const yearMonthKey = expense.date.slice(0, 7);
+    monthlyTotals[yearMonthKey] = (monthlyTotals[yearMonthKey] || 0) + expense.amount;
+    return monthlyTotals;
+  }, {});
+}
+
+function formatYearMonthForDisplay(yearMonth) {
+  /*
+  yearMonth should be a string in the format YYYY-MM.  For single digit months, it should start
+  with 0.
+  */
+  const [year, month] = yearMonth.split('-');
+  return monthYearFormatter.format(new Date(Number(year), Number(month) - 1, 1));
+}
+
 export {
   createHandleInputChangeFunction,
   getRequest,
@@ -225,4 +243,6 @@ export {
   parseImportFileContents,
   checkCategoriesReqQuery,
   createAddSubmitMessageFunction,
+  totalsByMonth,
+  formatYearMonthForDisplay,
 };

@@ -9,6 +9,7 @@ export default function Navbar() {
       <ul className={styles.ul}>
         <li><Link to='/' className={styles.navLink}>Home</Link></li>
         <li><Link to='/expenses' className={styles.navLink}>Expenses</Link></li>
+        <li><Link to='/charts' className={styles.navLink}>Charts</Link></li>
       </ul>
     </nav>
   );
