@@ -1,6 +1,7 @@
 // This is the component for the /charts page.
 
 import styles from './Charts.module.css';
+import CategoryTotalBarChart from '../../components/charts/bar/CategoryTotalBarChart';
 import MonthlyTotalBarChart from '../../components/charts/bar/MonthlyTotalBarChart';
 import Navbar from '../../components/navbar/Navbar';
 import PageLoading from '../../components/page-loading/PageLoading';
@@ -62,6 +63,7 @@ export default function Charts() {
       <Navbar />
       <main className={styles.main}>
         <MonthlyTotalBarChart expenses={expenses} />
+        <CategoryTotalBarChart expenses={expenses} />
       </main>
     </div>
   );

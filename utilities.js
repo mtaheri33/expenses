@@ -217,6 +217,16 @@ function totalsByMonth(expenses) {
   }, {});
 }
 
+function totalsByCategory(expenses) {
+  return expenses.reduce((categoryTotals, expense) => {
+    const categories = expense.categories.length > 0 ? expense.categories : ['Uncategorized'];
+    categories.forEach((category) => {
+      categoryTotals[category] = (categoryTotals[category] || 0) + expense.amount;
+    });
+    return categoryTotals;
+  }, {});
+}
+
 function formatYearMonthForDisplay(yearMonth) {
   /*
   yearMonth should be a string in the format YYYY-MM.  For single digit months, it should start
@@ -244,5 +254,6 @@ export {
   checkCategoriesReqQuery,
   createAddSubmitMessageFunction,
   totalsByMonth,
+  totalsByCategory,
   formatYearMonthForDisplay,
 };

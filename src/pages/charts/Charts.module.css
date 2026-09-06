@@ -1,5 +1,8 @@
 /* These are styles for the Charts component. */
 
 .main {
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
     margin: 1vw;
 }
