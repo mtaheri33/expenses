@@ -217,6 +217,13 @@ function totalsByMonth(expenses) {
   }, {});
 }
 
+function totalsByDay(expenses) {
+  return expenses.reduce((dailyTotals, expense) => {
+    dailyTotals[expense.date] = (dailyTotals[expense.date] || 0) + expense.amount;
+    return dailyTotals;
+  }, {});
+}
+
 function totalsByCategory(expenses) {
   return expenses.reduce((categoryTotals, expense) => {
     const categories = expense.categories.length > 0 ? expense.categories : ['Uncategorized'];
@@ -254,6 +261,7 @@ export {
   checkCategoriesReqQuery,
   createAddSubmitMessageFunction,
   totalsByMonth,
+  totalsByDay,
   totalsByCategory,
   formatYearMonthForDisplay,
 };

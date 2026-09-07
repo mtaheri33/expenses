@@ -3,6 +3,7 @@
 import styles from './Charts.module.css';
 import CategoryTotalBarChart from '../../components/charts/bar/CategoryTotalBarChart';
 import MonthlyTotalBarChart from '../../components/charts/bar/MonthlyTotalBarChart';
+import DayTotalLineChart from '../../components/charts/line/DayTotalLineChart';
 import Navbar from '../../components/navbar/Navbar';
 import PageLoading from '../../components/page-loading/PageLoading';
 import { useState, useEffect } from 'react';
@@ -64,6 +65,7 @@ export default function Charts() {
       <main className={styles.main}>
         <MonthlyTotalBarChart expenses={expenses} />
         <CategoryTotalBarChart expenses={expenses} />
+        <DayTotalLineChart expenses={expenses} />
       </main>
     </div>
   );
