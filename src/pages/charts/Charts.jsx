@@ -3,6 +3,7 @@
 import styles from './Charts.module.css';
 import CategoryTotalBarChart from '../../components/charts/bar/CategoryTotalBarChart';
 import MonthlyTotalBarChart from '../../components/charts/bar/MonthlyTotalBarChart';
+import YearlyTotalQuarterStackedBarChart from '../../components/charts/bar/YearlyTotalQuarterStackedBarChart';
 import DayTotalLineChart from '../../components/charts/line/DayTotalLineChart';
 import Navbar from '../../components/navbar/Navbar';
 import PageLoading from '../../components/page-loading/PageLoading';
@@ -63,8 +64,9 @@ export default function Charts() {
     <div className='Charts'>
       <Navbar />
       <main className={styles.main}>
-        <MonthlyTotalBarChart expenses={expenses} />
         <CategoryTotalBarChart expenses={expenses} />
+        <YearlyTotalQuarterStackedBarChart expenses={expenses} />
+        <MonthlyTotalBarChart expenses={expenses} />
         <DayTotalLineChart expenses={expenses} />
       </main>
     </div>

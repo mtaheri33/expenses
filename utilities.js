@@ -217,6 +217,19 @@ function totalsByMonth(expenses) {
   }, {});
 }
 
+function totalsByYearQuarter(expenses) {
+  return expenses.reduce((yearlyTotals, expense) => {
+    const year = expense.date.slice(0, 4);
+    const month = Number(expense.date.slice(5, 7));
+    const quarter = `q${Math.ceil(month / 3)}`;
+    if (!yearlyTotals[year]) {
+      yearlyTotals[year] = { q1: 0, q2: 0, q3: 0, q4: 0 };
+    }
+    yearlyTotals[year][quarter] += expense.amount;
+    return yearlyTotals;
+  }, {});
+}
+
 function totalsByDay(expenses) {
   return expenses.reduce((dailyTotals, expense) => {
     dailyTotals[expense.date] = (dailyTotals[expense.date] || 0) + expense.amount;
@@ -261,6 +274,7 @@ export {
   checkCategoriesReqQuery,
   createAddSubmitMessageFunction,
   totalsByMonth,
+  totalsByYearQuarter,
   totalsByDay,
   totalsByCategory,
   formatYearMonthForDisplay,

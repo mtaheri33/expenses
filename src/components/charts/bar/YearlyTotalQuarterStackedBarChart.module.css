@@ -1,0 +1,75 @@
+/* These are styles for the YearlyTotalQuarterStackedBarChart component. */
+
+.chartTooltip {
+    padding: .6vw .8vw;
+}
+
+.chartTooltipLabel,
+.tooltipRow,
+.totalLabel,
+.chartEmpty,
+.chartContainer {
+    font-size: 1vw;
+}
+
+.chartCard {
+    padding: 1vw;
+}
+
+.header {
+    margin-bottom: 1vw;
+}
+
+.header,
+.tooltipRow {
+    justify-content: space-between;
+}
+
+.header,
+.totalContainer,
+.tooltipRow,
+.quarterLabel {
+    display: flex;
+}
+
+.title {
+    margin: 0;
+}
+
+.title,
+.totalValue {
+    font-size: 1.5vw;
+}
+
+.totalContainer {
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.totalValue {
+    font-weight: bold;
+}
+
+.chartContainer {
+    height: 30vw;
+}
+
+.tooltipRow {
+    gap: 1vw;
+    margin-top: .4vw;
+}
+
+.quarterLabel {
+    align-items: center;
+    gap: .4vw;
+}
+
+.quarterColor {
+    width: .7vw;
+    height: .7vw;
+}
+
+.tooltipTotal {
+    border-top: .05vw solid #cccccc;
+    padding-top: .4vw;
+}
