@@ -44,5 +44,6 @@
 }
 
 .chartContainer {
-    height: 30vw;
+    max-height: 30vw;
+    overflow-y: auto;
 }

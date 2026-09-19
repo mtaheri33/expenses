@@ -71,7 +71,7 @@ export default function CategoryTotalBarChart({ expenses }) {
       {chartData.length === 0 ?
         <div className={`chartEmpty ${styles.chartEmpty}`}>No expenses available yet</div>
         : <div className={styles.chartContainer}>
-          <ResponsiveContainer width='100%' height='100%'>
+          <ResponsiveContainer width='100%' height={Math.max(350, chartData.length * 32 + 40)}>
             <BarChart
               data={chartData}
               layout='vertical'
@@ -88,7 +88,6 @@ export default function CategoryTotalBarChart({ expenses }) {
                 dataKey='category'
                 type='category'
                 interval={0}
-                tick={{ fontSize: '.75vw' }}
                 tickLine={false}
                 width={160}
               />
