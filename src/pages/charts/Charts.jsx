@@ -1,6 +1,7 @@
 // This is the component for the /charts page.
 
 import styles from './Charts.module.css';
+import AmountHistogram from '../../components/charts/bar/AmountHistogram';
 import CategoryTotalBarChart from '../../components/charts/bar/CategoryTotalBarChart';
 import MonthlyTotalBarChart from '../../components/charts/bar/MonthlyTotalBarChart';
 import YearlyTotalQuarterStackedBarChart from '../../components/charts/bar/YearlyTotalQuarterStackedBarChart';
@@ -66,6 +67,7 @@ export default function Charts() {
       <Navbar />
       <main className={styles.main}>
         <CategoryTotalBarChart expenses={expenses} />
+        <AmountHistogram expenses={expenses} />
         <YearlyTotalQuarterStackedBarChart expenses={expenses} />
         <MonthlyTotalBarChart expenses={expenses} />
         <DayTotalLineChart expenses={expenses} />

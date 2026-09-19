@@ -247,6 +247,25 @@ function totalsByCategory(expenses) {
   }, {});
 }
 
+function countsByAmountBin(expenses) {
+  const bins = [
+    { range: 'Below $0', upperBound: 0, count: 0 },
+    { range: '$0 - under $10', upperBound: 10, count: 0 },
+    { range: '$10 - under $25', upperBound: 25, count: 0 },
+    { range: '$25 - under $50', upperBound: 50, count: 0 },
+    { range: '$50 - under $100', upperBound: 100, count: 0 },
+    { range: '$100 - under $250', upperBound: 250, count: 0 },
+    { range: '$250 - under $500', upperBound: 500, count: 0 },
+    { range: '$500 - under $1,000', upperBound: 1000, count: 0 },
+    { range: '$1,000+', upperBound: Infinity, count: 0 },
+  ];
+  expenses.forEach((expense) => {
+    const bin = bins.find((bin) => expense.amount < bin.upperBound);
+    bin.count += 1;
+  });
+  return bins;
+}
+
 function formatYearMonthForDisplay(yearMonth) {
   /*
   yearMonth should be a string in the format YYYY-MM.  For single digit months, it should start
@@ -277,5 +296,6 @@ export {
   totalsByYearQuarter,
   totalsByDay,
   totalsByCategory,
+  countsByAmountBin,
   formatYearMonthForDisplay,
 };
