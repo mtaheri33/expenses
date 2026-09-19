@@ -5,6 +5,7 @@ import CategoryTotalBarChart from '../../components/charts/bar/CategoryTotalBarC
 import MonthlyTotalBarChart from '../../components/charts/bar/MonthlyTotalBarChart';
 import YearlyTotalQuarterStackedBarChart from '../../components/charts/bar/YearlyTotalQuarterStackedBarChart';
 import DayTotalLineChart from '../../components/charts/line/DayTotalLineChart';
+import DateByAmountScatterChart from '../../components/charts/scatter/DateByAmountScatterChart';
 import Navbar from '../../components/navbar/Navbar';
 import PageLoading from '../../components/page-loading/PageLoading';
 import { useState, useEffect } from 'react';
@@ -68,6 +69,7 @@ export default function Charts() {
         <YearlyTotalQuarterStackedBarChart expenses={expenses} />
         <MonthlyTotalBarChart expenses={expenses} />
         <DayTotalLineChart expenses={expenses} />
+        <DateByAmountScatterChart expenses={expenses} />
       </main>
     </div>
   );
