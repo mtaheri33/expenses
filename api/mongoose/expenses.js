@@ -48,6 +48,12 @@ async function createWithSave(date, description, amount, categories, userId) {
   return await expense.save();
 }
 
+async function createManyWithSave(documents) {
+  return await mongoose.connection.transaction(async (session) => {
+    return await Expense.insertMany(documents, { session, ordered: true });
+  });
+}
+
 function createWithoutSave(date, description, amount, categories, userId) {
   return create(date, description, amount, categories, userId);
 }
@@ -182,6 +188,7 @@ async function categories(userId) {
 
 export default {
   createWithSave,
+  createManyWithSave,
   createWithoutSave,
   readById,
   readByUser,

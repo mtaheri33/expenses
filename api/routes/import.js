@@ -33,15 +33,16 @@ function importPreview(parsedFileContents, userId) {
 }
 
 async function importSave(parsedFileContents, userId) {
-  for (let parsedRow of parsedFileContents) {
-    await expenses.createWithSave(
-      parsedRow.date,
-      checkStringInput(parsedRow.description),
-      checkAmountInput(parsedRow.amount),
-      checkCategoriesInput(parsedRow.categories),
-      userId,
-    );
-  }
+  const documents = parsedFileContents.map((parsedRow) => {
+    return {
+      date: parsedRow.date,
+      description: checkStringInput(parsedRow.description),
+      amount: checkAmountInput(parsedRow.amount),
+      categories: checkCategoriesInput(parsedRow.categories),
+      user: userId,
+    };
+  });
+  await expenses.createManyWithSave(documents);
 }
 
 router.post('/', requireUser, async (req, res, next) => {
