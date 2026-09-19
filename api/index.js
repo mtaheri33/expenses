@@ -10,6 +10,8 @@ import users from './mongoose/users.js';
 mongoose.connect(process.env.DATABASE_ADDRESS);
 
 const app = express();
+const importPath = '/api/import';
+app.use(importPath, express.json({ limit: '1mb' }));
 app.use(express.json());
 // This allows the server to see where requests are originally sent from, since Vercel uses a proxy
 // to forward requests to the server.  Otherwise, the server would think the request is coming from
@@ -59,7 +61,7 @@ app.use('/api/sign-out', signOutRouter);
 import expensesRouter from './routes/expenses.js';
 app.use('/api/expenses', expensesRouter);
 import importRouter from './routes/import.js';
-app.use('/api/import', importRouter);
+app.use(importPath, importRouter);
 import chartsRouter from './routes/charts.js';
 app.use('/api/charts', chartsRouter);
 
